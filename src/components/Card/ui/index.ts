@@ -4,7 +4,7 @@ import styled, {keyframes, css} from 'styled-components';
 import cardBack from '../../../assets/cardBack.jpg';
 
 const cardWidth = 400;
-const cardGutter = 50;
+const cardGutter = 100;
 const cardLiftIncrement = 1;
 const cardTransitionTime = '.5s';
 const cssCardFaceCommon = css`
@@ -28,20 +28,15 @@ const cssCardFaceCommon = css`
  * 
  */
 
-interface ICardProps {
-  isFlipped?:boolean,
-  stack?:number,
-  idx?:number,
-  onClick: (e: Event) => (void);
-};
 const cssSetCardState = (isFlipped:boolean=false, stack:number=0, idx:number=0) => {
-
+  
   const revolve = isFlipped ? 180 : 0;
-  const commute = isFlipped ? -(cardWidth + cardGutter) : 0;
+  const commute = isFlipped ? -(cardGutter) : 0;
   const lift = idx*cardLiftIncrement;
-
+  
   return css`
     transform: rotateY(${revolve}deg) translate(${commute}px, ${lift}px);
+    transform-origin: 90% 50%;
   `;
 }
 const cssSetCardDimensions = (width:number, height:number) => {
@@ -53,8 +48,12 @@ const cssSetCardDimensions = (width:number, height:number) => {
     }
   `;
 }
-
-
+interface ICardProps {
+  isFlipped?:boolean,
+  stack?:number,
+  idx?:number,
+  onClick: (e: Event) => (void);
+};
 export const Card = styled.div<ICardProps>`
   ${cssSetCardDimensions(67,44)}
   ${props => cssSetCardState(props.isFlipped, props.stack, props.idx)}
@@ -74,14 +73,14 @@ export const Card = styled.div<ICardProps>`
  * 
  */
 
-interface IFrontProps {
-  name: string
-}
 const cssSetCardFace = (cardName:string) => {
   const { default: cardFront} = require(`../../../assets/cards/${cardName}.png`);
   return css`
     background-image: url(${cardFront});
-  `;
+    `;
+}
+interface IFrontProps {
+  name: string
 }
 export const Front = styled.div<IFrontProps>`
   ${cssCardFaceCommon}
