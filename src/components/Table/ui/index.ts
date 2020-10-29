@@ -2,5 +2,5 @@
 
 import styled from 'styled-components';
 export const Container = styled.div`  
-  perspective: 600px;
+  perspective: 1200px;
 `;
