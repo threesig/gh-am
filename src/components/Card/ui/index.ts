@@ -31,33 +31,38 @@ const cssCardFaceCommon = css`
 interface ICardProps {
   isFlipped?:boolean,
   stack?:number,
-  idx?:number
+  idx?:number,
+  onClick: (e: Event) => (void);
 };
 const cssSetCardState = (isFlipped:boolean=false, stack:number=0, idx:number=0) => {
-  const revolve = isFlipped ? -180 : 0;
-  const commute = isFlipped ? cardWidth + cardGutter : 0;
+
+  const revolve = isFlipped ? 180 : 0;
+  const commute = isFlipped ? -(cardWidth + cardGutter) : 0;
   const lift = idx*cardLiftIncrement;
 
   return css`
-    transform: rotate(${revolve}deg) translate(${commute}px ${lift}px);
+    transform: rotateY(${revolve}deg) translate(${commute}px, ${lift}px);
   `;
 }
+const cssSetCardDimensions = (width:number, height:number) => {
+  return css`
+    &:before {
+      content: '';
+      display: block;
+      padding-top: ${100*height/width}%;
+    }
+  `;
+}
+
+
 export const Card = styled.div<ICardProps>`
+  ${cssSetCardDimensions(67,44)}
   ${props => cssSetCardState(props.isFlipped, props.stack, props.idx)}
   cursor: pointer;
   transform-style: preserve-3d;
   transition: transform ${cardTransitionTime};
   position: relative;
   width: ${cardWidth}px;
-  
-  &:hover {
-    transform: rotateY(0);
-  }
-  &:before {
-    content: '';
-    display: block;
-    padding-top: 64.1791045%;
-  }
 `;
 
 
