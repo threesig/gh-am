@@ -5,13 +5,14 @@ import cardBack from '../../../assets/cardBack.jpg';
 
 const cardWidth = 400;
 const cardGutter = 100;
-const cardLiftIncrement = 1;
+const cardLiftIncrement = 0.6;
 const cardTransitionTime = '.5s';
 const cssCardFaceCommon = css`
   background: center center no-repeat;
   background-size: cover;
   backface-visibility: hidden;
   border-radius: ${cardWidth/30}px;
+  box-shadow: 0 .5px .5px rgba(255, 255, 255, 0.8);
   position: absolute;
   display: flex;
   align-items: center;
@@ -32,11 +33,12 @@ const cssSetCardState = (isFlipped:boolean=false, stack:number=0, idx:number=0) 
   
   const revolve = isFlipped ? 180 : 0;
   const commute = isFlipped ? -(cardGutter) : 0;
-  const lift = idx*cardLiftIncrement;
+  const lift = -idx*cardLiftIncrement;
   
   return css`
     transform: rotateY(${revolve}deg) translate(${commute}px, ${lift}px);
     transform-origin: 90% 50%;
+    z-index: ${idx};
   `;
 }
 const cssSetCardDimensions = (width:number, height:number) => {
@@ -60,7 +62,7 @@ export const Card = styled.div<ICardProps>`
   cursor: pointer;
   transform-style: preserve-3d;
   transition: transform ${cardTransitionTime};
-  position: relative;
+  position: absolute;
   width: ${cardWidth}px;
 `;
 
