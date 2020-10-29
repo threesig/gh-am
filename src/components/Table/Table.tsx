@@ -2,10 +2,20 @@ import React from 'react';
 import * as UI from './ui';
 import Card from '../Card';
 
-function Table({cards = []}) {
+interface TableProps {
+  cards: object[]
+}
+
+export const Table:React.FC<TableProps> = ({cards = []}) => {
+  
+  const cardProps = {
+    name: 'am-p-01',
+    value: 0,
+  }
+  
   return (
     <UI.Container>
-      <Card />
+      <Card {...cardProps} />
     </UI.Container>
   );
 }
