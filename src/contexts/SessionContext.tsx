@@ -1,12 +1,19 @@
 import React, { createContext, ReactNode} from 'react';
+const AttackModifierCards = require('../data/attack-modifiers.js');
 
 
-export const SessionContext = createContext({});
+type IContextProps = {
+  attackModifierDeck: object[]
+}
+const SessionContext = createContext({} as IContextProps);
 
 type Props = {
   children: ReactNode
 };
 export const SessionProvider = ({children}: Props) => {
+  
+  
+  
   const attackModifierDeck:object[] = [];
   
   const value = {attackModifierDeck}
@@ -17,3 +24,5 @@ export const SessionProvider = ({children}: Props) => {
     </SessionContext.Provider>
   );
 }
+
+export default SessionContext;
