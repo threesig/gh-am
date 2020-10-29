@@ -13,15 +13,6 @@ function App() {
     <UI.Container>
       <UI.Header>
         <CommonUI.Section>
-          <UI.Logo {...{src: logo, alt: 'logo'}} />
-          <UI.Content>
-            <p>Edit <code>src/App.tsx</code> and save to reload.</p>
-          </UI.Content>
-          <UI.Link {...{href: 'https://reactjs.org', target: '_blank', rel: 'noopener noreferrer'}}>
-            Learn React
-          </UI.Link>
-        </CommonUI.Section>
-        <CommonUI.Section>
           <Table {...{cards: attackModifierDeck}} />
         </CommonUI.Section>
       </UI.Header>
