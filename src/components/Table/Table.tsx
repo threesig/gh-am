@@ -8,14 +8,22 @@ interface TableProps {
 
 export const Table:React.FC<TableProps> = ({cards = []}) => {
   
-  const cardProps = {
-    name: 'am-p-01',
-    value: 0,
+  type CardItem = {
+    name: string,
+    value: number
   }
   
+
+  const renderCard = (item:CardItem, i:number) => {
+    return <li key={i}><Card name={item.name} value={0} idx={i} /></li>
+  }
+  
+  console.log(cards);
   return (
     <UI.Container>
-      <Card {...cardProps} />
+      <ul>
+      {cards.map(renderCard as any)}
+      </ul>
     </UI.Container>
   );
 }
