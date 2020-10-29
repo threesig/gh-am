@@ -8,8 +8,11 @@ type Props = {
 };
 export const SessionProvider = ({children}: Props) => {
   const attackModifierDeck:object[] = [];
+  
+  const value = {attackModifierDeck}
+  
   return (
-    <SessionContext.Provider value={attackModifierDeck}>
+    <SessionContext.Provider {...{value}}>
       {children}
     </SessionContext.Provider>
   );
