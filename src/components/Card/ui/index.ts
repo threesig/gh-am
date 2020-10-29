@@ -86,10 +86,10 @@ const cssSetCardFace = (cardName:string) => {
 export const Front = styled.div<IFrontProps>`
   ${cssCardFaceCommon}
   ${props => cssSetCardFace(props.name)}
-  transform:rotateY(0deg);
+  transform: rotateY(180deg);
 `
 export const Back = styled.div`
   ${cssCardFaceCommon}
   background-image: url(${cardBack});
-  transform: rotateY(180deg);
+  transform:rotateY(0deg);
 `
