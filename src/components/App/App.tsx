@@ -7,9 +7,11 @@ import * as UI from './ui';
 import Table from '../Table';
 
 function App() {
-  const {cards} = useContext(SessionContext);
+  const {cards, draw, shuffle} = useContext(SessionContext);
   return (
     <UI.Container>
+      <div onClick={() => draw() }>Draw!</div>
+      <div onClick={() => shuffle() }>Shuffle!</div>
       <UI.Header>
         <CommonUI.Section>
           <Table {...{cards}} />
