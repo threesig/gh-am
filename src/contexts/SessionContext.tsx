@@ -1,7 +1,7 @@
 import React, { createContext } from 'react';
 import {AMCards} from '../data/attack-modifiers.js';
 
-import {CardProps} from '../global/types';
+import {VCardProps, CardProps} from '../global/types';
 
 
 
@@ -12,6 +12,7 @@ export type IContextProps = {
 export type SessionProps = {
   children: React.ReactNode
 };
+
 
 
 const SessionContext = createContext({} as IContextProps);
@@ -28,7 +29,9 @@ export const SessionProvider = ({children}: SessionProps) => {
     "null": 1,
   };
   
-  const cards:CardProps[] = [];
+  const hand:VCardProps[] = [];
+  const discard:VCardProps[] = [];
+  
 
 
   for (const cardType in deckSpec) {
@@ -36,20 +39,27 @@ export const SessionProvider = ({children}: SessionProps) => {
     const cardCount = deckSpec[cardType];
     const {name, effects, description} = cardSpec;
     for (let i = 0; i < cardCount; i++) {
-      cards.push({
+      hand.push({
         id: `test`,
         name,
         effects,
         description,
-        stack: 0
-      } as CardProps);
+      } as VCardProps);
     }
   }
 
-  for (let i = 0; i < 6; i++) {
-    cards[i].stack = 1;
-  }
 
+  discard.push(hand.pop() as VCardProps);
+  discard.push(hand.pop() as VCardProps);
+  discard.push(hand.pop() as VCardProps);
+  discard.push(hand.pop() as VCardProps);
+  discard.push(hand.pop() as VCardProps);
+
+
+  const cards:CardProps[] = [
+    ...hand.map((vCard:VCardProps, i:number) => {return {...vCard, idx:i, stack:0, isFlipped:false, value:0} as CardProps}), 
+    ...discard.map((vCard:VCardProps, i:number) => {return {...vCard, idx:i, stack:1, isFlipped:true, value:0} as CardProps}), 
+  ];
 
   const value = {
     cards

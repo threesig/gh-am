@@ -11,6 +11,8 @@ interface ICardProps {
 
 const Card: React.FC<ICardProps> = ({name, value=0, isFlipped = false, stack = 0, idx = 0}) => {
   const [flipState, setFlipState] = useState(isFlipped);
+  console.log(`Is Flipped? ${flipState}`);
+  
   const cardProps = {
     isFlipped: flipState,
     stack,

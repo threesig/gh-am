@@ -13,9 +13,11 @@ export const Table:React.FC<TableProps> = ({cards}) => {
   
   const stacks = Object.values(util.groupBy(cards, 'stack'));
 
-  const renderCard = (item:CardProps, i:number) => (
-    <Card name={item.name} value={0} stack={item.stack} idx={i} />
-  );
+  const renderCard = (cardProps:CardProps, i:number) => {
+    return (
+      <Card {...cardProps} />
+    );
+  };
   const renderStack = (cards:CardProps[]) => {
     return (
       <UI.Stack>
