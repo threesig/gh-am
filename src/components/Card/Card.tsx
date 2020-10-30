@@ -16,12 +16,10 @@ const Card: React.FC<ICardProps> = ({name, value=0, isFlipped = false, stack = 0
     stack,
     idx,
     onClick: () => {
-      console.log(`${flipState} - FLIP!!`);
       setFlipState(!flipState)
     }
   }
   
-
   return (
     <UI.Card className="Card" {...cardProps}>
       <UI.Front className="Front" {...{name}} />

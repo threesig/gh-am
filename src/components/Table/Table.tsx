@@ -1,29 +1,31 @@
 import React from 'react';
+import * as util from '../../util';
 import * as UI from './ui';
 import Card from '../Card';
 
+import {CardProps} from '../../global/types';
+
 interface TableProps {
-  cards: object[]
+  cards: CardProps[];
 }
 
-export const Table:React.FC<TableProps> = ({cards = []}) => {
+export const Table:React.FC<TableProps> = ({cards}) => {
   
-  type CardItem = {
-    name: string,
-    value: number
-  }
-  
+  const stacks = Object.values(util.groupBy(cards, 'stack'));
 
-  const renderCard = (item:CardItem, i:number) => {
-    return <li key={i}><Card name={item.name} value={0} idx={i} /></li>
+  const renderCard = (item:CardProps, i:number) => (
+    <li key={i}><Card name={item.name} value={0} stack={item.stack} idx={i} /></li>
+  );
+  const renderStack = (cards:CardProps[]) => {
+    return (
+      <ul>
+        {cards.map(renderCard as any)}
+      </ul>
+    );
   }
-  
-  console.log(cards);
   return (
     <UI.Container>
-      <ul>
-      {cards.map(renderCard as any)}
-      </ul>
+      {stacks.map(renderStack as any)}
     </UI.Container>
   );
 }

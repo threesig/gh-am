@@ -1,6 +1,6 @@
 // Card UI
 
-import styled, {keyframes, css} from 'styled-components';
+import styled, {css} from 'styled-components';
 import cardBack from '../../../assets/cardBack.jpg';
 
 const cardWidth = 400;
