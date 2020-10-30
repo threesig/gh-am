@@ -37,7 +37,7 @@ const cssSetCardState = (isFlipped:boolean=false, stack:number=0, idx:number=0) 
   
   return css`
     transform: rotateY(${revolve}deg) translateY(${lift}px);
-    left: ${commute - lift/2}px;
+    left: ${commute - lift/3}px;
     transform-origin: 50% 50%;
     z-index: ${idx};
   `;
@@ -55,7 +55,6 @@ interface ICardProps {
   isFlipped?:boolean,
   stack?:number,
   idx?:number,
-  onClick: (e: Event) => (void);
 };
 export const Card = styled.div<ICardProps>`
   ${cssSetCardDimensions(67,44)}
