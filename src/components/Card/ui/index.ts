@@ -32,12 +32,13 @@ const cssCardFaceCommon = css`
 const cssSetCardState = (isFlipped:boolean=false, stack:number=0, idx:number=0) => {
   
   const revolve = isFlipped ? 180 : 0;
-  const commute = isFlipped ? -(cardGutter) : 0;
+  const commute = stack * (cardGutter + cardWidth);
   const lift = -idx*cardLiftIncrement;
   
   return css`
-    transform: rotateY(${revolve}deg) translate(${commute}px, ${lift}px);
-    transform-origin: 90% 50%;
+    transform: rotateY(${revolve}deg) translateY(${lift}px);
+    left: ${commute}px;
+    transform-origin: 50% 50%;
     z-index: ${idx};
   `;
 }
@@ -61,7 +62,7 @@ export const Card = styled.div<ICardProps>`
   ${props => cssSetCardState(props.isFlipped, props.stack, props.idx)}
   cursor: pointer;
   transform-style: preserve-3d;
-  transition: transform ${cardTransitionTime};
+  transition: all ${cardTransitionTime};
   position: absolute;
   width: ${cardWidth}px;
 `;

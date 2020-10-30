@@ -46,6 +46,11 @@ export const SessionProvider = ({children}: SessionProps) => {
     }
   }
 
+  for (let i = 0; i < 6; i++) {
+    cards[i].stack = 1;
+  }
+
+
   const value = {
     cards
   };
