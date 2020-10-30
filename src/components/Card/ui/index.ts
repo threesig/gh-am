@@ -4,7 +4,7 @@ import styled, {css} from 'styled-components';
 import cardBack from '../../../assets/cardBack.jpg';
 
 const cardWidth = 400;
-const cardGutter = 100;
+const cardGutter = 50;
 const cardLiftIncrement = 0.6;
 const cardTransitionTime = '.5s';
 const cssCardFaceCommon = css`
@@ -37,7 +37,7 @@ const cssSetCardState = (isFlipped:boolean=false, stack:number=0, idx:number=0) 
   
   return css`
     transform: rotateY(${revolve}deg) translateY(${lift}px);
-    left: ${commute}px;
+    left: ${commute - lift/2}px;
     transform-origin: 50% 50%;
     z-index: ${idx};
   `;
