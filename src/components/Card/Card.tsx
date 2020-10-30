@@ -23,9 +23,9 @@ const Card: React.FC<ICardProps> = ({name, value=0, isFlipped = false, stack = 0
   }
   
   return (
-    <UI.Card className="Card" {...cardProps}>
-      <UI.Front className="Front" {...{name}} />
-      <UI.Back className="Back" />
+    <UI.Card {...cardProps}>
+      <UI.Front {...{name}} />
+      <UI.Back />
     </UI.Card>
   );
 }
