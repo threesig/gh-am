@@ -12,7 +12,7 @@ export const Table:React.FC<TableProps> = ({cards}) => {
   
   const renderCard = (cardProps:CardProps, i:number) => {
     return (
-      <Card {...cardProps} />
+      <Card key={`${cardProps.id}`} {...cardProps} />
     );
   };
   return (
