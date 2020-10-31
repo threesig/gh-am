@@ -17,11 +17,7 @@ const deckSpec:any = {
 };
 
 
-  const cards:CardProps[] = [
-  ];
-
-const hand:number[] = [];
-const discard:number[] = [];
+const cards:CardProps[] = [];
 
 let j:number = 0;
 for (const cardType in deckSpec) {
@@ -46,42 +42,91 @@ for (const cardType in deckSpec) {
 
 type StateType = {
   cards: CardProps[];
-  hand: number[];
-  discard: number[];
+  hand: string[];
+  discard: string[];
 }
 // type ActionType = {
 //   type: string,
 //   props?: object
 // }
 
+
+const refreshCards = (cards:CardProps[], hand:string[], discard:string[]) => {
+  hand.map((cardId:string, i:number) => {
+    const thisCard = cards.filter((card:CardProps) => card.id===cardId)[0];
+    thisCard.stack = 0;
+    thisCard.idx = i;
+    thisCard.isFlipped = false;
+  });
+  discard.map((cardId:string, i:number) => {
+    const thisCard = cards.filter((card:CardProps) => card.id===cardId)[0];
+    thisCard.stack = 1;
+    thisCard.idx = i;
+    thisCard.isFlipped = true;
+  });
+  return cards;
+}
+
+
+
+
+
+
 const initialState:StateType = {
   cards,
-  hand: cards.map((card:CardProps) => card.idx),
+  hand: util.shuffle(cards.map((card:CardProps) => card.id)),
   discard: []
 };
 
+
+const initializeCards = (state:StateType) => {
+  let newCards = [...state.cards];
+  let newHand = [...state.hand];
+  let newDiscard = [...state.discard];
+
+  newCards = refreshCards(newCards, newHand, newDiscard);
+  return {
+    ...state,
+    cards:newCards,
+    hand:newHand,
+    discard:newDiscard
+  }
+};
+
+
+
+
+
+
 const reducer = (state:StateType, action:any) => {
-  let {hand, discard} = state;
+  let newCards = [...state.cards];
+  let newHand = [...state.hand];
+  let newDiscard = [...state.discard];
+    
   switch (action.type) {
     
     case 'DRAW':
-      if(hand.length) {
-        discard.push(hand.pop() as number);
+      if(newHand.length) {
+        newDiscard.push(newHand.pop() as string);
+        newCards = refreshCards(newCards, newHand, newDiscard);
       }
-      
+
       return {
         ...state,
-        hand,
-        discard
+        cards:newCards,
+        hand:newHand,
+        discard:newDiscard
       }
     case 'SHUFFLE':
       
-      hand = util.shuffle([...hand, ...discard]);
-      discard = [];
+      newHand = util.shuffle([...newHand, ...newDiscard]);
+      newDiscard = [];
+      newCards = refreshCards(newCards, newHand, newDiscard);
       return {
         ...state,
-        hand,
-        discard
+        cards: newCards,
+        hand: newHand,
+        discard: newDiscard
       }
     default:
       console.error(`ACTION TYPE "${action.type}" is not recognized`);
@@ -126,7 +171,7 @@ export type SessionProps = {
 
 const SessionContext = createContext({} as IContextProps);
 export const SessionProvider = ({children}: SessionProps) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState, initializeCards);
 
   const {cards, hand, discard} = state;
   const value = {
