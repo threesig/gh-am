@@ -45,7 +45,8 @@ export const AMCards = [
     "effects": {
       "damageMod": null,
     },
-    "description": "Fail"
+    "description": "Null",
+    "shuffle": true
   },
   {
     "type": "crit",
@@ -53,7 +54,8 @@ export const AMCards = [
     "effects": {
       "damageMod": 100
     },
-    "description": "Critical"
+    "description": "Critical",
+    "shuffle": true
   },
   {
     "type": "bless",
