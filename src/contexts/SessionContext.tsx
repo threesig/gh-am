@@ -23,7 +23,7 @@ let j:number = 0;
 for (const cardType in deckSpec) {
   const cardSpec = AMCards.filter((card:any) => card.type===cardType)[0];
   const cardCount = deckSpec[cardType];
-  const {name, type, effects, description} = cardSpec;
+  const {name, type, effects, description, shuffle, temporary} = cardSpec;
   
   for (let i = 0; i < cardCount; i++) {
     cards.push({
@@ -31,10 +31,11 @@ for (const cardType in deckSpec) {
       name,
       effects,
       description,
-      idx:j++,
       stack:0, 
+      idx:j++,
       isFlipped:false, 
-      value:0
+      shuffle: shuffle?shuffle:false,
+      temporary: temporary?temporary:false,
     } as CardProps);
   }
 }
@@ -44,6 +45,8 @@ type StateType = {
   cards: CardProps[];
   hand: string[];
   discard: string[];
+  drawMod: number;
+  shuffleRequired: boolean;
 }
 // type ActionType = {
 //   type: string,
@@ -69,13 +72,12 @@ const refreshCards = (cards:CardProps[], hand:string[], discard:string[]) => {
 
 
 
-
-
-
 const initialState:StateType = {
   cards,
   hand: util.shuffle(cards.map((card:CardProps) => card.id)),
-  discard: []
+  discard: [],
+  drawMod: 1,
+  shuffleRequired: false
 };
 
 
@@ -106,8 +108,22 @@ const reducer = (state:StateType, action:any) => {
   switch (action.type) {
     
     case 'DRAW':
+      let {drawMod:newDrawMod} = state;
       if(newHand.length) {
-        newDiscard.push(newHand.pop() as string);
+        const draw:string[] = [newHand.pop() as string];
+        
+        // If Advantage or Disadvantage
+        if(state.drawMod!=0) {
+          draw.push(newHand.pop() as string);
+          newDrawMod = 0;
+        }
+
+
+        // handle Advantage/Disadvantage here
+        
+
+
+        newDiscard = [...newDiscard, ...draw];
         newCards = refreshCards(newCards, newHand, newDiscard);
       }
 
@@ -115,7 +131,8 @@ const reducer = (state:StateType, action:any) => {
         ...state,
         cards:newCards,
         hand:newHand,
-        discard:newDiscard
+        discard:newDiscard,
+        drawMod: newDrawMod
       }
     case 'SHUFFLE':
       
