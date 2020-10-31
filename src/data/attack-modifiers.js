@@ -63,7 +63,8 @@ export const AMCards = [
     "effects": {
       "damageMod": 100
     },
-    "description": "Bless"
+    "description": "Bless",
+    "temporary": true,
   },
   {
     "type": "curse",
@@ -71,7 +72,8 @@ export const AMCards = [
     "effects": {
       "damageMod": 70
     },
-    "description": "Curse"
+    "description": "Curse",
+    "temporary": true
   },
   {
     "type": "p0-stun",
