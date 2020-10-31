@@ -12,11 +12,13 @@ export type VCardProps = {
 };
 export type CardProps = {
   id: string;
-  name: string;
-  effects: CardEffects;
   description: string;
+  effects: CardEffects;
+  name: string;
   stack: number;
   isFlipped: boolean;
   idx: number;
+  shuffle?:boolean;
+  temporary?:boolean;
   value: number;
 }
