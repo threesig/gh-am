@@ -17,28 +17,37 @@ const deckSpec:any = {
 };
 
 
-const hand:VCardProps[] = [];
-const discard:VCardProps[] = [];
+  const cards:CardProps[] = [
+  ];
 
+const hand:number[] = [];
+const discard:number[] = [];
+
+let j:number = 0;
 for (const cardType in deckSpec) {
   const cardSpec = AMCards.filter((card:any) => card.type===cardType)[0];
   const cardCount = deckSpec[cardType];
   const {name, type, effects, description} = cardSpec;
   
   for (let i = 0; i < cardCount; i++) {
-    hand.push({
+    cards.push({
       id: `${type}-${i}`,
       name,
       effects,
       description,
-    } as VCardProps);
+      idx:j++,
+      stack:0, 
+      isFlipped:false, 
+      value:0
+    } as CardProps);
   }
 }
 
 
 type StateType = {
-  hand: VCardProps[],
-  discard: VCardProps[]
+  cards: CardProps[];
+  hand: number[];
+  discard: number[];
 }
 // type ActionType = {
 //   type: string,
@@ -46,8 +55,9 @@ type StateType = {
 // }
 
 const initialState:StateType = {
-  hand,
-  discard
+  cards,
+  hand: cards.map((card:CardProps) => card.idx),
+  discard: []
 };
 
 const reducer = (state:StateType, action:any) => {
@@ -56,7 +66,7 @@ const reducer = (state:StateType, action:any) => {
     
     case 'DRAW':
       if(hand.length) {
-        discard.push(hand.pop() as CardProps);
+        discard.push(hand.pop() as number);
       }
       
       return {
@@ -117,13 +127,12 @@ export type SessionProps = {
 const SessionContext = createContext({} as IContextProps);
 export const SessionProvider = ({children}: SessionProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const cards:CardProps[] = [
-    ...state.hand.map((vCard:VCardProps, i:number) => {return {...vCard, idx:i, stack:0, isFlipped:false, value:0} as CardProps}), 
-    ...state.discard.map((vCard:VCardProps, i:number) => {return {...vCard, idx:i, stack:1, isFlipped:true, value:0} as CardProps}), 
-  ];
 
+  const {cards, hand, discard} = state;
   const value = {
     cards,
+    hand,
+    discard,
     draw: () => dispatch({type: 'DRAW'}),
     shuffle: () => dispatch({type: 'SHUFFLE'})
   };
