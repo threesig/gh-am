@@ -154,14 +154,14 @@ const reducer = (state:StateType, action:any) => {
       }
     case 'SHUFFLE':
       
-      myDeck = util.shuffle([...myDeck, ...myDiscard]);
-      myDiscard = [];
-      myCards = refreshCards(myCards, myDeck, myHand, myDiscard);
+      const newDeck = util.shuffle([...myDeck, ...myHand, ...myDiscard]);
+      myCards = refreshCards(myCards, newDeck, [], []);
       return {
         ...state,
         cards: myCards,
-        deck: myDeck,
-        discard: myDiscard
+        deck: newDeck,
+        hand: [],
+        discard: []
       }
     default:
       console.error(`ACTION TYPE "${action.type}" is not recognized`);
