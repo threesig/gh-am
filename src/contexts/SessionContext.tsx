@@ -44,7 +44,7 @@ for (const cardType in deckSpec) {
 
 type StateType = {
   cards: CardProps[];
-  hand: string[];
+  deck: string[];
   discard: string[];
   drawMod: number;
   shuffleRequired: boolean;
@@ -55,8 +55,8 @@ type StateType = {
 // }
 
 
-const refreshCards = (cards:CardProps[], hand:string[], discard:string[]) => {
-  hand.map((cardId:string, i:number) => {
+const refreshCards = (cards:CardProps[], deck:string[], discard:string[]) => {
+  deck.map((cardId:string, i:number) => {
     const thisCard = cards.filter((card:CardProps) => card.id===cardId)[0];
     thisCard.stack = Stack.DECK;
     thisCard.idx = i;
@@ -75,7 +75,7 @@ const refreshCards = (cards:CardProps[], hand:string[], discard:string[]) => {
 
 const initialState:StateType = {
   cards,
-  hand: util.shuffle(cards.map((card:CardProps) => card.id)),
+  deck: util.shuffle(cards.map((card:CardProps) => card.id)),
   discard: [],
   drawMod: 1,
   shuffleRequired: false
@@ -84,14 +84,14 @@ const initialState:StateType = {
 
 const initializeCards = (state:StateType) => {
   let myCards = [...state.cards];
-  let myHand = [...state.hand];
+  let myDeck = [...state.deck];
   let myDiscard = [...state.discard];
 
-  myCards = refreshCards(myCards, myHand, myDiscard);
+  myCards = refreshCards(myCards, myDeck, myDiscard);
   return {
     ...state,
     cards:myCards,
-    hand:myHand,
+    deck:myDeck,
     discard:myDiscard
   }
 };
@@ -103,19 +103,19 @@ const initializeCards = (state:StateType) => {
 
 const reducer = (state:StateType, action:any) => {
   let myCards = [...state.cards];
-  let myHand = [...state.hand];
+  let myDeck = [...state.deck];
   let myDiscard = [...state.discard];
     
   switch (action.type) {
     
     case 'DRAW':
       let {drawMod:newDrawMod} = state;
-      if(myHand.length) {
-        const draw:string[] = [myHand.pop() as string];
+      if(myDeck.length) {
+        const draw:string[] = [myDeck.pop() as string];
         
         // If Advantage or Disadvantage
         if(state.drawMod!=0) {
-          draw.push(myHand.pop() as string);
+          draw.push(myDeck.pop() as string);
           newDrawMod = 0;
         }
 
@@ -125,25 +125,25 @@ const reducer = (state:StateType, action:any) => {
 
 
         myDiscard = [...myDiscard, ...draw];
-        myCards = refreshCards(myCards, myHand, myDiscard);
+        myCards = refreshCards(myCards, myDeck, myDiscard);
       }
 
       return {
         ...state,
         cards:myCards,
-        hand:myHand,
+        deck:myDeck,
         discard:myDiscard,
         drawMod: newDrawMod
       }
     case 'SHUFFLE':
       
-      myHand = util.shuffle([...myHand, ...myDiscard]);
+      myDeck = util.shuffle([...myDeck, ...myDiscard]);
       myDiscard = [];
-      myCards = refreshCards(myCards, myHand, myDiscard);
+      myCards = refreshCards(myCards, myDeck, myDiscard);
       return {
         ...state,
         cards: myCards,
-        hand: myHand,
+        deck: myDeck,
         discard: myDiscard
       }
     default:
@@ -191,10 +191,10 @@ const SessionContext = createContext({} as IContextProps);
 export const SessionProvider = ({children}: SessionProps) => {
   const [state, dispatch] = useReducer(reducer, initialState, initializeCards);
 
-  const {cards, hand, discard} = state;
+  const {cards, deck, discard} = state;
   const value = {
     cards,
-    hand,
+    deck,
     discard,
     draw: () => dispatch({type: 'DRAW'}),
     shuffle: () => dispatch({type: 'SHUFFLE'})
