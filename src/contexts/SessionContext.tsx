@@ -63,6 +63,12 @@ const refreshCards = (cards:CardProps[], deck:string[], hand:string[], discard:s
     thisCard.idx = i;
     thisCard.isFlipped = false;
   });
+  hand.map((cardId:string, i:number) => {
+    const thisCard = cards.filter((card:CardProps) => card.id===cardId)[0];
+    thisCard.stack = Stack.HAND;
+    thisCard.idx = i;
+    thisCard.isFlipped = true;
+  });
   discard.map((cardId:string, i:number) => {
     const thisCard = cards.filter((card:CardProps) => card.id===cardId)[0];
     thisCard.stack = Stack.DISCARD;
@@ -113,31 +119,38 @@ const reducer = (state:StateType, action:any) => {
   switch (action.type) {
     
     case 'DRAW':
-      let {drawMod:newDrawMod} = state;
+      let {drawMod:myDrawMod} = state;
+      const newHand = [];
       if(myDeck.length) {
-        const draw:string[] = [myDeck.pop() as string];
         
+        // Place current Hand into the Discard
+        myDiscard = [...myDiscard, ...myHand]
+        
+
+        // Start New Hand
+        newHand.push(myDeck.pop() as string);
+
         // If Advantage or Disadvantage
         if(state.drawMod!=0) {
-          draw.push(myDeck.pop() as string);
-          newDrawMod = 0;
+          newHand.push(myDeck.pop() as string);
+          myDrawMod = 0;
         }
 
 
         // handle Advantage/Disadvantage here
+
         
 
-
-        myDiscard = [...myDiscard, ...draw];
-        myCards = refreshCards(myCards, myDeck, myHand, myDiscard);
+        myCards = refreshCards(myCards, myDeck, newHand, myDiscard);
       }
 
       return {
         ...state,
         cards:myCards,
         deck:myDeck,
+        hand:newHand,
         discard:myDiscard,
-        drawMod: newDrawMod
+        drawMod: myDrawMod
       }
     case 'SHUFFLE':
       

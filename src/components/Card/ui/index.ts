@@ -49,6 +49,8 @@ const cssSetCardState = (isFlipped:boolean=false, stack:number=0, idx:number=0) 
       commute = lift/3;
       break;
     case Stack.HAND:
+      lift = 300;
+      commute = idx * (cardWidth + cardGutter);
       break;
     case Stack.DISCARD:
       lift = idx*cardLiftIncrement;
