@@ -45,6 +45,7 @@ for (const cardType in deckSpec) {
 type StateType = {
   cards: CardProps[];
   deck: string[];
+  hand: string[];
   discard: string[];
   drawMod: number;
   shuffleRequired: boolean;
@@ -76,6 +77,7 @@ const refreshCards = (cards:CardProps[], deck:string[], discard:string[]) => {
 const initialState:StateType = {
   cards,
   deck: util.shuffle(cards.map((card:CardProps) => card.id)),
+  hand: [],
   discard: [],
   drawMod: 1,
   shuffleRequired: false
@@ -85,6 +87,7 @@ const initialState:StateType = {
 const initializeCards = (state:StateType) => {
   let myCards = [...state.cards];
   let myDeck = [...state.deck];
+  let myHand = [...state.hand];
   let myDiscard = [...state.discard];
 
   myCards = refreshCards(myCards, myDeck, myDiscard);
@@ -104,6 +107,7 @@ const initializeCards = (state:StateType) => {
 const reducer = (state:StateType, action:any) => {
   let myCards = [...state.cards];
   let myDeck = [...state.deck];
+  let myHand = [...state.hand];
   let myDiscard = [...state.discard];
     
   switch (action.type) {
