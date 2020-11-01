@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import {AMCards} from '../data/attack-modifiers.js';
 import * as util from '../util';
-import {Stack} from '../global/enums';
+import {Stack, DrawMod} from '../global/enums';
 import {CardProps} from '../global/types';
 
 
@@ -82,7 +82,8 @@ const refreshCards = (cards:CardProps[], deck:string[], hand:string[], discard:s
 
 const initialState:StateType = {
   cards,
-  deck: util.shuffle(cards.map((card:CardProps) => card.id)),
+  // deck: util.shuffle(cards.map((card:CardProps) => card.id)),
+  deck: cards.map((card:CardProps) => card.id),
   hand: [],
   discard: [],
   drawMod: 1,
@@ -131,7 +132,7 @@ const reducer = (state:StateType, action:any) => {
         newHand.push(myDeck.pop() as string);
 
         // If Advantage or Disadvantage
-        if(state.drawMod!=0) {
+        if(state.drawMod!=DrawMod.NONE) {
           newHand.push(myDeck.pop() as string);
           myDrawMod = 0;
         }
