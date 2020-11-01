@@ -2,7 +2,7 @@
 
 import styled, {css} from 'styled-components';
 import cardBack from '../../../assets/cardBack.jpg';
-
+import {Stack} from '../../../global/enums';
 const cardWidth = 400;
 const cardGutter = 50;
 const cardLiftIncrement = 0.6;
@@ -40,12 +40,26 @@ interface ICardProps {
 const cssSetCardState = (isFlipped:boolean=false, stack:number=0, idx:number=0) => {
   
   const revolve = isFlipped ? 180 : 0;
-  const commute = stack * (cardGutter + cardWidth);
-  const lift = -idx*cardLiftIncrement;
+  
+  
+  let commute=0, lift=0;
+  switch(stack) {
+    case Stack.DECK:
+      lift = idx*cardLiftIncrement;
+      commute = lift/3;
+      break;
+    case Stack.HAND:
+      break;
+    case Stack.DISCARD:
+      lift = idx*cardLiftIncrement;
+      commute = cardGutter + cardWidth + lift/3;
+      break;
+  }
+  
+  commute = isFlipped ? -commute : commute;
   
   return css`
-    transform: rotateY(${revolve}deg) translateY(${lift}px);
-    left: ${commute - lift/3}px;
+    transform: rotateY(${revolve}deg) translate(${commute}px, ${-lift}px);
     transform-origin: 50% 50%;
     z-index: ${100*stack + idx};
   `;

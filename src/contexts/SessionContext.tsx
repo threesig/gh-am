@@ -1,6 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import {AMCards} from '../data/attack-modifiers.js';
 import * as util from '../util';
+import {Stack} from '../global/enums';
 import {VCardProps, CardProps} from '../global/types';
 
 
@@ -31,7 +32,7 @@ for (const cardType in deckSpec) {
       name,
       effects,
       description,
-      stack:0, 
+      stack: Stack.DECK, 
       idx:j++,
       isFlipped:false, 
       shuffle: shuffle?shuffle:false,
@@ -57,13 +58,13 @@ type StateType = {
 const refreshCards = (cards:CardProps[], hand:string[], discard:string[]) => {
   hand.map((cardId:string, i:number) => {
     const thisCard = cards.filter((card:CardProps) => card.id===cardId)[0];
-    thisCard.stack = 0;
+    thisCard.stack = Stack.DECK;
     thisCard.idx = i;
     thisCard.isFlipped = false;
   });
   discard.map((cardId:string, i:number) => {
     const thisCard = cards.filter((card:CardProps) => card.id===cardId)[0];
-    thisCard.stack = 1;
+    thisCard.stack = Stack.DISCARD;
     thisCard.idx = i;
     thisCard.isFlipped = true;
   });
