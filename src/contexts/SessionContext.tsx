@@ -56,7 +56,7 @@ type StateType = {
 // }
 
 
-const refreshCards = (cards:CardProps[], deck:string[], discard:string[]) => {
+const refreshCards = (cards:CardProps[], deck:string[], hand:string[], discard:string[]) => {
   deck.map((cardId:string, i:number) => {
     const thisCard = cards.filter((card:CardProps) => card.id===cardId)[0];
     thisCard.stack = Stack.DECK;
@@ -90,7 +90,7 @@ const initializeCards = (state:StateType) => {
   let myHand = [...state.hand];
   let myDiscard = [...state.discard];
 
-  myCards = refreshCards(myCards, myDeck, myDiscard);
+  myCards = refreshCards(myCards, myDeck, myHand, myDiscard);
   return {
     ...state,
     cards:myCards,
@@ -129,7 +129,7 @@ const reducer = (state:StateType, action:any) => {
 
 
         myDiscard = [...myDiscard, ...draw];
-        myCards = refreshCards(myCards, myDeck, myDiscard);
+        myCards = refreshCards(myCards, myDeck, myHand, myDiscard);
       }
 
       return {
@@ -143,7 +143,7 @@ const reducer = (state:StateType, action:any) => {
       
       myDeck = util.shuffle([...myDeck, ...myDiscard]);
       myDiscard = [];
-      myCards = refreshCards(myCards, myDeck, myDiscard);
+      myCards = refreshCards(myCards, myDeck, myHand, myDiscard);
       return {
         ...state,
         cards: myCards,
