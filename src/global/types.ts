@@ -4,12 +4,6 @@ export type CardEffects = {
   element?: string;
   rolling?: boolean;
 };
-export type VCardProps = {
-  id: string;
-  name: string;
-  effects: CardEffects;
-  description: string;
-};
 export type CardProps = {
   id: string;
   description: string;

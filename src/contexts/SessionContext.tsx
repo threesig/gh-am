@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import {AMCards} from '../data/attack-modifiers.js';
 import * as util from '../util';
 import {Stack} from '../global/enums';
-import {VCardProps, CardProps} from '../global/types';
+import {CardProps} from '../global/types';
 
 
 
@@ -83,16 +83,16 @@ const initialState:StateType = {
 
 
 const initializeCards = (state:StateType) => {
-  let newCards = [...state.cards];
-  let newHand = [...state.hand];
-  let newDiscard = [...state.discard];
+  let myCards = [...state.cards];
+  let myHand = [...state.hand];
+  let myDiscard = [...state.discard];
 
-  newCards = refreshCards(newCards, newHand, newDiscard);
+  myCards = refreshCards(myCards, myHand, myDiscard);
   return {
     ...state,
-    cards:newCards,
-    hand:newHand,
-    discard:newDiscard
+    cards:myCards,
+    hand:myHand,
+    discard:myDiscard
   }
 };
 
@@ -102,20 +102,20 @@ const initializeCards = (state:StateType) => {
 
 
 const reducer = (state:StateType, action:any) => {
-  let newCards = [...state.cards];
-  let newHand = [...state.hand];
-  let newDiscard = [...state.discard];
+  let myCards = [...state.cards];
+  let myHand = [...state.hand];
+  let myDiscard = [...state.discard];
     
   switch (action.type) {
     
     case 'DRAW':
       let {drawMod:newDrawMod} = state;
-      if(newHand.length) {
-        const draw:string[] = [newHand.pop() as string];
+      if(myHand.length) {
+        const draw:string[] = [myHand.pop() as string];
         
         // If Advantage or Disadvantage
         if(state.drawMod!=0) {
-          draw.push(newHand.pop() as string);
+          draw.push(myHand.pop() as string);
           newDrawMod = 0;
         }
 
@@ -124,27 +124,27 @@ const reducer = (state:StateType, action:any) => {
         
 
 
-        newDiscard = [...newDiscard, ...draw];
-        newCards = refreshCards(newCards, newHand, newDiscard);
+        myDiscard = [...myDiscard, ...draw];
+        myCards = refreshCards(myCards, myHand, myDiscard);
       }
 
       return {
         ...state,
-        cards:newCards,
-        hand:newHand,
-        discard:newDiscard,
+        cards:myCards,
+        hand:myHand,
+        discard:myDiscard,
         drawMod: newDrawMod
       }
     case 'SHUFFLE':
       
-      newHand = util.shuffle([...newHand, ...newDiscard]);
-      newDiscard = [];
-      newCards = refreshCards(newCards, newHand, newDiscard);
+      myHand = util.shuffle([...myHand, ...myDiscard]);
+      myDiscard = [];
+      myCards = refreshCards(myCards, myHand, myDiscard);
       return {
         ...state,
-        cards: newCards,
-        hand: newHand,
-        discard: newDiscard
+        cards: myCards,
+        hand: myHand,
+        discard: myDiscard
       }
     default:
       console.error(`ACTION TYPE "${action.type}" is not recognized`);
