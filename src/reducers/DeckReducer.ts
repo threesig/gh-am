@@ -17,10 +17,12 @@ const refreshCards = (cards:Type.CardProps[], stacks:string[][]) => {
 
     return cards;
 }
+
 export const initializeDeckState = (state:Type.DeckState) => {
 
     let myCards = [...state.cards];
     let myStacks = [...state.stacks];
+    myStacks[Stack.READY] = [...util.shuffle(myStacks[Stack.READY])];
 
     myCards = refreshCards(myCards, myStacks);
     return {
