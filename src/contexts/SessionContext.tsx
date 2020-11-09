@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import {AMCards} from '../data/attack-modifiers.js';
 import * as util from '../util';
 import {Stack, DrawMod} from '../global/enums';
-import {CardProps, DeckStateType} from '../global/types';
+import * as Type  from '../global/types';
 
 
 
@@ -18,7 +18,7 @@ const deckSpec:any = {
 };
 
 
-const cards:CardProps[] = [];
+const cards:Type.CardProps[] = [];
 
 let j:number = 0;
 for (const cardType in deckSpec) {
@@ -37,17 +37,15 @@ for (const cardType in deckSpec) {
       isFlipped:false, 
       shuffle: shuffle?shuffle:false,
       temporary: temporary?temporary:false,
-    } as CardProps);
+    } as Type.CardProps);
   }
 }
 
 
-const refreshCards = (cards:CardProps[], stacks:string[][]) => {
+const refreshCards = (cards:Type.CardProps[], stacks:string[][]) => {
   stacks.map((stack, stackIdx) => {
     stack.map((cardId:string, cardIdx:number) => {
-      const thisCard = cards.filter((card:CardProps) => card.id===cardId)[0];
-
-      console.log(cardId, thisCard);
+      const thisCard = cards.filter((card:Type.CardProps) => card.id===cardId)[0];
 
       thisCard.stack = stackIdx;
       thisCard.idx = cardIdx;
@@ -60,11 +58,11 @@ const refreshCards = (cards:CardProps[], stacks:string[][]) => {
 
 
 
-const initialDeckState:DeckStateType = {
+const initialDeckState:Type.DeckState = {
   cards,
   // deck: util.shuffle(cards.map((card:CardProps) => card.id)),
   stacks: [
-    cards.map((card:CardProps) => card.id),
+    cards.map((card:Type.CardProps) => card.id),
       [],
       []
   ],
@@ -73,7 +71,7 @@ const initialDeckState:DeckStateType = {
 };
 
 
-const initializeCards = (state:DeckStateType) => {
+const initializeCards = (state:Type.DeckState) => {
 
   let myCards = [...state.cards];
   let myStacks = [...state.stacks];
@@ -91,7 +89,7 @@ const initializeCards = (state:DeckStateType) => {
 
 
 
-const reducer = (state:DeckStateType, action:any) => {
+const reducer = (state:Type.DeckState, action:any) => {
   let myCards = [...state.cards];
 
   let myStacks:string[][] = [...state.stacks];
@@ -142,7 +140,7 @@ const reducer = (state:DeckStateType, action:any) => {
       }
     case 'SHUFFLE':
       
-      const newReadyStack:string[] = util.shuffle(myCards.map((card:CardProps) => card.id));
+      const newReadyStack:string[] = util.shuffle(myCards.map((card:Type.CardProps) => card.id));
       const newStacks:string[][] = [newReadyStack, [], []];
 
       myCards = refreshCards(myCards, newStacks);
@@ -160,15 +158,6 @@ const reducer = (state:DeckStateType, action:any) => {
 
 
 
-export type IContextProps = {
-  cards: CardProps[];
-  draw: any;
-  shuffle: any;
-};
-
-export type SessionProps = {
-  children: React.ReactNode
-};
 
 
 
@@ -190,11 +179,8 @@ export type SessionProps = {
 
 
 
-
-
-
-const SessionContext = createContext({} as IContextProps);
-export const SessionProvider = ({children}: SessionProps) => {
+const SessionContext = createContext({} as Type.DeckContextProps);
+export const SessionProvider = ({children}: Type.ProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialDeckState, initializeCards);
 
   const {cards, stacks} = state;

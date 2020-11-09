@@ -1,3 +1,5 @@
+import React from "react";
+
 export type CardEffects = {
   damageMod: any;
   condition?: string;
@@ -16,10 +18,18 @@ export type CardProps = {
   temporary?:boolean;
   value: number;
 }
-export type DeckStateType = {
+export type DeckState = {
   cards: CardProps[];
   stacks: string[][];
   drawMod: number;
   shuffleRequired: boolean;
 }
+export type DeckContextProps = {
+  cards: CardProps[];
+  draw: any;
+  shuffle: any;
+};
+export type ProviderProps = {
+  children: React.ReactNode
+};
 
