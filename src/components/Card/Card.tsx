@@ -1,15 +1,8 @@
 import React, {useState} from 'react';
 import * as UI from './ui';
+import * as I from '../../global/interfaces';
 
-interface ICardProps {
-  id: string;
-  name: string;
-  isFlipped?: boolean;
-  stack?: number;
-  idx?: number;
-}
-
-const Card: React.FC<ICardProps> = ({id, name, isFlipped = false, stack = 0, idx = 0}) => {
+const Card: React.FC<I.CardProps> = ({id, name, isFlipped = false, stack = 0, idx = 0}) => {
   const cardProps = {
     id,
     isFlipped,

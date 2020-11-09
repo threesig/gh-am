@@ -3,6 +3,7 @@
 import styled, {css, keyframes} from 'styled-components';
 import cardBack from '../../../assets/cardBack.jpg';
 import {Stack} from '../../../global/enums';
+import * as I from '../../../global/interfaces';
 const cardWidth = 400;
 const cardGutter = 50;
 const cardLiftIncrement = 0.6;
@@ -47,11 +48,6 @@ const cssCardFaceCommon = css`
  * Card
  * 
  */
-interface ICardProps {
-  isFlipped?:boolean,
-  stack?:number,
-  idx?:number,
-};
 
 
 
@@ -99,7 +95,7 @@ const cssSetCardDimensions = (width:number, height:number) => {
     }
   `;
 }
-export const Card = styled.div<ICardProps>`
+export const Card = styled.div<I.CardPropsUI>`
   ${cssSetCardDimensions(67,44)}
   ${props => cssSetCardState(props.isFlipped, props.stack, props.idx)}
   cursor: pointer;
@@ -129,11 +125,7 @@ const cssSetCardFaceBrightness = (stack:number) => {
     filter: brightness(${stackBrightness[stack]});
   `;
 }
-interface IFrontProps {
-  name: string;
-  stack: number;
-}
-export const Front = styled.div<IFrontProps>`
+export const Front = styled.div<I.CardFrontPropsUI>`
   ${cssCardFaceCommon}
   ${props => cssSetCardFaceImage(props.name)}
   ${props => cssSetCardFaceBrightness(props.stack)}
