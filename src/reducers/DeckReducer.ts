@@ -24,10 +24,10 @@ export const initialDeckState = (cards:T.CardProps[]) => {
   return {
     cards,
     stacks: [
-      cards.map((card:T.CardProps) => card.id),
-      [],
-      [],
-      []
+      cards.map((card:T.CardProps) => card.id), // Ready Stack
+      [], // Hand Stack
+      [], // Discard Stack
+      [], // Consumed Stack
     ],
     drawMod: DrawMod.ADVANTAGE,
     shuffleRequired: false
@@ -61,13 +61,11 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
   let myDiscardStack = [...myStacks[Stack.DISCARD]];
   let myConsumedStack = [...myStacks[Stack.CONSUMED]];
 
-
-  let {shuffleRequired:myShuffleRequired} = state;
-
   switch (action.type) {
 
     case 'DRAW':
-      let {drawMod:myDrawMod} = state;
+      let {drawMod:myDrawMod, shuffleRequired:myShuffleRequired} = state;
+
 
       /** Perform Discard Logic **/
 
