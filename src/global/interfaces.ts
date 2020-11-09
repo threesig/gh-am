@@ -11,7 +11,6 @@ export interface CardProps {
   stack?: number;
   idx?: number;
 }
-
 export interface CardPropsUI {
   isFlipped?:boolean,
   stack?:number,
