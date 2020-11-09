@@ -1,6 +1,6 @@
-import * as Type from "./global/types";
 import {AMCards} from "./data/attack-modifiers";
 import {Stack} from "./global/enums";
+import * as T from "./global/types";
 
 export const shuffle = (arra1:any[]) => {
   let ctr = arra1.length, temp, index;
@@ -22,7 +22,7 @@ export const shuffle = (arra1:any[]) => {
 }
 
 export const buildCards = (deckSpec:any) => {
-  const myCards:Type.CardProps[] = [];
+  const myCards:T.CardProps[] = [];
 
   let j:number = 0;
   for (const cardType in deckSpec) {
@@ -41,7 +41,7 @@ export const buildCards = (deckSpec:any) => {
         isFlipped:false,
         shuffle: shuffle||false,
         temporary: temporary||false,
-      } as Type.CardProps);
+      } as T.CardProps);
     }
   }
 
