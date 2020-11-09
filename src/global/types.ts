@@ -16,3 +16,10 @@ export type CardProps = {
   temporary?:boolean;
   value: number;
 }
+export type DeckStateType = {
+  cards: CardProps[];
+  stacks: string[][];
+  drawMod: number;
+  shuffleRequired: boolean;
+}
+

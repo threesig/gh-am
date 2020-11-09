@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import {AMCards} from '../data/attack-modifiers.js';
 import * as util from '../util';
 import {Stack, DrawMod} from '../global/enums';
-import {CardProps} from '../global/types';
+import {CardProps, DeckStateType} from '../global/types';
 
 
 
@@ -32,7 +32,7 @@ for (const cardType in deckSpec) {
       name,
       effects,
       description,
-      stack: Stack.DECK, 
+      stack: Stack.READY, 
       idx:j++,
       isFlipped:false, 
       shuffle: shuffle?shuffle:false,
@@ -42,67 +42,47 @@ for (const cardType in deckSpec) {
 }
 
 
-type StateType = {
-  cards: CardProps[];
-  deck: string[];
-  hand: string[];
-  discard: string[];
-  drawMod: number;
-  shuffleRequired: boolean;
-}
-// type ActionType = {
-//   type: string,
-//   props?: object
-// }
+const refreshCards = (cards:CardProps[], stacks:string[][]) => {
+  stacks.map((stack, stackIdx) => {
+    stack.map((cardId:string, cardIdx:number) => {
+      const thisCard = cards.filter((card:CardProps) => card.id===cardId)[0];
 
+      console.log(cardId, thisCard);
 
-const refreshCards = (cards:CardProps[], deck:string[], hand:string[], discard:string[]) => {
-  deck.map((cardId:string, i:number) => {
-    const thisCard = cards.filter((card:CardProps) => card.id===cardId)[0];
-    thisCard.stack = Stack.DECK;
-    thisCard.idx = i;
-    thisCard.isFlipped = false;
-  });
-  hand.map((cardId:string, i:number) => {
-    const thisCard = cards.filter((card:CardProps) => card.id===cardId)[0];
-    thisCard.stack = Stack.HAND;
-    thisCard.idx = i;
-    thisCard.isFlipped = true;
-  });
-  discard.map((cardId:string, i:number) => {
-    const thisCard = cards.filter((card:CardProps) => card.id===cardId)[0];
-    thisCard.stack = Stack.DISCARD;
-    thisCard.idx = i;
-    thisCard.isFlipped = true;
-  });
+      thisCard.stack = stackIdx;
+      thisCard.idx = cardIdx;
+      thisCard.isFlipped = (stackIdx!==Stack.READY);
+    });
+  })
+
   return cards;
 }
 
 
 
-const initialState:StateType = {
+const initialDeckState:DeckStateType = {
   cards,
   // deck: util.shuffle(cards.map((card:CardProps) => card.id)),
-  deck: cards.map((card:CardProps) => card.id),
-  hand: [],
-  discard: [],
-  drawMod: 1,
+  stacks: [
+    cards.map((card:CardProps) => card.id),
+      [],
+      []
+  ],
+  drawMod: DrawMod.ADVANTAGE,
   shuffleRequired: false
 };
 
 
-const initializeCards = (state:StateType) => {
-  let myCards = [...state.cards];
-  let myDeck = [...state.deck];
-  let myHand = [...state.hand];
-  let myDiscard = [...state.discard];
+const initializeCards = (state:DeckStateType) => {
 
-  myCards = refreshCards(myCards, myDeck, myHand, myDiscard);
+  let myCards = [...state.cards];
+  let myStacks = [...state.stacks];
+
+  myCards = refreshCards(myCards, myStacks);
   return {
     ...state,
     cards:myCards,
-    deck:myDeck,
-    discard:myDiscard
+    stacks:myStacks,
   }
 };
 
@@ -111,58 +91,66 @@ const initializeCards = (state:StateType) => {
 
 
 
-const reducer = (state:StateType, action:any) => {
+const reducer = (state:DeckStateType, action:any) => {
   let myCards = [...state.cards];
-  let myDeck = [...state.deck];
-  let myHand = [...state.hand];
-  let myDiscard = [...state.discard];
-    
+
+  let myStacks:string[][] = [...state.stacks];
+  let myReadyStack = [...myStacks[Stack.READY]];
+  let myHandStack = [...myStacks[Stack.HAND]];
+  let myDiscardStack = [...myStacks[Stack.DISCARD]];
+
+
   switch (action.type) {
     
     case 'DRAW':
       let {drawMod:myDrawMod} = state;
-      const newHand = [];
-      if(myDeck.length) {
+      const newHandStack = [];
+
+
+
+
+      if(myReadyStack.length) {
         
         // Place current Hand into the Discard
-        myDiscard = [...myDiscard, ...myHand]
+        myDiscardStack = [...myDiscardStack, ...myHandStack]
         
 
-        // Start New Hand
-        newHand.push(myDeck.pop() as string);
+        // Start New Hand.  Draw 1 card.
+        newHandStack.push(myReadyStack.pop() as string);
+
+
 
         // If Advantage or Disadvantage
-        if(state.drawMod!=DrawMod.NONE) {
-          newHand.push(myDeck.pop() as string);
+        if(state.drawMod!==DrawMod.NONE) {
+          newHandStack.push(myReadyStack.pop() as string);
           myDrawMod = 0;
         }
 
 
         // handle Advantage/Disadvantage here
 
-        
+        myStacks = [myReadyStack, newHandStack, myDiscardStack];
 
-        myCards = refreshCards(myCards, myDeck, newHand, myDiscard);
+        myCards = refreshCards(myCards, myStacks);
       }
 
       return {
         ...state,
         cards:myCards,
-        deck:myDeck,
-        hand:newHand,
-        discard:myDiscard,
+        stacks:myStacks,
         drawMod: myDrawMod
       }
     case 'SHUFFLE':
       
-      const newDeck = util.shuffle([...myDeck, ...myHand, ...myDiscard]);
-      myCards = refreshCards(myCards, newDeck, [], []);
+      const newReadyStack:string[] = util.shuffle(myCards.map((card:CardProps) => card.id));
+      const newStacks:string[][] = [newReadyStack, [], []];
+
+      myCards = refreshCards(myCards, newStacks);
+
       return {
         ...state,
         cards: myCards,
-        deck: newDeck,
-        hand: [],
-        discard: []
+        stacks: newStacks,
       }
     default:
       console.error(`ACTION TYPE "${action.type}" is not recognized`);
@@ -207,13 +195,12 @@ export type SessionProps = {
 
 const SessionContext = createContext({} as IContextProps);
 export const SessionProvider = ({children}: SessionProps) => {
-  const [state, dispatch] = useReducer(reducer, initialState, initializeCards);
+  const [state, dispatch] = useReducer(reducer, initialDeckState, initializeCards);
 
-  const {cards, deck, discard} = state;
+  const {cards, stacks} = state;
   const value = {
     cards,
-    deck,
-    discard,
+    stacks,
     draw: () => dispatch({type: 'DRAW'}),
     shuffle: () => dispatch({type: 'SHUFFLE'})
   };

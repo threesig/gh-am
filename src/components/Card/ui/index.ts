@@ -63,7 +63,7 @@ const cssSetCardState = (isFlipped:boolean=false, stack:number=0, idx:number=0) 
   
   let commute=0, lift=0, animation:any='none', scale=1;
   switch(stack) {
-    case Stack.DECK:
+    case Stack.READY:
       lift = idx*cardLiftIncrement;
       commute = lift/3;
       break;

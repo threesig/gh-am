@@ -4,11 +4,11 @@ import Card from '../Card';
 
 import {CardProps} from '../../global/types';
 
-interface TableProps {
+interface DeckProps {
   cards: CardProps[];
 }
 
-export const Table:React.FC<TableProps> = ({cards}) => {
+export const Deck:React.FC<DeckProps> = ({cards}) => {
   
   const renderCard = (cardProps:CardProps, i:number) => {
     return (
@@ -22,4 +22,4 @@ export const Table:React.FC<TableProps> = ({cards}) => {
   );
 }
 
-export default Table;
+export default Deck;
