@@ -27,6 +27,7 @@ export type DeckState = {
 export type DeckContextProps = {
   cards: CardProps[];
   stacks: string[][];
+  shuffleRequired: boolean;
   draw: () => (void);
   shuffle: () => (void);
 };

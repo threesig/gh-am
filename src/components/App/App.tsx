@@ -6,12 +6,12 @@ import * as UI from './ui';
 import Deck from '../Deck';
 import Button from '../Button';
 
-function App() {
-  const {cards, draw, shuffle} = useContext(DeckContext);
+const App = () => {
+  const {cards, shuffleRequired, draw, shuffle} = useContext(DeckContext);
   return (
     <UI.Container>
       <UI.Header>
-          <Button callBack={draw}>Draw!</Button>
+          <Button callBack={draw} enabled={!shuffleRequired}>Draw</Button>
           <Button callBack={shuffle}>Shuffle</Button>
         <CommonUI.Section>
           <Deck {...{cards}} />

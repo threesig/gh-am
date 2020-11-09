@@ -59,10 +59,11 @@ const DeckContext = createContext({} as Type.DeckContextProps);
 export const DeckProvider = ({children}: Type.ProviderProps) => {
   const [state, dispatch] = useReducer(DeckReducer, initialDeckState, initializeDeckState);
 
-  const {cards, stacks} = state;
+  const {cards, stacks, shuffleRequired} = state;
   const value = {
     cards,
     stacks,
+    shuffleRequired,
     draw: () => dispatch({type: 'DRAW'}),
     shuffle: () => dispatch({type: 'SHUFFLE'})
   };
