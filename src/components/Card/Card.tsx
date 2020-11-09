@@ -12,8 +12,8 @@ const Card: React.FC<I.CardProps> = ({id, name, isFlipped = false, stack = 0, id
 
   return (
     <UI.Card {...cardProps}>
-      <UI.Front {...{name, stack}} />
-      <UI.Back />
+      <UI.CardFront {...{name, stack}} />
+      <UI.CardBack />
     </UI.Card>
   );
 }
