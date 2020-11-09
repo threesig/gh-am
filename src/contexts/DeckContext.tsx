@@ -47,6 +47,7 @@ const initialDeckState:Type.DeckState = {
   stacks: [
     cards.map((card:Type.CardProps) => card.id),
       [],
+      [],
       []
   ],
   drawMod: DrawMod.ADVANTAGE,

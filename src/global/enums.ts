@@ -1,7 +1,8 @@
 export enum Stack {
   READY,
   HAND,
-  DISCARD
+  DISCARD,
+  CONSUMED
 }
 export enum DrawMod {
   ADVANTAGE = 1,

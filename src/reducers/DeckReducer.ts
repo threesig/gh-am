@@ -40,6 +40,9 @@ export const DeckReducer = (state:Type.DeckState, action:any) => {
     let myReadyStack = [...myStacks[Stack.READY]];
     let myHandStack = [...myStacks[Stack.HAND]];
     let myDiscardStack = [...myStacks[Stack.DISCARD]];
+    let myConsumedStack = [...myStacks[Stack.CONSUMED]];
+
+    
     let {shuffleRequired:myShuffleRequired} = state;
 
     switch (action.type) {
@@ -47,7 +50,7 @@ export const DeckReducer = (state:Type.DeckState, action:any) => {
         case 'DRAW':
             let {drawMod:myDrawMod} = state;
             const newHandStack:string[] = [];
-            
+
 
             // Place current Hand into the Discard
             myDiscardStack = [...myDiscardStack, ...myHandStack]
@@ -68,7 +71,7 @@ export const DeckReducer = (state:Type.DeckState, action:any) => {
             // handle Advantage/Disadvantage here
 
 
-            myStacks = [myReadyStack, newHandStack, myDiscardStack];
+            myStacks = [myReadyStack, newHandStack, myDiscardStack, myConsumedStack];
 
 
             myShuffleRequired = myCards.filter((card:Type.CardProps) => newHandStack.includes(card.id) && card.shuffle===true ).length>0;
@@ -84,8 +87,8 @@ export const DeckReducer = (state:Type.DeckState, action:any) => {
             }
         case 'SHUFFLE':
 
-            const newReadyStack:string[] = util.shuffle(myCards.map((card:Type.CardProps) => card.id));
-            const newStacks:string[][] = [newReadyStack, [], []];
+            const newReadyStack:string[] = util.shuffle([...myReadyStack, ...myHandStack, ...myDiscardStack]);
+            const newStacks:string[][] = [newReadyStack, [], [], myConsumedStack];
 
             myCards = refreshCards(myCards, newStacks);
 
