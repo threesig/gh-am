@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import * as UI from './ui';
 import * as I from '../../global/interfaces';
 
@@ -9,7 +9,7 @@ const Card: React.FC<I.CardProps> = ({id, name, isFlipped = false, stack = 0, id
     stack,
     idx,
   }
-  
+
   return (
     <UI.Card {...cardProps}>
       <UI.Front {...{name, stack}} />
