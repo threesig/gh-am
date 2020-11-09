@@ -7,7 +7,7 @@ const refreshCards = (cards:T.CardProps[], stacks:string[][]) => {
   // eslint-disable-next-line array-callback-return
   stacks.map((stack, stackIdx) => {
     // eslint-disable-next-line array-callback-return
-    stack.map((cardId:string, cardIdx:number) => {
+    stack.map((cardId, cardIdx) => {
       const thisCard = cards.filter((card:T.CardProps) => card.id===cardId)[0];
 
       thisCard.stack = stackIdx;
