@@ -1,13 +1,14 @@
-import * as Type from "../global/types";
 import {DrawMod, Stack} from "../global/enums";
+import * as T from "../global/types";
 import * as util from "../util";
 
 
-const refreshCards = (cards:Type.CardProps[], stacks:string[][]) => {
+const refreshCards = (cards:T.CardProps[], stacks:string[][]) => {
   // eslint-disable-next-line array-callback-return
   stacks.map((stack, stackIdx) => {
+    // eslint-disable-next-line array-callback-return
     stack.map((cardId:string, cardIdx:number) => {
-      const thisCard = cards.filter((card:Type.CardProps) => card.id===cardId)[0];
+      const thisCard = cards.filter((card:T.CardProps) => card.id===cardId)[0];
 
       thisCard.stack = stackIdx;
       thisCard.idx = cardIdx;
@@ -19,11 +20,11 @@ const refreshCards = (cards:Type.CardProps[], stacks:string[][]) => {
 }
 
 
-export const initialDeckState = (cards:Type.CardProps[]) => {
+export const initialDeckState = (cards:T.CardProps[]) => {
   return {
     cards,
     stacks: [
-      cards.map((card:Type.CardProps) => card.id),
+      cards.map((card:T.CardProps) => card.id),
       [],
       [],
       []
@@ -36,7 +37,7 @@ export const initialDeckState = (cards:Type.CardProps[]) => {
 
 
 
-export const prepareDeckState = (state:Type.DeckState) => {
+export const prepareDeckState = (state:T.DeckState) => {
 
   let myCards = [...state.cards];
   let myStacks = [...state.stacks];
@@ -51,7 +52,7 @@ export const prepareDeckState = (state:Type.DeckState) => {
 };
 
 
-export const DeckReducer = (state:Type.DeckState, action:any) => {
+export const DeckReducer = (state:T.DeckState, action:any) => {
   let myCards = [...state.cards];
 
   let myStacks:string[][] = [...state.stacks];
@@ -71,10 +72,10 @@ export const DeckReducer = (state:Type.DeckState, action:any) => {
       /** Perform Discard Logic **/
 
       // Set aside Temporary cards to place in `Consumed` stack.
-      const forConsumed = myCards.filter((card:Type.CardProps) => myHandStack.includes(card.id) && card.temporary).map((card:Type.CardProps) => card.id);
+      const forConsumed = myCards.filter((card:T.CardProps) => myHandStack.includes(card.id) && card.temporary).map((card:T.CardProps) => card.id);
       myConsumedStack = [...myConsumedStack, ...forConsumed];
 
-      // Determine remaining cards.  Place them in `Discard` stack.
+      // Place remaining cards in `Discard` stack.
       const forDiscard = myHandStack.filter((cardId:string) => !forConsumed.includes(cardId));
       myDiscardStack = [...myDiscardStack, ...forDiscard];
 
@@ -85,7 +86,6 @@ export const DeckReducer = (state:Type.DeckState, action:any) => {
       // Start New Hand.  Draw 1 card.
       const newHandStack:string[] = [];
       newHandStack.push(myReadyStack.pop() as string);
-
 
 
       // If Advantage or Disadvantage
@@ -99,7 +99,7 @@ export const DeckReducer = (state:Type.DeckState, action:any) => {
 
 
       /** Check if newly drawn card(s) require a shuffle **/
-      myShuffleRequired = myCards.filter((card:Type.CardProps) => newHandStack.includes(card.id) && card.shuffle===true ).length>0;
+      myShuffleRequired = myCards.filter((card:T.CardProps) => newHandStack.includes(card.id) && card.shuffle===true ).length>0;
 
 
       /** Define current card stacks  **/
