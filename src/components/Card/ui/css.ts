@@ -3,6 +3,7 @@ import {Stack} from "../../../global/enums";
 
 const glowRadius = 5;
 const glowColor = 'gold';
+const cardTransitionTime = '.5s';
 const cardGutter = 50;
 const cardLiftIncrement = 0.6;
 const stackBrightness = [
@@ -24,8 +25,6 @@ const aniCardGlow = keyframes`
 
 
 export const cardWidth = 400;
-export const cardTransitionTime = '.5s';
-
 
 export const CardFaceCommon = css`
   transition: all ${cardTransitionTime};
@@ -76,9 +75,13 @@ export const SetCardState = (isFlipped:boolean=false, stack:number=0, idx:number
   commute = isFlipped ? -commute : commute;
 
   return css`
-    /* animation: ${animation} ${glowDuration}s infinite; */
+    transition: all ${cardTransitionTime}, z-index 0s;
+
     transform: rotateY(${revolve}deg) translate(${commute}px, ${-lift}px) scale(${scale});
     transform-origin: 50% 50%;
+    transform-style: preserve-3d;
+
+    /* animation: ${animation} ${glowDuration}s infinite; */
     opacity: ${opacity};
     z-index: ${100*stack + idx};
   `;

@@ -10,8 +10,6 @@ export const Card = styled.div<I.CardPropsUI>`
   ${css.SetCardAspectRatio(67,44)};
   ${props => css.SetCardState(props.isFlipped, props.stack, props.idx)};
   cursor: pointer;
-  transform-style: preserve-3d;
-  transition: all ${css.cardTransitionTime}, z-index 0s;
   position: absolute;
   width: ${css.cardWidth}px;
 `;
