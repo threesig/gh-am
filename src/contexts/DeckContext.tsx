@@ -179,8 +179,8 @@ const reducer = (state:Type.DeckState, action:any) => {
 
 
 
-const SessionContext = createContext({} as Type.DeckContextProps);
-export const SessionProvider = ({children}: Type.ProviderProps) => {
+const DeckContext = createContext({} as Type.DeckContextProps);
+export const DeckProvider = ({children}: Type.ProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialDeckState, initializeCards);
 
   const {cards, stacks} = state;
@@ -192,10 +192,10 @@ export const SessionProvider = ({children}: Type.ProviderProps) => {
   };
 
   return (
-    <SessionContext.Provider {...{value}}>
+    <DeckContext.Provider {...{value}}>
       {children}
-    </SessionContext.Provider>
+    </DeckContext.Provider>
   );
 }
 
-export default SessionContext;
+export default DeckContext;

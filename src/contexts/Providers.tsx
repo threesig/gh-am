@@ -1,6 +1,6 @@
 import React from 'react';
 import theme from '../theme';
-import {SessionProvider} from '../contexts/SessionContext';
+import {DeckProvider} from './DeckContext';
 import {ThemeProvider} from 'styled-components';
 
 
@@ -9,11 +9,11 @@ interface ProviderProps {
 }
 
 const Providers:React.FC<ProviderProps> = ({children}) => (
-  <SessionProvider>
+  <DeckProvider>
     <ThemeProvider {...{theme}}>
       {children}
     </ThemeProvider>
-  </SessionProvider>
+  </DeckProvider>
 )
 
 export default Providers;
