@@ -17,7 +17,7 @@ const refreshCards = (cards:Type.CardProps[], stacks:string[][]) => {
 
     return cards;
 }
-export const initializeCards = (state:Type.DeckState) => {
+export const initializeDeckState = (state:Type.DeckState) => {
 
     let myCards = [...state.cards];
     let myStacks = [...state.stacks];

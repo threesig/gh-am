@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import {AMCards} from '../data/attack-modifiers.js';
 import {Stack, DrawMod} from '../global/enums';
 import * as Type  from '../global/types';
-import {DeckReducer, initializeCards} from "../reducers/DeckReducer";
+import {DeckReducer, initializeDeckState} from "../reducers/DeckReducer";
 
 
 
@@ -57,7 +57,7 @@ const initialDeckState:Type.DeckState = {
 
 const DeckContext = createContext({} as Type.DeckContextProps);
 export const DeckProvider = ({children}: Type.ProviderProps) => {
-  const [state, dispatch] = useReducer(DeckReducer, initialDeckState, initializeCards);
+  const [state, dispatch] = useReducer(DeckReducer, initialDeckState, initializeDeckState);
 
   const {cards, stacks} = state;
   const value = {
