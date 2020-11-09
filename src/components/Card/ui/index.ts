@@ -21,10 +21,10 @@ export const CardFront = styled.div<I.CardFrontPropsUI>`
   ${props => css.SetCardFaceImage(props.name)};
   ${props => css.SetCardFaceBrightness(props.stack)};
   transform: rotateY(180deg);
-`
+`;
 
 export const CardBack = styled.div`
   ${css.CardFaceCommon};
   background-image: url(${cardBack});
   transform:rotateY(0deg);
-`
+`;
