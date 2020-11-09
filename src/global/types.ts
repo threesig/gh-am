@@ -26,8 +26,9 @@ export type DeckState = {
 }
 export type DeckContextProps = {
   cards: CardProps[];
-  draw: any;
-  shuffle: any;
+  stacks: string[][];
+  draw: () => (void);
+  shuffle: () => (void);
 };
 export type ProviderProps = {
   children: React.ReactNode

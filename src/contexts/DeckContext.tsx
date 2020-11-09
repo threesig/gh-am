@@ -35,8 +35,8 @@ for (const cardType in deckSpec) {
       stack: Stack.READY, 
       idx:j++,
       isFlipped:false, 
-      shuffle: shuffle?shuffle:false,
-      temporary: temporary?temporary:false,
+      shuffle: shuffle||false,
+      temporary: temporary||false,
     } as Type.CardProps);
   }
 }
