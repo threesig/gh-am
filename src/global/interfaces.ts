@@ -1,5 +1,9 @@
 import React from "react";
 
+/**
+ *  Card
+ */
+
 export interface CardProps {
   id: string;
   name: string;
@@ -19,6 +23,10 @@ export interface CardFrontPropsUI {
 }
 
 
+/**
+ *  Button
+ */
+
 export interface ButtonProps {
   children: React.ReactNode;
   callBack: (e:Event) => (void);
@@ -27,4 +35,13 @@ export interface ButtonProps {
 export interface ButtonPropsUI {
   onClick: any;
   disabled: boolean;
+}
+
+
+/**
+ *  Deck
+ */
+
+export interface DeckProps {
+  cards: CardProps[];
 }
