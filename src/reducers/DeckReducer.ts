@@ -4,102 +4,132 @@ import * as util from "../util";
 
 
 const refreshCards = (cards:Type.CardProps[], stacks:string[][]) => {
-    // eslint-disable-next-line array-callback-return
-    stacks.map((stack, stackIdx) => {
-        stack.map((cardId:string, cardIdx:number) => {
-            const thisCard = cards.filter((card:Type.CardProps) => card.id===cardId)[0];
+  // eslint-disable-next-line array-callback-return
+  stacks.map((stack, stackIdx) => {
+    stack.map((cardId:string, cardIdx:number) => {
+      const thisCard = cards.filter((card:Type.CardProps) => card.id===cardId)[0];
 
-            thisCard.stack = stackIdx;
-            thisCard.idx = cardIdx;
-            thisCard.isFlipped = (stackIdx!==Stack.READY);
-        });
-    })
+      thisCard.stack = stackIdx;
+      thisCard.idx = cardIdx;
+      thisCard.isFlipped = (stackIdx!==Stack.READY);
+    });
+  })
 
-    return cards;
+  return cards;
 }
 
-export const initializeDeckState = (state:Type.DeckState) => {
 
-    let myCards = [...state.cards];
-    let myStacks = [...state.stacks];
-    myStacks[Stack.READY] = [...util.shuffle(myStacks[Stack.READY])];
+export const initialDeckState = (cards:Type.CardProps[]) => {
+  return {
+    cards,
+    stacks: [
+      cards.map((card:Type.CardProps) => card.id),
+      [],
+      [],
+      []
+    ],
+    drawMod: DrawMod.ADVANTAGE,
+    shuffleRequired: false
+  };
+}
 
-    myCards = refreshCards(myCards, myStacks);
-    return {
-        ...state,
-        cards:myCards,
-        stacks:myStacks,
-    }
+
+
+
+export const prepareDeckState = (state:Type.DeckState) => {
+
+  let myCards = [...state.cards];
+  let myStacks = [...state.stacks];
+  myStacks[Stack.READY] = [...util.shuffle(myStacks[Stack.READY])];
+
+  myCards = refreshCards(myCards, myStacks);
+  return {
+    ...state,
+    cards:myCards,
+    stacks:myStacks,
+  }
 };
 
 
 export const DeckReducer = (state:Type.DeckState, action:any) => {
-    let myCards = [...state.cards];
+  let myCards = [...state.cards];
 
-    let myStacks:string[][] = [...state.stacks];
-    let myReadyStack = [...myStacks[Stack.READY]];
-    let myHandStack = [...myStacks[Stack.HAND]];
-    let myDiscardStack = [...myStacks[Stack.DISCARD]];
-    let myConsumedStack = [...myStacks[Stack.CONSUMED]];
-
-    
-    let {shuffleRequired:myShuffleRequired} = state;
-
-    switch (action.type) {
-
-        case 'DRAW':
-            let {drawMod:myDrawMod} = state;
-            const newHandStack:string[] = [];
+  let myStacks:string[][] = [...state.stacks];
+  let myReadyStack = [...myStacks[Stack.READY]];
+  let myHandStack = [...myStacks[Stack.HAND]];
+  let myDiscardStack = [...myStacks[Stack.DISCARD]];
+  let myConsumedStack = [...myStacks[Stack.CONSUMED]];
 
 
-            // Place current Hand into the Discard
-            myDiscardStack = [...myDiscardStack, ...myHandStack]
+  let {shuffleRequired:myShuffleRequired} = state;
+
+  switch (action.type) {
+
+    case 'DRAW':
+      let {drawMod:myDrawMod} = state;
+
+      /** Perform Discard Logic **/
+
+      // Set aside Temporary cards to place in `Consumed` stack.
+      const forConsumed = myCards.filter((card:Type.CardProps) => myHandStack.includes(card.id) && card.temporary).map((card:Type.CardProps) => card.id);
+      myConsumedStack = [...myConsumedStack, ...forConsumed];
+
+      // Determine remaining cards.  Place them in `Discard` stack.
+      const forDiscard = myHandStack.filter((cardId:string) => !forConsumed.includes(cardId));
+      myDiscardStack = [...myDiscardStack, ...forDiscard];
 
 
-            // Start New Hand.  Draw 1 card.
-            newHandStack.push(myReadyStack.pop() as string);
+
+      /** Perform Draw Logic **/
+
+      // Start New Hand.  Draw 1 card.
+      const newHandStack:string[] = [];
+      newHandStack.push(myReadyStack.pop() as string);
 
 
 
-            // If Advantage or Disadvantage
-            if(state.drawMod!==DrawMod.NONE) {
-                newHandStack.push(myReadyStack.pop() as string);
-                myDrawMod = 0;
-            }
+      // If Advantage or Disadvantage
+      if(state.drawMod!==DrawMod.NONE) {
+        newHandStack.push(myReadyStack.pop() as string);
+        myDrawMod = DrawMod.NONE;
+      }
 
 
-            // handle Advantage/Disadvantage here
+      // TODO: Add Rolling Modifier Logic
 
 
-            myStacks = [myReadyStack, newHandStack, myDiscardStack, myConsumedStack];
+      /** Check if newly drawn card(s) require a shuffle **/
+      myShuffleRequired = myCards.filter((card:Type.CardProps) => newHandStack.includes(card.id) && card.shuffle===true ).length>0;
 
 
-            myShuffleRequired = myCards.filter((card:Type.CardProps) => newHandStack.includes(card.id) && card.shuffle===true ).length>0;
+      /** Define current card stacks  **/
+      myStacks = [myReadyStack, newHandStack, myDiscardStack, myConsumedStack];
 
-            myCards = refreshCards(myCards, myStacks);
+      // Refresh CardState
+      myCards = refreshCards(myCards, myStacks);
 
-            return {
-                ...state,
-                cards:myCards,
-                stacks:myStacks,
-                drawMod: myDrawMod,
-                shuffleRequired: myShuffleRequired
-            }
-        case 'SHUFFLE':
+      return {
+        ...state,
+        cards:myCards,
+        stacks:myStacks,
+        drawMod: myDrawMod,
+        shuffleRequired: myShuffleRequired
+      }
+    case 'SHUFFLE':
 
-            const newReadyStack:string[] = util.shuffle([...myReadyStack, ...myHandStack, ...myDiscardStack]);
-            const newStacks:string[][] = [newReadyStack, [], [], myConsumedStack];
+      const newReadyStack:string[] = util.shuffle([...myReadyStack, ...myHandStack, ...myDiscardStack]);
+      const newStacks:string[][] = [newReadyStack, [], [], myConsumedStack];
 
-            myCards = refreshCards(myCards, newStacks);
+      myCards = refreshCards(myCards, newStacks);
 
-            return {
-                ...state,
-                cards: myCards,
-                stacks: newStacks,
-                shuffleRequired: false
-            }
-        default:
-            console.error(`ACTION TYPE "${action.type}" is not recognized`);
-            return state;
-    }
+      return {
+        ...state,
+        cards: myCards,
+        stacks: newStacks,
+        shuffleRequired: false
+      }
+    default:
+      console.error(`ACTION TYPE "${action.type}" is not recognized`);
+      return state;
+  }
 };
