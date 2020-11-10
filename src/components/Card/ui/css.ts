@@ -4,7 +4,6 @@ import {Stack} from "../../../global/enums";
 const glowRadius = 5;
 const glowColor = 'gold';
 const cardTransitionTime = '.5s';
-const cardGutter = 50;
 const cardLiftIncrement = 0.6;
 const stackBrightness = [
   .9,
@@ -22,9 +21,13 @@ const aniCardGlow = keyframes`
 `;
 
 
+export const aspectWidth = 67;
+export const aspectHeight = 44;
 
+export const cardWidth = 300;
+const cardHeight = cardWidth * aspectHeight/aspectWidth;
+const cardGutter = cardWidth/4;
 
-export const cardWidth = 400;
 
 export const CardFaceCommon = css`
   transition: all ${cardTransitionTime};
@@ -54,7 +57,7 @@ export const SetCardState = (isFlipped:boolean=false, stack:number=0, idx:number
       break;
     case Stack.HAND:
       scale = 1.1;
-      lift = scale*313;
+      lift = scale*(cardHeight + cardGutter);
       commute = idx * scale * (cardWidth + cardGutter);
       animation = aniCardGlow;
 

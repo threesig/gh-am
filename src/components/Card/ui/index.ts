@@ -7,7 +7,7 @@ import * as css from './css';
 
 
 export const Card = styled.div<I.CardPropsUI>`
-  ${css.SetCardAspectRatio(67,44)};
+  ${css.SetCardAspectRatio(css.aspectWidth, css.aspectHeight)};
   ${props => css.SetCardState(props.isFlipped, props.stack, props.idx)};
   cursor: pointer;
   position: absolute;
