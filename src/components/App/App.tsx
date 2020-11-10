@@ -7,7 +7,7 @@ import Deck from '../Deck';
 import ControlPanel from '../ControlPanel';
 
 const App = () => {
-  const {cards, shuffleRequired, draw, shuffle} = useContext(DeckContext);
+  const {cards} = useContext(DeckContext);
   return (
     <UI.Container>
       <UI.Header>
