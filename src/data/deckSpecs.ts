@@ -6,4 +6,11 @@ export const Spellweaver:any = {
   "m2": 1,
   "crit": 1,
   "null": 1,
+  "bless": 2,
+  "curse": 3,
+};
+
+export const CurseBless:any = {
+  "bless": 10,
+  "curse": 10,
 };
