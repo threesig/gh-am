@@ -100,13 +100,14 @@ export const SetCardFaceImage = (cardName:string) => {
 }
 export const SetCardFaceState = (stack:number, isHilited:boolean) => {
 
-  let opacity = 1, brightness=1;
+  let opacity = 1, brightness=1, boxShadow = 'none';
   switch(stack) {
     case Stack.READY:
       brightness = 0.9;
       break;
     case Stack.HAND:
       brightness = 1.5;
+      boxShadow = '0 1em 4rem rgba(0, 0, 0, .8)';
       break;
     case Stack.DISCARD:
       brightness = 0.5;
@@ -116,10 +117,13 @@ export const SetCardFaceState = (stack:number, isHilited:boolean) => {
       break;
   }
 
+  // Just testing out Hiliting options
+  const contrast = isHilited ? 1 : 1;
+
   return css`
-    filter: brightness(${brightness});
+    filter: brightness(${brightness}) contrast(${contrast});
     opacity: ${opacity};
-    ${isHilited && `box-shadow: 0 0 1rem yellow;`};  
+    box-shadow: ${boxShadow};  
 `;
 }
 
