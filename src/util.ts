@@ -62,3 +62,42 @@ export const calculateCardValue = (effects:T.CardEffects) => {
 }
 
 export const getRems = (pixelWidth:number) => pixelWidth/10;
+
+export const performRefreshLogic = (cards:T.CardProps[], stacks:string[][]) => {
+  // eslint-disable-next-line array-callback-return
+  stacks.map((stack, stackIdx) => {
+    // eslint-disable-next-line array-callback-return
+    stack.map((cardId, cardIdx) => {
+      const thisCard = cards.filter((card:T.CardProps) => card.id===cardId)[0];
+
+      thisCard.stack = stackIdx;
+      thisCard.idx = cardIdx;
+      thisCard.isFlipped = (stackIdx!==Stack.READY);
+      thisCard.isHilited = (stackIdx===Stack.HAND);
+    });
+  })
+
+  return cards;
+}
+export const performDiscardLogic = (cards:T.CardProps[], stacks:string[][]) => {
+  /** Perform Discard Logic **/
+  const myCards = [...cards];
+  const myStacks = [...stacks];
+  const myHandStack = myStacks[Stack.HAND];
+  const myConsumedStack = myStacks[Stack.CONSUMED];
+  const myDiscardStack = myStacks[Stack.DISCARD];
+
+  // Set aside Temporary cards to place in `Consumed` stack.
+  const forConsumed = myCards.filter((card:T.CardProps) => myHandStack.includes(card.id) && card.temporary).map((card:T.CardProps) => card.id);
+  const newConsumedStack = [...myConsumedStack, ...forConsumed];
+
+  // Place remaining cards in `Discard` stack.
+  const forDiscard = myHandStack.filter((cardId:string) => !forConsumed.includes(cardId));
+  const newDiscardStack = [...myDiscardStack, ...forDiscard];
+
+  myStacks[Stack.DISCARD] = newDiscardStack;
+  myStacks[Stack.CONSUMED] = newConsumedStack;
+  myStacks[Stack.HAND] = [];
+
+  return myStacks;
+}

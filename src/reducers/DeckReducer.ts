@@ -2,25 +2,6 @@ import {DrawMod, Stack} from "../global/enums";
 import * as T from "../global/types";
 import * as util from "../util";
 
-
-const refreshCards = (cards:T.CardProps[], stacks:string[][]) => {
-  // eslint-disable-next-line array-callback-return
-  stacks.map((stack, stackIdx) => {
-    // eslint-disable-next-line array-callback-return
-    stack.map((cardId, cardIdx) => {
-      const thisCard = cards.filter((card:T.CardProps) => card.id===cardId)[0];
-
-      thisCard.stack = stackIdx;
-      thisCard.idx = cardIdx;
-      thisCard.isFlipped = (stackIdx!==Stack.READY);
-      thisCard.isHilited = (stackIdx===Stack.HAND);
-    });
-  })
-
-  return cards;
-}
-
-
 export const initialDeckState = (cards:T.CardProps[]) => {
   return {
     cards,
@@ -44,7 +25,7 @@ export const prepareDeckState = (state:T.DeckState) => {
   let myStacks = [...state.stacks];
   myStacks[Stack.READY] = [...util.shuffle(myStacks[Stack.READY])];
 
-  myCards = refreshCards(myCards, myStacks);
+  myCards = util.performRefreshLogic(myCards, myStacks);
   return {
     ...state,
     cards:myCards,
@@ -54,46 +35,22 @@ export const prepareDeckState = (state:T.DeckState) => {
 
 
 export const DeckReducer = (state:T.DeckState, action:any) => {
-  let myCards = [...state.cards];
 
-  let myStacks:string[][] = [...state.stacks];
-  let myReadyStack = [...myStacks[Stack.READY]];
-  let myHandStack = [...myStacks[Stack.HAND]];
-  let myDiscardStack = [...myStacks[Stack.DISCARD]];
-  let myConsumedStack = [...myStacks[Stack.CONSUMED]];
+  let myCards = [...state.cards];
+  let myStacks = util.performDiscardLogic(state.cards, state.stacks);
+
 
   const getCardValue = (cardId:string) => myCards.filter((card)=> card.id===cardId)[0].value;
-  const discard = () => {
-    /** Perform Discard Logic **/
-
-    // Set aside Temporary cards to place in `Consumed` stack.
-    const forConsumed = myCards.filter((card:T.CardProps) => myHandStack.includes(card.id) && card.temporary).map((card:T.CardProps) => card.id);
-    const newConsumedStack = [...myConsumedStack, ...forConsumed];
-
-    // Place remaining cards in `Discard` stack.
-    const forDiscard = myHandStack.filter((cardId:string) => !forConsumed.includes(cardId));
-    const newDiscardStack = [...myDiscardStack, ...forDiscard];
-
-
-  }
 
 
 
   switch (action.type) {
 
     case 'DRAW':
+      const myReadyStack = [...myStacks[Stack.READY]];
+
       let {drawMod:myDrawMod, shuffleRequired:myShuffleRequired} = state;
 
-
-      /** Perform Discard Logic **/
-
-      // Set aside Temporary cards to place in `Consumed` stack.
-      const forConsumed = myCards.filter((card:T.CardProps) => myHandStack.includes(card.id) && card.temporary).map((card:T.CardProps) => card.id);
-      myConsumedStack = [...myConsumedStack, ...forConsumed];
-
-      // Place remaining cards in `Discard` stack.
-      const forDiscard = myHandStack.filter((cardId:string) => !forConsumed.includes(cardId));
-      myDiscardStack = [...myDiscardStack, ...forDiscard];
 
 
 
@@ -119,10 +76,12 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
 
 
       /** Define current card stacks  **/
-      myStacks = [myReadyStack, newHandStack, myDiscardStack, myConsumedStack];
+      myStacks[Stack.READY] = myReadyStack;
+      myStacks[Stack.HAND] = newHandStack;
+
 
       // Refresh CardState
-      myCards = refreshCards(myCards, myStacks);
+      myCards = util.performRefreshLogic(myCards, myStacks);
 
       return {
         ...state,
@@ -132,16 +91,23 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
         shuffleRequired: myShuffleRequired
       }
     case 'SHUFFLE':
+      const newReadyStack:string[] = util.shuffle([
+        ...myStacks[Stack.READY],
+        ...myStacks[Stack.HAND],
+        ...myStacks[Stack.DISCARD]
+      ]);
 
-      const newReadyStack:string[] = util.shuffle([...myReadyStack, ...myHandStack, ...myDiscardStack]);
-      const newStacks:string[][] = [newReadyStack, [], [], myConsumedStack];
 
-      myCards = refreshCards(myCards, newStacks);
+      myStacks[Stack.READY] = newReadyStack;
+      myStacks[Stack.HAND] = [];
+      myStacks[Stack.DISCARD] = [];
+
+      myCards = util.performRefreshLogic(myCards, myStacks);
 
       return {
         ...state,
         cards: myCards,
-        stacks: newStacks,
+        stacks: myStacks,
         drawMod: DrawMod.NONE,
         shuffleRequired: false
       }
