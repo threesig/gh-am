@@ -29,7 +29,7 @@ export const initialDeckState = (cards:T.CardProps[]) => {
       [], // Discard Stack
       [], // Consumed Stack
     ],
-    drawMod: DrawMod.ADVANTAGE,
+    drawMod: DrawMod.NONE,
     shuffleRequired: false
   };
 }

@@ -28,7 +28,7 @@ export interface CardFrontPropsUI {
 
 export interface ButtonProps {
   children: React.ReactNode;
-  callBack: (e:Event) => (void);
+  callback: any;
   enabled?: boolean
 }
 export interface ButtonPropsUI {

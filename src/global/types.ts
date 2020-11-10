@@ -36,6 +36,13 @@ export type DeckContextProps = {
   setDisadvantage: () => (void);
   unsetDrawMods: () => (void);
 };
+
+// export type ButtonProps = {
+//   children: React.ReactNode;
+//   callBack: (e:Event) => (void);
+//   enabled?: boolean
+// }
+
 export type ProviderProps = {
   children: React.ReactNode
 };
