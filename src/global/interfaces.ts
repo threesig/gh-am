@@ -8,6 +8,7 @@ export interface CardProps {
   id: string;
   name: string;
   isFlipped?: boolean;
+  isHilited?: boolean;
   stack?: number;
   idx?: number;
 }
@@ -29,13 +30,13 @@ export interface CardFrontPropsUI {
 export interface ButtonProps {
   children: React.ReactNode;
   callback: any;
-  enabled?: boolean;
-  hilited?: boolean;
+  isEnabled?: boolean;
+  isHilited?: boolean;
 }
 export interface ButtonPropsUI {
   onClick: any;
   disabled: boolean;
-  hilited: boolean;
+  isHilited: boolean;
 }
 
 

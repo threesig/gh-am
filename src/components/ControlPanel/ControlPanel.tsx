@@ -9,19 +9,19 @@ const ControlPanel = () => {
   const {draw, shuffle, setAdvantage, setDisadvantage, unsetDrawMods, drawMod, shuffleRequired} = useContext(DeckContext);
 
   const buttonProps = [
-    {children: 'Draw!', callback:draw, enabled: !shuffleRequired},
+    {children: 'Draw!', callback:draw, isEnabled: !shuffleRequired},
     {children: 'Shuffle', callback: shuffle},
     {
       children: 'Strengthen',
       callback: drawMod===DrawMod.ADVANTAGE ? unsetDrawMods : setAdvantage,
-      enabled: !shuffleRequired,
-      hilited: drawMod===DrawMod.ADVANTAGE
+      isEnabled: !shuffleRequired,
+      isHilited: drawMod===DrawMod.ADVANTAGE
     },
     {
       children: 'Muddle',
       callback: drawMod===DrawMod.DISADVANTAGE ? unsetDrawMods : setDisadvantage,
-      enabled: !shuffleRequired,
-      hilited: drawMod===DrawMod.DISADVANTAGE
+      isEnabled: !shuffleRequired,
+      isHilited: drawMod===DrawMod.DISADVANTAGE
     },
   ];
 

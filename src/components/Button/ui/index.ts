@@ -11,7 +11,7 @@ const cssMaybeHilite = (hilited:boolean) => hilited && css`
 
 
 export const Button = styled.button<I.ButtonPropsUI>`
-  ${props => cssMaybeHilite(props.hilited)};
+  ${props => cssMaybeHilite(props.isHilited)};
   border-radius: 0.138888889em;
   transition: all .2s;
   font-family: 'Pirata One', cursive;

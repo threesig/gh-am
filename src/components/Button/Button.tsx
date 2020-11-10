@@ -5,14 +5,14 @@ import * as UI from "./ui";
 const Button: React.FC<I.ButtonProps> = ({
                                              children,
                                              callback = () => {},
-                                             enabled= true,
-                                             hilited= false,
+                                             isEnabled= true,
+                                             isHilited= false,
 }) => {
 
     const buttonProps = {
         onClick: (e:Event) => callback(e),
-        disabled: !enabled,
-        hilited
+        disabled: !isEnabled,
+        isHilited: isHilited
     }
     return <UI.Button {...buttonProps}>{children}</UI.Button>;
 }
