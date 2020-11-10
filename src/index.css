@@ -3,6 +3,9 @@
 /* Reset box-model and set borders */
 /* ============================================ */
 
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
+
+
 *,
 ::before,
 ::after {
