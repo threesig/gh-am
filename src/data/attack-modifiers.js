@@ -35,7 +35,7 @@ export const AMCards = [
     "type": "p2",
     "name": "am-p-18",
     "effects": {
-      "damageMod": +2
+      "damageMod": 2
     },
     "description": "+2"
   },
@@ -52,7 +52,7 @@ export const AMCards = [
     "type": "crit",
     "name": "am-p-20",
     "effects": {
-      "damageMod": 100
+      "damageMod": "2x"
     },
     "description": "Critical",
     "shuffle": true
@@ -61,7 +61,7 @@ export const AMCards = [
     "type": "bless",
     "name": "am-pm-01",
     "effects": {
-      "damageMod": 100
+      "damageMod": "2x"
     },
     "description": "Bless",
     "temporary": true,
@@ -70,7 +70,7 @@ export const AMCards = [
     "type": "curse",
     "name": "am-pm-21",
     "effects": {
-      "damageMod": 70
+      "damageMod": null
     },
     "description": "Curse",
     "temporary": true
@@ -124,7 +124,7 @@ export const AMCards = [
     "type": "p2-ice",
     "name": "am-sw-13",
     "effects": {
-      "damageMod": 390,
+      "damageMod": 2,
       "element": "Ice"
     },
     "description": "+2 Generate Ice"

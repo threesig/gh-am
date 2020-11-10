@@ -39,6 +39,7 @@ export const buildCards = (deckSpec:any) => {
         stack: Stack.READY,
         idx:j++,
         isFlipped:false,
+        value: calculateCardValue(effects),
         shuffle: shuffle||false,
         temporary: temporary||false,
       } as T.CardProps);
@@ -46,6 +47,18 @@ export const buildCards = (deckSpec:any) => {
   }
 
   return myCards;
+}
+export const calculateCardValue = (effects:T.CardEffects) => {
+  const baseVal = typeof effects.damageMod === 'string'
+                          ? 100
+                          : effects.damageMod === null
+                            ? -100
+                            : effects.damageMod;
+
+  const ignoredOtherEffects = ['damageMod', 'rolling'];
+  const otherValuedEffects = Object.keys(effects).filter((effectType:string) => !ignoredOtherEffects.includes(effectType));
+
+  return baseVal + otherValuedEffects.length * 10;
 }
 
 export const getRems = (pixelWidth:number) => pixelWidth/10;
