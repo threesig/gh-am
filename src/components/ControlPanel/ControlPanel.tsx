@@ -11,15 +11,27 @@ const ControlPanel = () => {
   const buttonProps = [
     {children: 'Draw!', callback:draw, enabled: !shuffleRequired},
     {children: 'Shuffle', callback: shuffle},
-    {children: 'Strengthen', callback: drawMod===DrawMod.ADVANTAGE ? unsetDrawMods : setAdvantage, enabled: !shuffleRequired},
-    {children: 'Muddle', callback: drawMod===DrawMod.DISADVANTAGE ? unsetDrawMods : setDisadvantage, enabled: !shuffleRequired},
+    {
+      children: 'Strengthen',
+      callback: drawMod===DrawMod.ADVANTAGE ? unsetDrawMods : setAdvantage,
+      enabled: !shuffleRequired,
+      hilited: drawMod===DrawMod.ADVANTAGE
+    },
+    {
+      children: 'Muddle',
+      callback: drawMod===DrawMod.DISADVANTAGE ? unsetDrawMods : setDisadvantage,
+      enabled: !shuffleRequired,
+      hilited: drawMod===DrawMod.DISADVANTAGE
+    },
   ];
 
 
   return (
     <UI.Panel>
       {buttonProps.map((props) => (
-        <UI.PanelItem key={`button-${props.children}`}><Button {...props} /></UI.PanelItem>
+        <UI.PanelItem key={`button-${props.children}`}>
+          <Button {...props} />
+        </UI.PanelItem>
       ))}
     </UI.Panel>
   );
