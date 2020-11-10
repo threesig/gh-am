@@ -63,6 +63,19 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
   let myConsumedStack = [...myStacks[Stack.CONSUMED]];
 
   const getCardValue = (cardId:string) => myCards.filter((card)=> card.id===cardId)[0].value;
+  const discard = () => {
+    /** Perform Discard Logic **/
+
+    // Set aside Temporary cards to place in `Consumed` stack.
+    const forConsumed = myCards.filter((card:T.CardProps) => myHandStack.includes(card.id) && card.temporary).map((card:T.CardProps) => card.id);
+    const newConsumedStack = [...myConsumedStack, ...forConsumed];
+
+    // Place remaining cards in `Discard` stack.
+    const forDiscard = myHandStack.filter((cardId:string) => !forConsumed.includes(cardId));
+    const newDiscardStack = [...myDiscardStack, ...forDiscard];
+
+
+  }
 
 
 
