@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 export const Container = styled.div`  
-  perspective: 1200px;
+  perspective: 120rem;
   position: relative;
 `;
 

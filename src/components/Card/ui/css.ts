@@ -1,5 +1,6 @@
 import {css, keyframes} from "styled-components";
 import {Stack} from "../../../global/enums";
+import * as U from '../../../util';
 
 const glowRadius = 5;
 const glowColor = 'gold';
@@ -13,10 +14,10 @@ const stackBrightness = [
 const glowDuration = 2;
 const aniCardGlow = keyframes`
   0%, 100% {
-    box-shadow: 0 0 ${glowRadius/2}px -${glowRadius/2}px ${glowColor};
+    box-shadow: 0 0 ${U.getRems(glowRadius)/2}rem -${U.getRems(glowRadius)/2}rem ${glowColor};
   }
   75% {
-    box-shadow: 0 0 ${glowRadius}px ${glowRadius}px ${glowColor};
+    box-shadow: 0 0 ${U.getRems(glowRadius)}rem ${U.getRems(glowRadius)}rem ${glowColor};
   }
 `;
 
@@ -35,8 +36,8 @@ export const CardFaceCommon = css`
   background: center center no-repeat;
   background-size: cover;
   backface-visibility: hidden;
-  border-radius: ${cardWidth/30}px;
-  box-shadow: 0 .5px .5px rgba(255, 255, 255, 0.8);
+  border-radius: ${U.getRems(cardWidth)/30}rem;
+  box-shadow: 0 .05rem .05rem rgba(255, 255, 255, 0.8);
   position: absolute;
   display: flex;
   align-items: center;
@@ -80,7 +81,7 @@ export const SetCardState = (isFlipped:boolean=false, stack:number=0, idx:number
   return css`
     transition: all ${cardTransitionTime}, z-index 0s;
 
-    transform: rotateY(${revolve}deg) translate(${commute}px, ${-lift}px) scale(${scale});
+    transform: rotateY(${revolve}deg) translate(${U.getRems(commute)}rem, ${U.getRems(-lift)}rem) scale(${scale});
     transform-origin: 50% 50%;
     transform-style: preserve-3d;
 

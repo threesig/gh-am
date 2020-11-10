@@ -47,3 +47,5 @@ export const buildCards = (deckSpec:any) => {
 
   return myCards;
 }
+
+export const getRems = (pixelWidth:number) => pixelWidth/10;

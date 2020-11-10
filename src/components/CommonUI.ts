@@ -16,5 +16,5 @@ export const Content = styled.div`
 `;
 
 export const Section = styled.section`
-  padding: 20px;
+  padding: 2rem;
 `

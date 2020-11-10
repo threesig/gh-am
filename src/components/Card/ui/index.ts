@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import cardBack from '../../../assets/cardBack.jpg';
 import * as I from '../../../global/interfaces';
 import * as css from './css';
+import * as U from '../../../util';
 
 
 export const Card = styled.div<I.CardPropsUI>`
@@ -11,7 +12,7 @@ export const Card = styled.div<I.CardPropsUI>`
   ${props => css.SetCardState(props.isFlipped, props.stack, props.idx)};
   cursor: pointer;
   position: absolute;
-  width: ${css.cardWidth}px;
+  width: ${U.getRems(css.cardWidth)}rem;
 `;
 
 export const CardFront = styled.div<I.CardFrontPropsUI>`
