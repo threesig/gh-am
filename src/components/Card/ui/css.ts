@@ -6,11 +6,6 @@ const glowRadius = 5;
 const glowColor = 'gold';
 const cardTransitionTime = '.5s';
 const cardLiftIncrement = 0.6;
-const stackBrightness = [
-  .9,
-  1.5,
-  .5
-];
 const glowDuration = 2;
 const aniCardGlow = keyframes`
   0%, 100% {
@@ -50,7 +45,7 @@ export const SetCardState = (isFlipped:boolean=false, stack:number=0, idx:number
   const revolve = isFlipped ? 180 : 0;
 
 
-  let commute=0, lift=0, animation:any='none', scale=1, opacity=1;
+  let commute=0, lift=0, animation:any='none', scale=1, filter='none';
   switch(stack) {
     case Stack.READY:
       lift = idx*cardLiftIncrement;
@@ -68,12 +63,9 @@ export const SetCardState = (isFlipped:boolean=false, stack:number=0, idx:number
       commute = cardGutter + cardWidth + lift/3;
       break;
     case Stack.CONSUMED:
-      scale = 1.5;
-      lift = scale*2*313;
-      commute = idx * scale * (cardWidth + cardGutter);
-      opacity = 0;
+      scale = 0.2;
+      lift = 10*scale*(cardHeight + cardGutter);
       break;
-
   }
 
   commute = isFlipped ? -commute : commute;
@@ -86,7 +78,6 @@ export const SetCardState = (isFlipped:boolean=false, stack:number=0, idx:number
     transform-style: preserve-3d;
 
     /* animation: ${animation} ${glowDuration}s infinite; */
-    opacity: ${opacity};
     z-index: ${100*stack + idx};
   `;
 }
@@ -106,9 +97,27 @@ export const SetCardFaceImage = (cardName:string) => {
     background-image: url(${cardFront});
     `;
 }
-export const SetCardFaceBrightness = (stack:number) => {
+export const SetCardFaceState = (stack:number) => {
+
+  let opacity = 1, brightness=1;
+  switch(stack) {
+    case Stack.READY:
+      brightness = 0.9;
+      break;
+    case Stack.HAND:
+      brightness = 1.5;
+      break;
+    case Stack.DISCARD:
+      brightness = 0.5;
+      break;
+    case Stack.CONSUMED:
+      opacity = 0;
+      break;
+  }
+
   return css`
-    filter: brightness(${stackBrightness[stack]});
+    filter: brightness(${brightness});
+    opacity: ${opacity};
   `;
 }
 

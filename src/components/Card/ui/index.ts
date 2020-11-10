@@ -18,7 +18,7 @@ export const Card = styled.div<I.CardPropsUI>`
 export const CardFront = styled.div<I.CardFrontPropsUI>`
   ${css.CardFaceCommon};
   ${props => css.SetCardFaceImage(props.name)};
-  ${props => css.SetCardFaceBrightness(props.stack)};
+  ${props => css.SetCardFaceState(props.stack)};
   transform: rotateY(180deg);
 `;
 
