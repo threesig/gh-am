@@ -13,6 +13,7 @@ export type CardProps = {
   name: string;
   stack: number;
   isFlipped: boolean;
+  isHilited: boolean;
   idx: number;
   shuffle?:boolean;
   temporary?:boolean;

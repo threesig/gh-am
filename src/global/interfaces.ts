@@ -19,6 +19,7 @@ export interface CardPropsUI {
 };
 export interface CardFrontPropsUI {
   name: string;
+  isHilited?: boolean;
   stack: number;
 }
 

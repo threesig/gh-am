@@ -13,6 +13,7 @@ const refreshCards = (cards:T.CardProps[], stacks:string[][]) => {
       thisCard.stack = stackIdx;
       thisCard.idx = cardIdx;
       thisCard.isFlipped = (stackIdx!==Stack.READY);
+      thisCard.isHilited = (stackIdx===Stack.HAND);
     });
   })
 

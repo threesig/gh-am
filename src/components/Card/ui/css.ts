@@ -38,6 +38,7 @@ export const CardFaceCommon = css`
   align-items: center;
   justify-content: center;
   top: 0; bottom: 0; left: 0; right: 0;
+  pointer-events: none;
 `;
 
 export const SetCardState = (isFlipped:boolean=false, stack:number=0, idx:number=0) => {
@@ -97,7 +98,7 @@ export const SetCardFaceImage = (cardName:string) => {
     background-image: url(${cardFront});
     `;
 }
-export const SetCardFaceState = (stack:number) => {
+export const SetCardFaceState = (stack:number, isHilited:boolean) => {
 
   let opacity = 1, brightness=1;
   switch(stack) {
@@ -118,6 +119,7 @@ export const SetCardFaceState = (stack:number) => {
   return css`
     filter: brightness(${brightness});
     opacity: ${opacity};
-  `;
+    ${isHilited && `box-shadow: 0 0 1rem yellow;`};  
+`;
 }
 
