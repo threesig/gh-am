@@ -10,7 +10,7 @@ const ControlPanel = () => {
 
   const buttonProps = [
     {children: 'Draw!', callback:draw, isEnabled: !shuffleRequired},
-    {children: 'Shuffle', callback: shuffle},
+    {children: 'Shuffle', callback: shuffle, isHilited: shuffleRequired},
     {
       children: 'Strengthen',
       callback: drawMod===DrawMod.ADVANTAGE ? unsetDrawMods : setAdvantage,
