@@ -1,4 +1,5 @@
 import React from "react";
+import {DrawMod} from "./enums";
 
 export type CardEffects = {
   damageMod: any;
@@ -28,8 +29,12 @@ export type DeckContextProps = {
   cards: CardProps[];
   stacks: string[][];
   shuffleRequired: boolean;
+  drawMod: number;
   draw: () => (void);
   shuffle: () => (void);
+  setAdvantage: () => (void);
+  setDisadvantage: () => (void);
+  unsetDrawMods: () => (void);
 };
 export type ProviderProps = {
   children: React.ReactNode

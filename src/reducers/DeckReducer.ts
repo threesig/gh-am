@@ -126,6 +126,11 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
         stacks: newStacks,
         shuffleRequired: false
       }
+    case 'SET_DRAW_MOD':
+      return {
+        ...state,
+        drawMod: action.value
+      }
     default:
       console.error(`ACTION TYPE "${action.type}" is not recognized`);
       return state;

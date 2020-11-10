@@ -3,6 +3,7 @@ import {DeckReducer, initialDeckState, prepareDeckState} from "../reducers/DeckR
 import * as T  from '../global/types';
 import * as Util from '../util';
 import * as DeckSpec from '../data/deckSpecs';
+import {DrawMod} from "../global/enums";
 
 
 const DeckContext = createContext({} as T.DeckContextProps);
@@ -11,13 +12,18 @@ const DeckContext = createContext({} as T.DeckContextProps);
 export const DeckProvider = ({children}: T.ProviderProps) => {
   const [state, dispatch] = useReducer(DeckReducer, initialDeckState(Util.buildCards(DeckSpec.Spellweaver)), prepareDeckState);
 
-  const {cards, stacks, shuffleRequired} = state;
+  const {cards, stacks, shuffleRequired, drawMod} = state;
   const value = {
     cards,
     stacks,
     shuffleRequired,
+    drawMod,
+
     draw: () => dispatch({type: 'DRAW'}),
-    shuffle: () => dispatch({type: 'SHUFFLE'})
+    shuffle: () => dispatch({type: 'SHUFFLE'}),
+    setAdvantage: () => dispatch({type: 'SET_DRAW_MOD', value: DrawMod.ADVANTAGE}),
+    setDisadvantage: () => dispatch({type: 'SET_DRAW_MOD', value: DrawMod.DISADVANTAGE}),
+    unsetDrawMods: () => dispatch({type: 'SET_DRAW_MOD', value: DrawMod.NONE}),
   };
 
   return (
