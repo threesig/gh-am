@@ -124,6 +124,7 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
         ...state,
         cards: myCards,
         stacks: newStacks,
+        drawMod: DrawMod.NONE,
         shuffleRequired: false
       }
     case 'SET_DRAW_MOD':
