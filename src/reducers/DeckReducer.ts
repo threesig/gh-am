@@ -62,6 +62,10 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
   let myDiscardStack = [...myStacks[Stack.DISCARD]];
   let myConsumedStack = [...myStacks[Stack.CONSUMED]];
 
+  const getCardValue = (cardId:string) => myCards.filter((card)=> card.id===cardId)[0].value;
+
+
+
   switch (action.type) {
 
     case 'DRAW':
