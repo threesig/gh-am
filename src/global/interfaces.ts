@@ -29,11 +29,13 @@ export interface CardFrontPropsUI {
 export interface ButtonProps {
   children: React.ReactNode;
   callback: any;
-  enabled?: boolean
+  enabled?: boolean;
+  hilited?: boolean;
 }
 export interface ButtonPropsUI {
   onClick: any;
   disabled: boolean;
+  hilited: boolean;
 }
 
 
