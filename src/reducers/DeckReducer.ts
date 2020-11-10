@@ -47,12 +47,14 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
   switch (action.type) {
 
     case 'DRAW':
+      // if no Ready cards, abandon ship
+      if (!state.stacks[Stack.READY].length) return state;
+
+
+
+
       const myReadyStack = [...myStacks[Stack.READY]];
-
       let {drawMod:myDrawMod, shuffleRequired:myShuffleRequired} = state;
-
-
-
 
       /** Perform Draw Logic **/
 
@@ -72,7 +74,7 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
 
 
       /** Check if newly drawn card(s) require a shuffle **/
-      myShuffleRequired = myCards.filter((card:T.CardProps) => newHandStack.includes(card.id) && card.shuffle===true ).length>0;
+      myShuffleRequired = myShuffleRequired || myCards.filter((card:T.CardProps) => newHandStack.includes(card.id) && card.shuffle===true ).length>0;
 
 
       /** Define current card stacks  **/
