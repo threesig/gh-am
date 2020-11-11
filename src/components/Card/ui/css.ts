@@ -117,8 +117,7 @@ export const SetCardFaceState = (stack:number, isHilited:boolean) => {
       break;
   }
 
-  // Just testing out Hiliting options
-  const contrast = isHilited ? 1 : 1;
+  const contrast = 1;
 
   return css`
     filter: brightness(${brightness}) contrast(${contrast});
