@@ -2,7 +2,7 @@ import React from 'react';
 import * as UI from './ui';
 import * as I from '../../global/interfaces';
 
-const Card: React.FC<I.CardProps> = ({
+const Card: React.FC<I.Card> = ({
                                        id,
                                        name,
                                        isFlipped = false,

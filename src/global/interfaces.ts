@@ -4,7 +4,7 @@ import React from "react";
  *  Card
  */
 
-export interface CardProps {
+export interface Card {
   id: string;
   name: string;
   isFlipped?: boolean;
@@ -12,12 +12,12 @@ export interface CardProps {
   stack?: number;
   idx?: number;
 }
-export interface CardPropsUI {
+export interface CardUI {
   isFlipped?:boolean,
   stack?:number,
   idx?:number,
 };
-export interface CardFrontPropsUI {
+export interface CardFrontUI {
   name: string;
   isHilited?: boolean;
   stack: number;
@@ -28,13 +28,13 @@ export interface CardFrontPropsUI {
  *  Button
  */
 
-export interface ButtonProps {
+export interface Button {
   children: React.ReactNode;
   callback: any;
   isEnabled?: boolean;
   isHilited?: boolean;
 }
-export interface ButtonPropsUI {
+export interface ButtonUI {
   onClick: any;
   disabled: boolean;
   isHilited: boolean;
@@ -46,5 +46,5 @@ export interface ButtonPropsUI {
  */
 
 export interface DeckProps {
-  cards: CardProps[];
+  cards: Card[];
 }

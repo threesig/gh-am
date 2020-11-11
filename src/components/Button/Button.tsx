@@ -2,7 +2,7 @@ import React from "react";
 import * as I from "../../global/interfaces";
 import * as UI from "./ui";
 
-const Button: React.FC<I.ButtonProps> = ({
+const Button: React.FC<I.Button> = ({
                                              children,
                                              callback = () => {},
                                              isEnabled= true,

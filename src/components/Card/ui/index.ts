@@ -7,7 +7,7 @@ import * as css from './css';
 import * as U from '../../../util';
 
 
-export const Card = styled.div<I.CardPropsUI>`
+export const Card = styled.div<I.CardUI>`
   ${css.SetCardAspectRatio(css.aspectWidth, css.aspectHeight)};
   ${props => css.SetCardState(props.isFlipped, props.stack, props.idx)};
   cursor: pointer;
@@ -15,7 +15,7 @@ export const Card = styled.div<I.CardPropsUI>`
   width: ${U.getRems(css.cardWidth)}rem;
 `;
 
-export const CardFront = styled.div<I.CardFrontPropsUI>`
+export const CardFront = styled.div<I.CardFrontUI>`
   ${css.CardFaceCommon};
   ${props => css.SetCardFaceImage(props.name)};
   ${props => css.SetCardFaceState(props.stack, props.isHilited!)};
