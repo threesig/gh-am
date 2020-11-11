@@ -9,7 +9,7 @@ The purpose of this project is to create a fully functional, data-driven Gloomha
 
 The app in its current state is an Attack Modifier Deck with 4 options
 
-* `Draw!` - Place any cards in hand into "Discard" or "Consumed".  Draw a card from the downfacing "Ready" stack, place it in your hand. If Advantage or Disadvantage are set, draw 2 cards. If a card is drawn that requires a shuffle, the Shuffle button will glow.
+* `Draw!` - Discard any cards in hand.  Draw a card from the downfacing "Ready" stack, place it in your new hand. If `Advantage` or `Disadvantage` are set, draw 2 cards. If a card is drawn that requires a shuffle, the Shuffle button will glow.
 * `Shuffle` - Place any temporary cards in hand into the consumed stack.  Combine discard and any remaining cards in hand with the downfacing "Ready" stack, and randomize.  Remove any Advantage or Disadvantage flags if set.  Remove shuffle indicator if set.
 * `Advantage` - Sets Advantage flag.  Draw will pull 2 cards from the deck, and unset the flag.
 * `Disadvantage` - Sets Disdvantage flag.  Draw will pull 2 cards from the deck, and unset the flag.
@@ -26,7 +26,7 @@ The app in its current state is an Attack Modifier Deck with 4 options
     * `Discard` - Normal cards are removed from the `Hand` and placed here, to be reused on next Shuffle
 * Meaningful aesthetics for the card states, and transitions between states.
 * Support `Advantage` and `Disadvantage` Draw states. 
-* Calculate value of card 
+* Calculate value of each card, to be used for `Advantage`/`Disadvantage` comparisons in future versions of the app. 
 * Control Panel for interacting with the deck, and setting Draw states
 * Visual "active" indicators for Control Panel buttons, where appropriate
 
@@ -34,7 +34,7 @@ The app in its current state is an Attack Modifier Deck with 4 options
 * Visual indicator on `Advantage` or `Disadvantage` for which card 
 * Support for Rolling attack modifiers
 * Data visualizations indicating various draw probabilities
-* Visual indicators to denote Blessed or Cursed (or both!) status 
+* Visual indicators to denote `Blessed` or `Cursed` (or both!) status 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
