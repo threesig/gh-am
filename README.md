@@ -1,5 +1,6 @@
 # Gloomhaven Attack Modifier Deck
-[Gloomhaven](http://www.cephalofair.com/gloomhaven) by [Cephalofair Games](http://www.cephalofair.com/) [Developer: Isaac Childres].
+
+[Gloomhaven](http://www.cephalofair.com/gloomhaven) by [Cephalofair Games](http://www.cephalofair.com/) [Developer: Isaac Childres]
 
 The purpose of this project is to create a fully functional, data-driven Gloomhaven Attack Modifier deck, which provides helpful game-condition feedback to the player, and live draw statistics as the deck is used.
 
@@ -11,7 +12,7 @@ The app in its current state is an Attack Modifier Deck with 4 options
 * `Draw!` - Place any cards in hand into "Discard" or "Consumed".  Draw a card from the downfacing "Ready" stack, place it in your hand. If Advantage or Disadvantage are set, draw 2 cards. If a card is drawn that requires a shuffle, the Shuffle button will glow.
 * `Shuffle` - Place any temporary cards in hand into the consumed stack.  Combine discard and any remaining cards in hand with the downfacing "Ready" stack, and randomize.  Remove any Advantage or Disadvantage flags if set.  Remove shuffle indicator if set.
 * `Advantage` - Sets Advantage flag.  Draw will pull 2 cards from the deck, and unset the flag.
-* `Disadvantage` - - Sets Disdvantage flag.  Draw will pull 2 cards from the deck, and unset the flag.
+* `Disadvantage` - Sets Disdvantage flag.  Draw will pull 2 cards from the deck, and unset the flag.
 
 
 ## Features
