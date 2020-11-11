@@ -49,28 +49,30 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
     case 'DRAW':
       // if no Ready cards, abandon ship
       if (!state.stacks[Stack.READY].length) return state;
-
-
-
-
       const myReadyStack = [...myStacks[Stack.READY]];
       let {drawMod:myDrawMod, shuffleRequired:myShuffleRequired} = state;
 
-      /** Perform Draw Logic **/
+
+      // TODO: Add Rolling Modifier Logic
+      //  - Each single "Draw" could potentially be many cards if Rolling Modifiers are involved.
+      //  - Each "Draw" needs to be an array.
+
 
       // Start New Hand.  Draw 1 card.
       const newHandStack:string[] = [];
       newHandStack.push(myReadyStack.pop() as string);
 
 
-      // If Advantage or Disadvantage
+      // If Advantage or Disadvantage, Draw another card
       if(state.drawMod!==DrawMod.NONE) {
+
+
         newHandStack.push(myReadyStack.pop() as string);
         myDrawMod = DrawMod.NONE;
       }
 
 
-      // TODO: Add Rolling Modifier Logic
+
 
 
       /** Check if newly drawn card(s) require a shuffle **/
