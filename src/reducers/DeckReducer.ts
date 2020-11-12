@@ -12,7 +12,7 @@ export const initialDeckState = (cards:T.CardProps[]) => {
       [], // Consumed Stack
     ],
     drawMod: DrawMod.NONE,
-    shuffleRequired: false
+    shuffleUrgency: 0
   };
 }
 
@@ -50,7 +50,7 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
       // if no Ready cards, abandon ship
       if (!state.stacks[Stack.READY].length) return state;
       const myReadyStack = [...myStacks[Stack.READY]];
-      let {drawMod:myDrawMod, shuffleRequired:myShuffleRequired} = state;
+      let {drawMod:myDrawMod, shuffleUrgency:myShuffleUrgency} = state;
 
 
       // TODO: Add Rolling Modifier Logic
@@ -76,7 +76,7 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
 
 
       /** Check if newly drawn card(s) require a shuffle **/
-      myShuffleRequired = myShuffleRequired || myCards.filter((card:T.CardProps) => newHandStack.includes(card.id) && card.shuffle===true ).length>0;
+      myShuffleUrgency += myCards.filter((card:T.CardProps) => newHandStack.includes(card.id) && card.shuffle===true ).length>0 ? 1 : 0;
 
 
       /** Define current card stacks  **/
@@ -92,7 +92,7 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
         cards:myCards,
         stacks:myStacks,
         drawMod: myDrawMod,
-        shuffleRequired: myShuffleRequired
+        shuffleUrgency: myShuffleUrgency
       }
     case 'SHUFFLE':
       const newReadyStack:string[] = util.shuffle([
@@ -113,7 +113,7 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
         cards: myCards,
         stacks: myStacks,
         drawMod: DrawMod.NONE,
-        shuffleRequired: false
+        shuffleUrgency: 0
       }
     case 'SET_DRAW_MOD':
       return {
