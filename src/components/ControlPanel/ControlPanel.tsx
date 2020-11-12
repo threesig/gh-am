@@ -3,13 +3,13 @@ import DeckContext from "../../contexts/DeckContext";
 import Button from "../Button";
 import * as UI from "./ui";
 import * as E from "../../global/enums";
+import ShuffleButton from "../ShuffleButton/ShuffleButton";
 
 const ControlPanel = () => {
   const {draw, shuffle, setAdvantage, setDisadvantage, unsetDrawMods, drawMod, shuffleUrgency} = useContext(DeckContext);
 
   const buttonProps = [
     {children: 'Draw!', callback:draw},
-    {children: 'Shuffle', callback: shuffle, isHilited: shuffleUrgency>0},
     {
       children: 'Strengthen',
       callback: drawMod===E.DrawMod.ADVANTAGE ? unsetDrawMods : setAdvantage,
@@ -26,6 +26,9 @@ const ControlPanel = () => {
 
   return (
     <UI.Panel>
+      <UI.PanelItem>
+        <ShuffleButton />
+      </UI.PanelItem>
       {buttonProps.map((props) => (
         <UI.PanelItem key={`button-${props.children}`}>
           <Button {...props} />
