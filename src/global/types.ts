@@ -23,12 +23,12 @@ export type DeckState = {
   cards: CardProps[];
   stacks: string[][];
   drawMod: number;
-  shuffleRequired: boolean;
+  shuffleUrgency: number;
 }
 export type DeckContextProps = {
   cards: CardProps[];
   stacks: string[][];
-  shuffleRequired: boolean;
+  shuffleUrgency: number;
   drawMod: number;
   draw: () => (void);
   shuffle: () => (void);

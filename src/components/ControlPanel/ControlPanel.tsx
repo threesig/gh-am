@@ -6,11 +6,11 @@ import * as T from "../../global/types";
 import {DrawMod} from "../../global/enums";
 
 const ControlPanel = () => {
-  const {draw, shuffle, setAdvantage, setDisadvantage, unsetDrawMods, drawMod, shuffleRequired} = useContext(DeckContext);
+  const {draw, shuffle, setAdvantage, setDisadvantage, unsetDrawMods, drawMod, shuffleUrgency} = useContext(DeckContext);
 
   const buttonProps = [
     {children: 'Draw!', callback:draw},
-    {children: 'Shuffle', callback: shuffle, isHilited: shuffleRequired},
+    {children: 'Shuffle', callback: shuffle, isHilited: shuffleUrgency>0},
     {
       children: 'Strengthen',
       callback: drawMod===DrawMod.ADVANTAGE ? unsetDrawMods : setAdvantage,
@@ -19,7 +19,7 @@ const ControlPanel = () => {
     {
       children: 'Muddle',
       callback: drawMod===DrawMod.DISADVANTAGE ? unsetDrawMods : setDisadvantage,
-      isEnabled: !shuffleRequired,
+      isEnabled: shuffleUrgency===0,
       isHilited: drawMod===DrawMod.DISADVANTAGE
     },
   ];

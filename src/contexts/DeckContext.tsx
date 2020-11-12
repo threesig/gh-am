@@ -12,11 +12,11 @@ const DeckContext = createContext({} as T.DeckContextProps);
 export const DeckProvider = ({children}: T.ProviderProps) => {
   const [state, dispatch] = useReducer(DeckReducer, initialDeckState(Util.buildCards(DeckSpec.Spellweaver)), prepareDeckState);
 
-  const {cards, stacks, shuffleRequired, drawMod} = state;
+  const {cards, stacks, shuffleUrgency, drawMod} = state;
   const value = {
     cards,
     stacks,
-    shuffleRequired,
+    shuffleUrgency,
     drawMod,
 
     draw: () => dispatch({type: 'DRAW'}),
