@@ -10,9 +10,7 @@ interface ProviderProps {
 
 const Providers:React.FC<ProviderProps> = ({children}) => (
   <DeckProvider>
-    <ThemeProvider {...{theme}}>
-      {children}
-    </ThemeProvider>
+    {children}
   </DeckProvider>
 )
 
