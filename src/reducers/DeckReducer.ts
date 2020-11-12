@@ -76,7 +76,15 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
 
 
       /** Check if newly drawn card(s) require a shuffle **/
-      myShuffleUrgency += myCards.filter((card:T.CardProps) => newHandStack.includes(card.id) && card.shuffle===true ).length>0 ? 1 : 0;
+
+
+
+      myShuffleUrgency += (myShuffleUrgency > 0)
+        ? 1
+        : myCards.filter((card:T.CardProps) => newHandStack.includes(card.id) && card.shuffle===true ).length>0 ? 1 : 0;
+
+
+
 
 
       /** Define current card stacks  **/
