@@ -1,6 +1,5 @@
 import React, {useContext} from "react";
 import Button from '../Button'
-import * as I from "../../global/interfaces";
 import DeckContext from "../../contexts/DeckContext";
 
 const ButtonShuffle = () => {
