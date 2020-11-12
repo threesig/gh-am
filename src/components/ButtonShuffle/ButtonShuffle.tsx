@@ -3,9 +3,9 @@ import Button from '../Button'
 import * as I from "../../global/interfaces";
 import DeckContext from "../../contexts/DeckContext";
 
-const ShuffleButton = () => {
+const ButtonShuffle = () => {
   const {shuffle, shuffleUrgency} = useContext(DeckContext);
   const buttonProps = {callback: shuffle, isHilited: shuffleUrgency>0}
   return <Button {...buttonProps}>Shuffle</Button>
 }
-export default ShuffleButton;
+export default ButtonShuffle;
