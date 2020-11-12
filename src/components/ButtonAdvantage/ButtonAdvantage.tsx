@@ -8,7 +8,8 @@ const ButtonAdvantage = () => {
 
   const buttonProps = {
     callback: drawMod===E.DrawMod.ADVANTAGE ? unsetDrawMods : setAdvantage,
-    volume: drawMod===E.DrawMod.ADVANTAGE ? 1 : 0
+    volume: drawMod===E.DrawMod.ADVANTAGE ? 1 : 0,
+    colorScheme: 'advantage'
   }
   return <Button {...buttonProps}>Strengthen</Button>
 }

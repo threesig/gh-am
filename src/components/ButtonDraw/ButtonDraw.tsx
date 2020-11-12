@@ -6,6 +6,7 @@ const ButtonDraw = () => {
   const {draw} = useContext(DeckContext);
   const buttonProps = {
     callback: draw,
+    colorScheme: 'draw'
   }
 
   return <Button {...buttonProps}>Draw!</Button>

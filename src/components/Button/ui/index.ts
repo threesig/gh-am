@@ -1,17 +1,55 @@
-import styled, {css} from 'styled-components';
+import {useContext} from 'react';
+import styled, {css, ThemeContext} from 'styled-components';
 import {darken, lighten} from 'polished';
+
 import * as I from '../../../global/interfaces';
 
+type ButtonAttrs = {
+  backgroundColor: string;
+  color: string;
+  boxShadow: string;
+}
 
-const cssSetVolume = (volume:number) => volume > 0 && css`
-  background-color: yellow;
-  box-shadow: 0 0 1rem yellow;
-  color: ${darken(0.35, '#ffff00')};
-`;
+type ButtonAttributeValue = {
+  volume: number;
+  value: string;
+}
+
+
+
+
+const getStyleValues = (theme:any, volume:number) => {
+  const ret:any = {};
+
+  for (const attr in theme!) {
+    const possibleAttrVals:ButtonAttributeValue[] = theme[attr];
+
+    // @ts-ignore
+    ret[attr] = possibleAttrVals.filter((valCandidate) => valCandidate.volume <= volume ).pop().value;
+  }
+
+  return ret;
+}
+
+
+
+
+const cssSetButtonState = (theme:any, volume:number) => {
+  const {backgroundColor, color, boxShadow} = getStyleValues(theme, volume);
+
+  return css`
+    background-color: ${backgroundColor};  
+    color: ${color};
+    box-shadow: ${boxShadow};
+  `
+};
 
 
 export const Button = styled.button<I.ButtonUI>`
-  ${props => cssSetVolume(props.volume)};
+  ${props => {
+    console.log(props);
+    return cssSetButtonState(props.theme[props.colorScheme], props.volume)
+}};
   border-radius: 0.138888889em;
   transition: all .2s;
   font-family: 'Pirata One', cursive;

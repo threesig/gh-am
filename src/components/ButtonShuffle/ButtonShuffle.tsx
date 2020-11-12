@@ -6,7 +6,8 @@ const ButtonShuffle = () => {
   const {shuffle, shuffleUrgency} = useContext(DeckContext);
   const buttonProps = {
     callback: shuffle,
-    volume: shuffleUrgency
+    volume: shuffleUrgency,
+    colorScheme: 'shuffle'
   }
   return <Button {...buttonProps}>Shuffle</Button>
 }
