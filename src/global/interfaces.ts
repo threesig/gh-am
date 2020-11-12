@@ -32,12 +32,12 @@ export interface Button {
   children: React.ReactNode;
   callback: any;
   isEnabled?: boolean;
-  isHilited?: boolean;
+  volume?: number;
 }
 export interface ButtonUI {
   onClick: any;
   disabled: boolean;
-  isHilited: boolean;
+  volume: number;
 }
 
 

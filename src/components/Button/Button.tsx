@@ -6,13 +6,13 @@ const Button: React.FC<I.Button> = ({
                                              children,
                                              callback = () => {},
                                              isEnabled= true,
-                                             isHilited= false,
+                                             volume= 0,
 }) => {
 
     const buttonProps = {
         onClick: (e:Event) => callback(e),
         disabled: !isEnabled,
-        isHilited: isHilited
+        volume
     }
     return <UI.Button {...buttonProps}>{children}</UI.Button>;
 }

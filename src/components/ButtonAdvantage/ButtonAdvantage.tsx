@@ -5,9 +5,11 @@ import * as E from "../../global/enums";
 
 const ButtonAdvantage = () => {
   const {drawMod, setAdvantage, unsetDrawMods} = useContext(DeckContext);
-  const callback = drawMod===E.DrawMod.ADVANTAGE ? unsetDrawMods : setAdvantage;
 
-  const buttonProps = {callback, isHilited: drawMod===E.DrawMod.ADVANTAGE}
+  const buttonProps = {
+    callback: drawMod===E.DrawMod.ADVANTAGE ? unsetDrawMods : setAdvantage,
+    volume: drawMod===E.DrawMod.ADVANTAGE ? 1 : 0
+  }
   return <Button {...buttonProps}>Strengthen</Button>
 }
 export default ButtonAdvantage;

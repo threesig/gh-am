@@ -11,7 +11,7 @@ const ButtonDisadvantage = () => {
   const buttonProps = {
     callback,
     isEnabled: shuffleUrgency===0,
-    isHilited: drawMod===E.DrawMod.DISADVANTAGE
+    volume: drawMod===E.DrawMod.DISADVANTAGE ? 1 : 0
   };
 
 

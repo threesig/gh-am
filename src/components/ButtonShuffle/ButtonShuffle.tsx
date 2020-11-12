@@ -4,7 +4,10 @@ import DeckContext from "../../contexts/DeckContext";
 
 const ButtonShuffle = () => {
   const {shuffle, shuffleUrgency} = useContext(DeckContext);
-  const buttonProps = {callback: shuffle, isHilited: shuffleUrgency>0}
+  const buttonProps = {
+    callback: shuffle,
+    volume: shuffleUrgency
+  }
   return <Button {...buttonProps}>Shuffle</Button>
 }
 export default ButtonShuffle;

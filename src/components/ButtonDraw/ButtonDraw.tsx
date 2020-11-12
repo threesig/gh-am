@@ -4,7 +4,9 @@ import DeckContext from "../../contexts/DeckContext";
 
 const ButtonDraw = () => {
   const {draw} = useContext(DeckContext);
-  const buttonProps = {callback: draw,}
+  const buttonProps = {
+    callback: draw,
+  }
 
   return <Button {...buttonProps}>Draw!</Button>
 }
