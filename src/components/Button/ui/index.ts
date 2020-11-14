@@ -47,7 +47,6 @@ const cssSetButtonState = (theme:any, volume:number) => {
 
 export const Button = styled.button<I.ButtonUI>`
   ${props => {
-    console.log(props);
     return cssSetButtonState(props.theme[props.colorScheme], props.volume)
 }};
   border-radius: 0.138888889em;
