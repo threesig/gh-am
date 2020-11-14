@@ -16,7 +16,8 @@ const Button: React.FC<I.Button> = ({
         onClick: (e:Event) => callback(e),
         disabled: !isEnabled,
         volume,
-        colorScheme
+        colorScheme,
+        'data-testid': 'button'
     }
     return (
       <ThemeProvider theme={buttonThemes}>

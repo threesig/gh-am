@@ -5,7 +5,7 @@ import * as UI from './ui';
 import * as I from '../../global/interfaces';
 
 export const Deck:React.FC<I.DeckProps> = ({cards}) => (
-  <UI.Container>
+  <UI.Container data-testid="deck">
     {cards.map(cardProps => <Card {...{key:`${cardProps.id}`, ...cardProps}} />)}
   </UI.Container>
 )

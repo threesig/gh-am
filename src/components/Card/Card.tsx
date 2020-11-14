@@ -12,7 +12,7 @@ const Card: React.FC<I.Card> = ({
 }) => {
 
   return (
-    <UI.Card {...{id, isFlipped, stack, idx}}>
+    <UI.Card data-testid="card" {...{id, isFlipped, stack, idx}}>
       <UI.CardFront {...{name, stack, isHilited}} />
       <UI.CardBack />
     </UI.Card>

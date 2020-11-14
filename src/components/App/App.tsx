@@ -9,7 +9,7 @@ import ControlPanel from '../ControlPanel';
 const App = () => {
   const {cards} = useContext(DeckContext);
   return (
-    <UI.Container>
+    <UI.Container data-testid="app">
       <UI.Header>
         <CommonUI.Section>
           <ControlPanel/>

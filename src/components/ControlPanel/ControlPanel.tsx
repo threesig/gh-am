@@ -8,17 +8,17 @@ import ButtonDisadvantage from "../ButtonDisadvantage";
 
 const ControlPanel = () => {
   return (
-    <UI.Panel>
-      <UI.PanelItem>
+    <UI.Panel data-testid="controlPanel">
+      <UI.PanelItem data-testid="panelItem-draw">
         <ButtonDraw />
       </UI.PanelItem>
-      <UI.PanelItem>
+      <UI.PanelItem data-testid="panelItem-shuffle">
         <ButtonShuffle />
       </UI.PanelItem>
-      <UI.PanelItem>
+      <UI.PanelItem data-testid="panelItem-advantage">
         <ButtonAdvantage />
       </UI.PanelItem>
-      <UI.PanelItem>
+      <UI.PanelItem data-testid="panelItem-disadvantage">
         <ButtonDisadvantage />
       </UI.PanelItem>
     </UI.Panel>
