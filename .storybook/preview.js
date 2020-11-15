@@ -5,8 +5,6 @@ export const parameters = {
 }
 
 // .storybook/preview.js
-
-
 export const decorators = [(Story) => (
   <Providers>
     <div style={{ margin: '3em' }}><Story/></div>
