@@ -1,5 +1,4 @@
 import {DrawMod, Stack} from "../global/enums";
-import * as T from "../global/types";
 import * as CardTypes from "../components/Card/declare/types";
 import * as DeckTypes from "../components/Deck/declare/types";
 import * as util from "../util";
