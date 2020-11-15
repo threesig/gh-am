@@ -30,7 +30,7 @@ export interface CardFrontUI {
 
 export interface Button {
   children: React.ReactNode;
-  callback: any;
+  callback?: any;
   isEnabled?: boolean;
   volume?: number;
   colorScheme?: string;
