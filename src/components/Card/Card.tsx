@@ -1,6 +1,6 @@
 import React from 'react';
 import * as UI from './ui';
-import * as I from '../../global/interfaces';
+import * as I from './declare/interfaces';
 
 const Card: React.FC<I.Card> = ({
                                        id,

@@ -2,7 +2,7 @@ import {useContext} from 'react';
 import styled, {css, ThemeContext} from 'styled-components';
 import {darken, lighten} from 'polished';
 
-import * as I from '../../../global/interfaces';
+import * as I from '../declare/interfaces';
 
 type ButtonAttrs = {
   backgroundColor: string;

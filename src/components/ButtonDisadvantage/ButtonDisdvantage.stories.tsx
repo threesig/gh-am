@@ -5,7 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import ButtonDisadvantage from './ButtonDisadvantage';
 
 export default {
-  title: 'Example/Specific Button',
+  title: 'Example/Specific Button/Muddle',
   component: ButtonDisadvantage,
   argTypes: {
     backgroundColor: { control: 'color' },
@@ -14,4 +14,4 @@ export default {
 
 const Template: Story = (args) => <ButtonDisadvantage {...args} />;
 
-export const Muddle = Template.bind({});
+export const Standard = Template.bind({});

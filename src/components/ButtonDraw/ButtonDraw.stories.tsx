@@ -5,7 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import ButtonDraw from './ButtonDraw';
 
 export default {
-  title: 'Example/Specific Button',
+  title: 'Example/Specific Button/Draw',
   component: ButtonDraw,
   argTypes: {
     backgroundColor: { control: 'color' },
@@ -14,4 +14,4 @@ export default {
 
 const Template: Story = (args) => <ButtonDraw {...args} />;
 
-export const Draw = Template.bind({});
+export const Standard = Template.bind({});

@@ -5,7 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import {ThemeProvider} from 'styled-components';
 import Button from './Button';
 
-import * as I from '../../global/interfaces';
+import * as I from './declare/interfaces';
 import * as mock from './mock';
 import buttonThemes from './ui/themes';
 

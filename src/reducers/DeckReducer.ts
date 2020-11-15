@@ -1,12 +1,14 @@
 import {DrawMod, Stack} from "../global/enums";
 import * as T from "../global/types";
+import * as CardTypes from "../components/Card/declare/types";
+import * as DeckTypes from "../components/Deck/declare/types";
 import * as util from "../util";
 
-export const initialDeckState = (cards:T.CardProps[]) => {
+export const initialDeckState = (cards:CardTypes.CardProps[]) => {
   return {
     cards,
     stacks: [
-      cards.map((card:T.CardProps) => card.id), // Ready Stack
+      cards.map((card) => card.id), // Ready Stack
       [], // Hand Stack
       [], // Discard Stack
       [], // Consumed Stack
@@ -19,7 +21,7 @@ export const initialDeckState = (cards:T.CardProps[]) => {
 
 
 
-export const prepareDeckState = (state:T.DeckState) => {
+export const prepareDeckState = (state:DeckTypes.DeckState) => {
 
   let myCards = [...state.cards];
   let myStacks = [...state.stacks];
@@ -34,7 +36,7 @@ export const prepareDeckState = (state:T.DeckState) => {
 };
 
 
-export const DeckReducer = (state:T.DeckState, action:any) => {
+export const DeckReducer = (state:DeckTypes.DeckState, action:any) => {
 
   let myCards = [...state.cards];
   let myStacks = util.performDiscardLogic(state.cards, state.stacks);
@@ -81,7 +83,7 @@ export const DeckReducer = (state:T.DeckState, action:any) => {
 
       myShuffleUrgency += (myShuffleUrgency > 0)
         ? 1
-        : myCards.filter((card:T.CardProps) => newHandStack.includes(card.id) && card.shuffle===true ).length>0 ? 1 : 0;
+        : myCards.filter((card) => newHandStack.includes(card.id) && card.shuffle===true ).length>0 ? 1 : 0;
 
 
 

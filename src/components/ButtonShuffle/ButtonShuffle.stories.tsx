@@ -5,7 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import ButtonShuffle from './ButtonShuffle';
 
 export default {
-  title: 'Example/Specific Button',
+  title: 'Example/Specific Button/Shuffle',
   component: ButtonShuffle,
   argTypes: {
     backgroundColor: { control: 'color' },
@@ -14,4 +14,4 @@ export default {
 
 const Template: Story = (args) => <ButtonShuffle {...args} />;
 
-export const Shuffle = Template.bind({});
+export const Standard = Template.bind({});

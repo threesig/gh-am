@@ -1,7 +1,7 @@
 import React from "react";
 import {ThemeProvider} from 'styled-components';
 import buttonThemes from './ui/themes';
-import * as I from "../../global/interfaces";
+import * as I from "./declare/interfaces";
 import * as UI from "./ui";
 
 const Button: React.FC<I.Button> = ({

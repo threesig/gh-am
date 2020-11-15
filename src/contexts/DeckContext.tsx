@@ -1,15 +1,16 @@
 import React, { createContext, useReducer } from 'react';
 import {DeckReducer, initialDeckState, prepareDeckState} from "../reducers/DeckReducer";
-import * as T  from '../global/types';
+import * as DeckTypes  from '../components/Deck/declare/types';
+import * as GlobalTypes  from '../global/types';
 import * as Util from '../util';
 import * as DeckSpec from '../data/deckSpecs';
 import {DrawMod} from "../global/enums";
 
 
-const DeckContext = createContext({} as T.DeckContextProps);
+const DeckContext = createContext({} as DeckTypes.DeckContextProps);
 
 
-export const DeckProvider = ({children}: T.ProviderProps) => {
+export const DeckProvider = ({children}: GlobalTypes.ProviderProps) => {
   const [state, dispatch] = useReducer(DeckReducer, initialDeckState(Util.buildCards(DeckSpec.Spellweaver)), prepareDeckState);
 
   const {cards, stacks, shuffleUrgency, drawMod} = state;

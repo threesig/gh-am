@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 import cardBack from '../../../assets/cardBack.jpg';
-import * as I from '../../../global/interfaces';
+import * as I from '../declare/interfaces';
 import * as css from './css';
 import * as U from '../../../util';
 

@@ -1,6 +1,6 @@
 import {AMCards} from "./data/attack-modifiers";
 import {Stack} from "./global/enums";
-import * as T from "./global/types";
+import * as CardTypes from "./components/Card/declare/types";
 
 export const shuffle = (arra1:any[]) => {
   let ctr = arra1.length, temp, index;
@@ -22,7 +22,7 @@ export const shuffle = (arra1:any[]) => {
 }
 
 export const buildCards = (deckSpec:any) => {
-  const myCards:T.CardProps[] = [];
+  const myCards:CardTypes.CardProps[] = [];
 
   let j:number = 0;
   for (const cardType in deckSpec) {
@@ -42,13 +42,13 @@ export const buildCards = (deckSpec:any) => {
         value: calculateCardValue(effects),
         shuffle: shuffle||false,
         temporary: temporary||false,
-      } as T.CardProps);
+      } as CardTypes.CardProps);
     }
   }
 
   return myCards;
 }
-export const calculateCardValue = (effects:T.CardEffects) => {
+export const calculateCardValue = (effects:CardTypes.CardEffects) => {
   const baseVal = typeof effects.damageMod === 'string'
                           ? 100
                           : effects.damageMod === null
@@ -56,19 +56,19 @@ export const calculateCardValue = (effects:T.CardEffects) => {
                             : effects.damageMod;
 
   const ignoredOtherEffects = ['damageMod', 'rolling'];
-  const otherValuedEffects = Object.keys(effects).filter((effectType:string) => !ignoredOtherEffects.includes(effectType));
+  const otherValuedEffects = Object.keys(effects).filter((effectType) => !ignoredOtherEffects.includes(effectType));
 
   return baseVal + otherValuedEffects.length * 10;
 }
 
 export const getRems = (pixelWidth:number) => pixelWidth/10;
 
-export const performRefreshLogic = (cards:T.CardProps[], stacks:string[][]) => {
+export const performRefreshLogic = (cards:CardTypes.CardProps[], stacks:string[][]) => {
   // eslint-disable-next-line array-callback-return
   stacks.map((stack, stackIdx) => {
     // eslint-disable-next-line array-callback-return
     stack.map((cardId, cardIdx) => {
-      const thisCard = cards.filter((card:T.CardProps) => card.id===cardId)[0];
+      const thisCard = cards.filter((card) => card.id===cardId)[0];
 
       thisCard.stack = stackIdx;
       thisCard.idx = cardIdx;
@@ -79,7 +79,7 @@ export const performRefreshLogic = (cards:T.CardProps[], stacks:string[][]) => {
 
   return cards;
 }
-export const performDiscardLogic = (cards:T.CardProps[], stacks:string[][]) => {
+export const performDiscardLogic = (cards:CardTypes.CardProps[], stacks:string[][]) => {
   /** Perform Discard Logic **/
   const myCards = [...cards];
   const myStacks = [...stacks];
@@ -88,11 +88,11 @@ export const performDiscardLogic = (cards:T.CardProps[], stacks:string[][]) => {
   const myDiscardStack = myStacks[Stack.DISCARD];
 
   // Set aside Temporary cards to place in `Consumed` stack.
-  const forConsumed = myCards.filter((card:T.CardProps) => myHandStack.includes(card.id) && card.temporary).map((card:T.CardProps) => card.id);
+  const forConsumed = myCards.filter((card) => myHandStack.includes(card.id) && card.temporary).map((card) => card.id);
   const newConsumedStack = [...myConsumedStack, ...forConsumed];
 
   // Place remaining cards in `Discard` stack.
-  const forDiscard = myHandStack.filter((cardId:string) => !forConsumed.includes(cardId));
+  const forDiscard = myHandStack.filter((cardId) => !forConsumed.includes(cardId));
   const newDiscardStack = [...myDiscardStack, ...forDiscard];
 
   myStacks[Stack.DISCARD] = newDiscardStack;

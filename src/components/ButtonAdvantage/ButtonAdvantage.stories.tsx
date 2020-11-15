@@ -5,7 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import ButtonAdvantage from './ButtonAdvantage';
 
 export default {
-  title: 'Example/Specific Button',
+  title: 'Example/Specific Button/Strengthen',
   component: ButtonAdvantage,
   argTypes: {
     backgroundColor: { control: 'color' },
@@ -14,4 +14,4 @@ export default {
 
 const Template: Story = (args) => <ButtonAdvantage {...args} />;
 
-export const Strengthen = Template.bind({});
+export const Standard = Template.bind({});
