@@ -54,19 +54,17 @@ The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 
-### `yarn storybook`
-
-Launches the project storybook.
-
-_*Meaningful Stories have not yet been written_
-
-
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-_*Meaningful Tests have not yet been written_
+
+### `yarn storybook`
+
+Launches the project storybook.
+
+_*Meaningful Stories have not yet been written_
 
 
 ### `yarn build`
