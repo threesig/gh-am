@@ -1,11 +1,15 @@
 import React from 'react';
-import {render} from '@testing-library/react';
+import {render, fireEvent} from '@testing-library/react';
 import Button from './Button';
 
+const onClick = jest.fn();
+
 test('<Button />', () => {
-  // TODO: Handle case where no data passed to Button
-  // const {debug} = render(<Button />);
+  const {getByTestId} = render(
+    <Button callback={onClick}>Test Button</Button>
+  );
+  const button = getByTestId('button');
 
-  // TODO: Mock data for Button props
-
+  fireEvent.click(button);
+  expect(onClick).toHaveBeenCalledTimes(1);
 });
