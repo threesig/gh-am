@@ -1,7 +1,6 @@
 import React from 'react';
-import theme from '../theme';
 import {DeckProvider} from './DeckContext';
-import {ThemeProvider} from 'styled-components';
+import '../index.css';
 
 
 interface ProviderProps {
