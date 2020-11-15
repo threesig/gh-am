@@ -4,9 +4,6 @@ import Deck from './Deck';
 
 
 test('<Deck />', () => {
-  // TODO: Handle case where no data passed to Deck
+  // TODO: Get mock data for Deck props
   // const {debug} = render(<Deck />);
-
-  // TODO: Mock data for `cards` prop
-
 });
