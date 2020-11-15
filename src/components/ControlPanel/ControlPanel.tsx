@@ -1,5 +1,4 @@
 import React, {useContext} from "react";
-import DeckContext from "../../contexts/DeckContext";
 import * as UI from "./ui";
 import ButtonDraw from "../ButtonDraw";
 import ButtonShuffle from "../ButtonShuffle";
