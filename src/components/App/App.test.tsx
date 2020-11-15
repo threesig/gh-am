@@ -1,14 +1,14 @@
 import React from "react";
 import {render} from '@testing-library/react';
+import Providers from '../../contexts/Providers';
 import App from './App';
 
 
+
 test('<App />', () => {
-  // TODO: Need to mock Reducer data
+  const {debug, getByTestId, queryByTestId} = render(<Providers><App /></Providers>);
+  const app = getByTestId('app');
 
-  // const {debug, getByTestId} = render(<App />);
-  // const app = getByTestId('app');
-  // const deck = getByTestId('panelItem-draw');
-
-  // debug();
+  expect(queryByTestId('controlPanel')).toBeTruthy();
+  expect(queryByTestId('deck')).toBeTruthy();
 });
