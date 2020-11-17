@@ -10,6 +10,7 @@ import * as U from '../../../util';
 export const Card = styled.div<I.CardUI>`
   ${css.SetCardAspectRatio(css.aspectWidth, css.aspectHeight)};
   ${props => css.SetCardState(props.isFlipped, props.stack, props.idx)};
+  bottom: 0;
   cursor: pointer;
   position: absolute;
   width: ${U.getRems(css.cardWidth)}rem;
