@@ -10,7 +10,7 @@ const Card: React.FC<I.Card> = ({
                                        stack = 0,
                                        idx = 0
 }) => {
-
+  // TODO: Port all assignment of position and translation to `Deck`
   return (
     <UI.Card data-testid="card" {...{id, isFlipped, stack, idx}}>
       <UI.CardFront data-testid="cardFront" {...{name, stack, isHilited}} />
