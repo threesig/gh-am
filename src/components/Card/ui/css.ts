@@ -21,8 +21,8 @@ export const aspectWidth = 67;
 export const aspectHeight = 44;
 
 export const cardWidth = 300;
-const cardHeight = cardWidth * aspectHeight/aspectWidth;
-const cardGutter = cardWidth/4;
+export const cardHeight = cardWidth * aspectHeight/aspectWidth;
+export const cardGutter = cardWidth/4;
 
 
 export const CardFaceCommon = css`
