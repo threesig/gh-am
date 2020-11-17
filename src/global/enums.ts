@@ -1,3 +1,4 @@
+// TODO: Stack is `Deck` specific.  Move to `declare` function in `Deck` component
 export enum Stack {
   READY,
   HAND,
