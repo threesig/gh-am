@@ -16,13 +16,13 @@ export default {
 } as Meta;
 
 const Template: Story<I.Card> = (args) => (
-  <div style={{height: '800px', position: 'relative'}}>
+  <div style={{height: '400px', position: 'relative'}}>
   <Card {...args} />
   </div>
 );
 
 export const Standard = Template.bind({});
-Standard.args = Mock.cardProps;
+Standard.args = Mock.cardProps.standard;
 
 export const Flipped = Template.bind({});
-Flipped.args = {...Mock.cardProps, isFlipped: true};
+Flipped.args = {...Mock.cardProps.flipped};
