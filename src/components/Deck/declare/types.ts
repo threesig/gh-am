@@ -1,13 +1,13 @@
 import * as CardTypes from '../../Card/declare/types';
 
 
-export type DeckState = {
+export type ReducerState = {
   cards: CardTypes.CardProps[];
   stacks: string[][];
   drawMod: number;
   shuffleUrgency: number;
 }
-export type DeckContextProps = {
+export type ContextProps = {
   cards: CardTypes.CardProps[];
   stacks: string[][];
   shuffleUrgency: number;

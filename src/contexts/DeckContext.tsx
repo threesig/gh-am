@@ -7,7 +7,7 @@ import * as DeckSpec from '../data/deckSpecs';
 import {DrawMod} from "../global/enums";
 
 
-const DeckContext = createContext({} as DeckTypes.DeckContextProps);
+const DeckContext = createContext({} as DeckTypes.ContextProps);
 
 
 export const DeckProvider = ({children}: GlobalTypes.ProviderProps) => {

@@ -20,7 +20,7 @@ export const initialDeckState = (cards:CardTypes.CardProps[]) => {
 
 
 
-export const prepareDeckState = (state:DeckTypes.DeckState) => {
+export const prepareDeckState = (state:DeckTypes.ReducerState) => {
 
   let myCards = [...state.cards];
   let myStacks = [...state.stacks];
@@ -35,7 +35,7 @@ export const prepareDeckState = (state:DeckTypes.DeckState) => {
 };
 
 
-export const DeckReducer = (state:DeckTypes.DeckState, action:any) => {
+export const DeckReducer = (state:DeckTypes.ReducerState, action:any) => {
 
   let myCards = [...state.cards];
   let myStacks = util.performDiscardLogic(state.cards, state.stacks);
