@@ -12,6 +12,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/styled-components": "^5.1.4",
     "babel-plugin-styled-components": "^1.11.1",
+    "jest-styled-components": "^7.0.3",
     "polished": "^4.0.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
