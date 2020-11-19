@@ -8,11 +8,6 @@ import * as U from '../../../util';
 
 
 
-export const ScaleWrap = styled.div<I.ScaleUI>`
-  transition: transform ${css.cardTransitionTime};
-  transform: scale(${props => props.scale});
-  pointer-events: none;
-`
 export const CardWrap = styled.div<I.CardUI>`
   transition: transform ${css.cardTransitionTime};  
 

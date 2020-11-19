@@ -8,4 +8,9 @@ export interface CardItemUI {
   xPos: number;
   yPos: number;
   zPos: number;
+  opacity: number;
+}
+
+export interface CardScalerUI {
+  scale: number;
 }

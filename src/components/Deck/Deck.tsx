@@ -1,52 +1,28 @@
 import React from 'react';
 import Card from '../Card';
 
-import * as UI from './ui';
+import { CardList, CardItem, CardScaler, cardLiftIncrement} from './ui';
 import * as I from './declare/interfaces';
-import * as E from './declare/enums';
-import * as CardUI from '../Card/ui/css';
-
-const cardGutter = CardUI.cardWidth/4;
+import {getStackAttrs} from "./ui";
 
 export const Deck:React.FC<I.Deck> = ({cards}) => {
   return (
-  <UI.Container data-testid="deck">
-    {cards.map((cardProps) => {
-      const {stack, idx} = cardProps;
-      let commute=0, lift=0, scale=1;
-      switch(stack) {
-        case E.Stack.READY:
-          lift = idx*UI.cardLiftIncrement;
-          commute = lift/3;
-          break;
-        case E.Stack.HAND:
-          scale = 1.1;
-          lift = scale*(CardUI.cardHeight + cardGutter);
-          commute = idx * scale * (CardUI.cardWidth + cardGutter);
-          break;
-        case E.Stack.DISCARD:
-          lift = idx*UI.cardLiftIncrement;
-          commute = cardGutter + CardUI.cardWidth + lift/3;
-          break;
-        case E.Stack.CONSUMED:
-          scale = 0.2;
-          lift = 10*scale*(CardUI.cardHeight + cardGutter);
-          break;
-      }
+  <CardList data-testid="deck">
+    {cards.map((cardData) => {
+      const {stack, idx} = cardData;
 
-      const zIndex = 100*stack + idx;
+      const {commute, lift, zIndex, scale, opacity} = getStackAttrs(stack, idx);
+      const {name, isFlipped, isHilited} = cardData;
 
-      const CardProps = {
-        ...cardProps,
-        scale,
-      }
       return (
-        <UI.CardItem {...{xPos: commute, yPos: -lift, zPos: zIndex}}>
-          <Card {...{key: `${cardProps.id}`, ...CardProps}} />
-        </UI.CardItem>
+        <CardItem key={`${cardData.id}`} {...{xPos: commute, yPos: -lift, zPos: zIndex, opacity}}>
+          <CardScaler {...{scale}}>
+            <Card {...{name, isFlipped, isHilited}} />
+          </CardScaler>
+        </CardItem>
       )
     })}
-  </UI.Container>
+  </CardList>
 )
 
 }
