@@ -2,13 +2,13 @@ import * as CardTypes from '../../Card/declare/types';
 
 
 export type ReducerState = {
-  cards: CardTypes.Data[];
+  cards: CardTypes.CardData[];
   stacks: string[][];
   drawMod: number;
   shuffleUrgency: number;
 }
 export type ContextProps = {
-  cards: CardTypes.Data[];
+  cards: CardTypes.CardData[];
   stacks: string[][];
   shuffleUrgency: number;
   drawMod: number;

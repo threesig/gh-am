@@ -1,7 +1,7 @@
 import * as CardTypes from '../../Card/declare/types';
 
 export interface Deck {
-  cards: CardTypes.Data[];
+  cards: CardTypes.CardData[];
 }
 
 export interface CardItemUI {

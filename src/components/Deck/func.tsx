@@ -28,7 +28,7 @@ export const shuffle = (arra1:any[]) => {
 }
 
 export const buildCards = (deckSpec:any) => {
-  const myCards:CardTypes.Data[] = [];
+  const myCards:CardTypes.CardData[] = [];
 
   let j:number = 0;
   for (const cardType in deckSpec) {
@@ -48,13 +48,13 @@ export const buildCards = (deckSpec:any) => {
         value: calculateCardValue(effects),
         shuffle: shuffle||false,
         temporary: temporary||false,
-      } as CardTypes.Data);
+      } as CardTypes.CardData);
     }
   }
 
   return myCards;
 }
-export const calculateCardValue = (effects:CardTypes.Effects) => {
+export const calculateCardValue = (effects:CardTypes.CardEffects) => {
   const baseVal = typeof effects.damageMod === 'string'
     ? 100
     : effects.damageMod === null
@@ -68,7 +68,7 @@ export const calculateCardValue = (effects:CardTypes.Effects) => {
 }
 
 
-export const performRefreshLogic = (cards:CardTypes.Data[], stacks:string[][]) => {
+export const performRefreshLogic = (cards:CardTypes.CardData[], stacks:string[][]) => {
   // eslint-disable-next-line array-callback-return
   stacks.map((stack, stackIdx) => {
     // eslint-disable-next-line array-callback-return
@@ -84,7 +84,7 @@ export const performRefreshLogic = (cards:CardTypes.Data[], stacks:string[][]) =
 
   return cards;
 }
-export const performDiscardLogic = (cards:CardTypes.Data[], stacks:string[][]) => {
+export const performDiscardLogic = (cards:CardTypes.CardData[], stacks:string[][]) => {
   /** Perform Discard Logic **/
   const myCards = [...cards];
   const myStacks = [...stacks];
@@ -108,7 +108,7 @@ export const performDiscardLogic = (cards:CardTypes.Data[], stacks:string[][]) =
 }
 
 
-export const renderCardItem = (cardData:CardTypes.Data) => {
+export const renderCardItem = (cardData:CardTypes.CardData) => {
   const {stack, idx} = cardData;
 
   const {commute, lift, zIndex, scale, opacity} = getStackAttrs(stack, idx);

@@ -6,7 +6,7 @@ import * as CardTypes from "../components/Card/declare/types";
 import * as DeckTypes from "../components/Deck/declare/types";
 import * as DeckFunc from "../components/Deck/func";
 
-export const initialDeckState = (cards:CardTypes.Data[]) => {
+export const initialDeckState = (cards:CardTypes.CardData[]) => {
   return {
     cards,
     stacks: [
