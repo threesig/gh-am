@@ -1,6 +1,10 @@
+import React from "react";
 import * as CardTypes from "../Card/declare/types";
 import {Stack} from "./declare/enums";
 import {AMCards} from "../../data/attack-modifiers";
+import {CardItem, CardScaler, getStackAttrs} from "./ui";
+import Card from "../Card";
+
 
 
 
@@ -101,4 +105,20 @@ export const performDiscardLogic = (cards:CardTypes.Data[], stacks:string[][]) =
   myStacks[Stack.HAND] = [];
 
   return myStacks;
+}
+
+
+export const renderCardItem = (cardData:CardTypes.Data) => {
+  const {stack, idx} = cardData;
+
+  const {commute, lift, zIndex, scale, opacity} = getStackAttrs(stack, idx);
+  const {name, isFlipped, isHilited} = cardData;
+
+  return (
+    <CardItem key={`${cardData.id}`} {...{xPos: commute, yPos: -lift, zPos: zIndex, opacity}}>
+      <CardScaler {...{scale}}>
+        <Card {...{name, isFlipped, isHilited}} />
+      </CardScaler>
+    </CardItem>
+  )
 }
