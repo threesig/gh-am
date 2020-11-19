@@ -3,7 +3,7 @@ import Card from '../Card';
 
 import * as UI from './ui';
 import * as I from './declare/interfaces';
-import * as E from '../../global/enums';
+import * as E from './declare/enums';
 import * as CardUI from '../Card/ui/css';
 
 const cardGutter = CardUI.cardWidth/4;
