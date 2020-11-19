@@ -8,16 +8,16 @@ import 'jest-styled-components';
 test('<Card />', () => {
   const {debug, queryByTestId, getByTestId} = render(<Card {...Mock.cardProps.standard} />);
 
-  expect(queryByTestId('card')).toBeTruthy();
+  expect(queryByTestId('cardWrap')).toBeTruthy();
   expect(queryByTestId('cardFront')).toBeTruthy();
   expect(queryByTestId('cardBack')).toBeTruthy();
 
-  const card = getByTestId('card');
+  const card = getByTestId('cardWrap');
   const cardBack = getByTestId('cardBack');
 
   // Card is not flipped
   expect(card)
-    .toHaveStyleRule('transform', 'rotateY(0deg) translate(0.4rem,-1.2rem) scale(1)');
+    .toHaveStyleRule('transform', 'rotateY(0deg)');
 
   // Card has correct back image
   expect(cardBack)
@@ -26,10 +26,10 @@ test('<Card />', () => {
 
 test('<Card /> Flipped', () => {
   const {debug, getByTestId} = render(<Card {...Mock.cardProps.flipped} />);
-  const card = getByTestId('card');
+  const card = getByTestId('cardWrap');
 
   // Card is flipped
   expect(card)
-    .toHaveStyleRule('transform', 'rotateY(180deg) translate(-0.4rem,-1.2rem) scale(1)');
+    .toHaveStyleRule('transform', 'rotateY(180deg)');
 
 });
