@@ -1,17 +1,14 @@
 import React from 'react';
-import Card from '../Card';
-
-import * as UI from './ui';
+import { CardList } from './ui';
+import {renderCardItem} from "./func";
 import * as I from './declare/interfaces';
 
 export const Deck:React.FC<I.Deck> = ({cards}) => {
-  // TODO: Receive all assignment of position and translation from `Card`
   return (
-  <UI.Container data-testid="deck">
-    {cards.map(cardProps => <Card {...{key:`${cardProps.id}`, ...cardProps}} />)}
-  </UI.Container>
+  <CardList data-testid="deck">
+    {cards.map(renderCardItem)}
+  </CardList>
 )
-
 }
 
 export default Deck;

@@ -1,9 +1,12 @@
-import {DrawMod, Stack} from "../global/enums";
+import {DrawMod} from "../global/enums";
+import {Stack} from "../components/Deck/declare/enums";
+
+
 import * as CardTypes from "../components/Card/declare/types";
 import * as DeckTypes from "../components/Deck/declare/types";
-import * as util from "../util";
+import * as DeckFunc from "../components/Deck/func";
 
-export const initialDeckState = (cards:CardTypes.CardProps[]) => {
+export const initialDeckState = (cards:CardTypes.CardData[]) => {
   return {
     cards,
     stacks: [
@@ -24,9 +27,9 @@ export const prepareDeckState = (state:DeckTypes.ReducerState) => {
 
   let myCards = [...state.cards];
   let myStacks = [...state.stacks];
-  myStacks[Stack.READY] = [...util.shuffle(myStacks[Stack.READY])];
+  myStacks[Stack.READY] = [...DeckFunc.shuffle(myStacks[Stack.READY])];
 
-  myCards = util.performRefreshLogic(myCards, myStacks);
+  myCards = DeckFunc.performRefreshLogic(myCards, myStacks);
   return {
     ...state,
     cards:myCards,
@@ -38,7 +41,7 @@ export const prepareDeckState = (state:DeckTypes.ReducerState) => {
 export const DeckReducer = (state:DeckTypes.ReducerState, action:any) => {
 
   let myCards = [...state.cards];
-  let myStacks = util.performDiscardLogic(state.cards, state.stacks);
+  let myStacks = DeckFunc.performDiscardLogic(state.cards, state.stacks);
 
 
   const getCardValue = (cardId:string) => myCards.filter((card)=> card.id===cardId)[0].value;
@@ -94,7 +97,7 @@ export const DeckReducer = (state:DeckTypes.ReducerState, action:any) => {
 
 
       // Refresh CardState
-      myCards = util.performRefreshLogic(myCards, myStacks);
+      myCards = DeckFunc.performRefreshLogic(myCards, myStacks);
 
       return {
         ...state,
@@ -104,7 +107,7 @@ export const DeckReducer = (state:DeckTypes.ReducerState, action:any) => {
         shuffleUrgency: myShuffleUrgency
       }
     case 'SHUFFLE':
-      const newReadyStack:string[] = util.shuffle([
+      const newReadyStack:string[] = DeckFunc.shuffle([
         ...myStacks[Stack.READY],
         ...myStacks[Stack.HAND],
         ...myStacks[Stack.DISCARD]
@@ -115,7 +118,7 @@ export const DeckReducer = (state:DeckTypes.ReducerState, action:any) => {
       myStacks[Stack.HAND] = [];
       myStacks[Stack.DISCARD] = [];
 
-      myCards = util.performRefreshLogic(myCards, myStacks);
+      myCards = DeckFunc.performRefreshLogic(myCards, myStacks);
 
       return {
         ...state,

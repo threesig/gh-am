@@ -1,21 +1,17 @@
 import React from 'react';
-import * as UI from './ui';
+import {CardWrap, CardFront, CardBack} from './ui';
 import * as I from './declare/interfaces';
 
 const Card: React.FC<I.Card> = ({
-                                       id,
-                                       name,
-                                       isFlipped = false,
-                                       isHilited = false,
-                                       stack = 0,
-                                       idx = 0
+                                  name,
+                                  isFlipped = false,
+                                  isHilited = false,
 }) => {
-  // TODO: Port all assignment of position and translation to `Deck`
   return (
-    <UI.Card data-testid="card" {...{id, isFlipped, stack, idx}}>
-      <UI.CardFront data-testid="cardFront" {...{name, stack, isHilited}} />
-      <UI.CardBack data-testid="cardBack" />
-    </UI.Card>
+    <CardWrap data-testid="cardWrap" {...{isFlipped}}>
+      <CardFront data-testid="cardFront" {...{name, isHilited}} />
+      <CardBack data-testid="cardBack" />
+    </CardWrap>
   );
 }
 

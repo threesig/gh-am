@@ -4,7 +4,7 @@ export type CardEffects = {
   element?: string;
   rolling?: boolean;
 };
-export type CardProps = {
+export type CardData = {
   id: string;
   description: string;
   effects: CardEffects;

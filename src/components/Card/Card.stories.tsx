@@ -16,9 +16,7 @@ export default {
 } as Meta;
 
 const Template: Story<I.Card> = (args) => (
-  <div style={{height: '400px', position: 'relative'}}>
   <Card {...args} />
-  </div>
 );
 
 export const Standard = Template.bind({});

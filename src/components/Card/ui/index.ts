@@ -7,19 +7,25 @@ import * as css from './css';
 import * as U from '../../../util';
 
 
-export const Card = styled.div<I.CardUI>`
+
+export const CardWrap = styled.div<I.CardUI>`
+  transition: transform ${css.cardTransitionTime};  
+
   ${css.SetCardAspectRatio(css.aspectWidth, css.aspectHeight)};
-  ${props => css.SetCardState(props.isFlipped, props.stack, props.idx)};
-  bottom: 0;
   cursor: pointer;
-  position: absolute;
+  position: relative;
+  transform: rotateY(${props => props.isFlipped ? 180 : 0}deg);
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+
   width: ${U.getRems(css.cardWidth)}rem;
+
+  pointer-events: none;
 `;
 
 export const CardFront = styled.div<I.CardFrontUI>`
   ${css.CardFaceCommon};
   ${props => css.SetCardFaceImage(props.name)};
-  ${props => css.SetCardFaceState(props.stack, props.isHilited!)};
   transform: rotateY(180deg);
 `;
 
