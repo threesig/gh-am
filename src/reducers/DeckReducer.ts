@@ -3,7 +3,7 @@ import * as CardTypes from "../components/Card/declare/types";
 import * as DeckTypes from "../components/Deck/declare/types";
 import * as util from "../util";
 
-export const initialDeckState = (cards:CardTypes.CardProps[]) => {
+export const initialDeckState = (cards:CardTypes.Data[]) => {
   return {
     cards,
     stacks: [

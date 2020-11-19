@@ -11,7 +11,7 @@ const cardGutter = CardUI.cardWidth/4;
 export const Deck:React.FC<I.Deck> = ({cards}) => {
   return (
   <UI.Container data-testid="deck">
-    {cards.map(cardProps => {
+    {cards.map((cardProps) => {
       const {stack, idx} = cardProps;
       let commute=0, lift=0, scale=1;
       switch(stack) {

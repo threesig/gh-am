@@ -1,13 +1,13 @@
-export type CardEffects = {
+export type Effects = {
   damageMod: any;
   condition?: string;
   element?: string;
   rolling?: boolean;
 };
-export type CardProps = {
+export type Data = {
   id: string;
   description: string;
-  effects: CardEffects;
+  effects: Effects;
   name: string;
   stack: number;
   isFlipped: boolean;
