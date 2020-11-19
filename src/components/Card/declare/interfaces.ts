@@ -1,10 +1,21 @@
 export interface Card {
-  id: string;
   name: string;
   isFlipped?: boolean;
   isHilited?: boolean;
-  stack?: number;
-  idx?: number;
+  x?:number;
+  y?:number;
+  z?:number;
+  scale?:number;
+}
+
+
+export interface OuterUI {
+  x:number;
+  y:number;
+  z:number;
+}
+export interface ScaleUI {
+  scale:number;
 }
 export interface CardUI {
   isFlipped?:boolean,
@@ -14,5 +25,4 @@ export interface CardUI {
 export interface CardFrontUI {
   name: string;
   isHilited?: boolean;
-  stack: number;
 }

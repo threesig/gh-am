@@ -4,7 +4,7 @@ import * as U from '../../../util';
 
 const glowRadius = 5;
 const glowColor = 'gold';
-const cardTransitionTime = '.5s';
+export const cardTransitionTime = '.5s';
 const cardLiftIncrement = 0.6;
 const glowDuration = 2;
 const aniCardGlow = keyframes`
@@ -34,10 +34,8 @@ export const CardFaceCommon = css`
   border-radius: ${U.getRems(cardWidth)/30}rem;
   box-shadow: 0 .05rem .05rem rgba(255, 255, 255, 0.8);
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   top: 0; bottom: 0; left: 0; right: 0;
+  
   pointer-events: none;
 `;
 
