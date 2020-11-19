@@ -5,7 +5,6 @@ import * as U from '../../../util';
 const glowRadius = 5;
 const glowColor = 'gold';
 export const cardTransitionTime = '.5s';
-const cardLiftIncrement = 0.6;
 const glowDuration = 2;
 const aniCardGlow = keyframes`
   0%, 100% {
@@ -38,48 +37,6 @@ export const CardFaceCommon = css`
   
   pointer-events: none;
 `;
-
-export const SetCardState = (isFlipped:boolean=false, stack:number=0, idx:number=0) => {
-
-  const revolve = isFlipped ? 180 : 0;
-
-
-  let commute=0, lift=0, animation:any='none', scale=1, filter='none';
-  switch(stack) {
-    case Stack.READY:
-      lift = idx*cardLiftIncrement;
-      commute = lift/3;
-      break;
-    case Stack.HAND:
-      scale = 1.1;
-      lift = scale*(cardHeight + cardGutter);
-      commute = idx * scale * (cardWidth + cardGutter);
-      animation = aniCardGlow;
-
-      break;
-    case Stack.DISCARD:
-      lift = idx*cardLiftIncrement;
-      commute = cardGutter + cardWidth + lift/3;
-      break;
-    case Stack.CONSUMED:
-      scale = 0.2;
-      lift = 10*scale*(cardHeight + cardGutter);
-      break;
-  }
-
-  commute = isFlipped ? -commute : commute;
-
-  return css`
-    transition: all ${cardTransitionTime}, z-index 0s;
-
-    transform: rotateY(${revolve}deg) translate(${U.getRems(commute)}rem, ${U.getRems(-lift)}rem) scale(${scale});
-    transform-origin: 50% 50%;
-    transform-style: preserve-3d;
-
-    /* animation: ${animation} ${glowDuration}s infinite; */
-    z-index: ${100*stack + idx};
-  `;
-}
 
 export const SetCardAspectRatio = (width:number, height:number) => {
   return css`

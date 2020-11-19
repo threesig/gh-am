@@ -4,7 +4,7 @@ export interface Card {
   isHilited?: boolean;
   x?:number;
   y?:number;
-  z?:number;
+  zIndex:number;
   scale?:number;
 }
 
@@ -12,7 +12,7 @@ export interface Card {
 export interface OuterUI {
   x:number;
   y:number;
-  z:number;
+  zIndex:number;
 }
 export interface ScaleUI {
   scale:number;

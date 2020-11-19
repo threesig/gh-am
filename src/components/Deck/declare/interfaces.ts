@@ -1,5 +1,5 @@
-import * as CardInterfaces from '../../Card/declare/interfaces';
+import * as CardTypes from '../../Card/declare/types';
 
 export interface Deck {
-  cards: CardInterfaces.Card[];
+  cards: CardTypes.CardProps[];
 }

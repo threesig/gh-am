@@ -9,14 +9,19 @@ import * as U from '../../../util';
 
 
 export const OuterWrap = styled.div<I.OuterUI>`
-  transition: transform ${css.cardTransitionTime}, z-index 0s;
-  transform: translate(${props => props.x}rem, ${props => props.y}rem);
+  transition: all ${css.cardTransitionTime}, z-index 0s;
+  transform: translate(${props => U.getRems(props.x)}rem, ${props => U.getRems(props.y)}rem);
   width: ${U.getRems(css.cardWidth)}rem;
-  z-index: ${props => props.z};
+  z-index: ${props => props.zIndex};
+  position: absolute;
+  
+  // Port this to Deck
+  bottom: 0; left: 0;
 `
 export const ScaleWrap = styled.div<I.ScaleUI>`
   transition: transform ${css.cardTransitionTime};
-  transform: scale(${props => props.scale})
+  transform: scale(${props => props.scale});
+  pointer-events: none;
 `
 export const CardWrap = styled.div<I.CardUI>`
   transition: transform ${css.cardTransitionTime};  
@@ -29,6 +34,8 @@ export const CardWrap = styled.div<I.CardUI>`
   transform-style: preserve-3d;
 
   width: 100%;
+
+  pointer-events: none;
 `;
 
 export const CardFront = styled.div<I.CardFrontUI>`

@@ -8,12 +8,11 @@ const Card: React.FC<I.Card> = ({
                                   isHilited = false,
                                   x = 0,
                                   y = 0,
-                                  z = 0,
+                                  zIndex = 0,
                                   scale= 1
 }) => {
-  // TODO: Port all assignment of position and translation to `Deck`
   return (
-    <OuterWrap data-testid={"outerWrap"} {...{x, y, z}}>
+    <OuterWrap data-testid={"outerWrap"} {...{x, y, zIndex}}>
       <ScaleWrap data-testid={"scaleWrap"} {...{scale}}>
         <CardWrap data-testid="cardWrap" {...{isFlipped}}>
           <CardFront data-testid="cardFront" {...{name, isHilited}} />
