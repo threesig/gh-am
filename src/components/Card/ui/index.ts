@@ -13,10 +13,6 @@ export const OuterWrap = styled.div<I.OuterUI>`
   transform: translate(${props => U.getRems(props.x)}rem, ${props => U.getRems(props.y)}rem);
   width: ${U.getRems(css.cardWidth)}rem;
   z-index: ${props => props.zIndex};
-  position: absolute;
-  
-  // Port this to Deck
-  bottom: 0; left: 0;
 `
 export const ScaleWrap = styled.div<I.ScaleUI>`
   transition: transform ${css.cardTransitionTime};
