@@ -3,8 +3,8 @@
 import styled, {css} from 'styled-components';
 import {cardHeight, cardWidth, cardGutter} from "../../Card/ui/css";
 import {getRems} from '../../../util';
-
-import * as CardUI from '../../Card/ui';
+import {cardTransitionTime} from "../../Card/ui/css";
+import * as I from '../declare/interfaces';
 
 import {Stack} from "../declare/enums";
 
@@ -14,20 +14,22 @@ export const cardLiftIncrement = 0.6;
 
 
 
-export const Container = styled.div`  
+export const Container = styled.ul`  
   height: ${getRems(cardHeight*2 + cardGutter)}rem;
   width: ${getRems(cardWidth*2 + cardGutter)}rem;
   perspective: 120rem;
   position: relative;
-
-
-  ${CardUI.OuterWrap} {
-    position: absolute;
-    bottom: 0; left: 0;
-  }
-
 `;
 
+
+export const CardItem = styled.li<I.CardItemUI>`
+  position: absolute;
+  bottom: 0; left: 0;
+  
+  transition: all ${cardTransitionTime}, z-index 0s;
+  transform: translate(${props => getRems(props.xPos)}rem, ${props => getRems(props.yPos)}rem);
+  z-index: ${props => props.zPos}
+`
 
 
 /*

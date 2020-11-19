@@ -38,12 +38,13 @@ export const Deck:React.FC<I.Deck> = ({cards}) => {
 
       const CardProps = {
         ...cardProps,
-        x: commute,
-        y: -lift,
-        zIndex,
         scale,
       }
-      return <Card {...{key: `${cardProps.id}`, ...CardProps}} />
+      return (
+        <UI.CardItem {...{xPos: commute, yPos: -lift, zPos: zIndex}}>
+          <Card {...{key: `${cardProps.id}`, ...CardProps}} />
+        </UI.CardItem>
+      )
     })}
   </UI.Container>
 )
