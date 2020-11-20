@@ -10,8 +10,8 @@ export const renderCardItem = (cardData:CardTypes.CardData) => {
   const {commute, lift, zIndex, scale, opacity} = getStackAttrs(stack, idx);
 
   return (
-    <CardItem key={`${cardData.id}`} {...{xPos: commute, yPos: -lift, zPos: zIndex, opacity}}>
-      <CardScaler {...{scale}}>
+    <CardItem data-testid={"cardItem"} key={`${cardData.id}`} {...{xPos: commute, yPos: -lift, zPos: zIndex, opacity}}>
+      <CardScaler data-testid={"cardScaler"} {...{scale}}>
         <Card {...{name, isFlipped, isHilited}} />
       </CardScaler>
     </CardItem>
