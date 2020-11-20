@@ -6,8 +6,8 @@ import {AMCards} from "../../data/attack-modifiers";
 import {CardItem, CardScaler, getStackAttrs} from "./ui";
 
 export const renderCardItem = (cardData:CardTypes.CardData) => {
-  const {stack, idx, name, isFlipped, isHilited} = cardData;
-  const {commute, lift, zIndex, scale, opacity} = getStackAttrs(stack, idx);
+  const {stack, idx, name, isHilited} = cardData;
+  const {commute, lift, zIndex, scale, opacity, isFlipped} = getStackAttrs(stack, idx);
 
   return (
     <CardItem data-testid={"cardItem"} key={`${cardData.id}`} {...{xPos: commute, yPos: -lift, zPos: zIndex, opacity}}>
@@ -55,7 +55,6 @@ export const buildCards = (deckSpec:any) => {
         description,
         stack: Stack.READY,
         idx:j++,
-        isFlipped:false,
         value: calculateCardValue(effects),
         shuffle: shuffle||false,
         temporary: temporary||false,
@@ -88,7 +87,6 @@ export const performRefreshLogic = (cards:CardTypes.CardData[], stacks:string[][
 
       thisCard.stack = stackIdx;
       thisCard.idx = cardIdx;
-      thisCard.isFlipped = (stackIdx!==Stack.READY);
       thisCard.isHilited = (stackIdx===Stack.HAND);
     });
   })

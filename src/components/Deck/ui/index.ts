@@ -38,11 +38,12 @@ export const CardScaler = styled.div<I.CardScalerUI>`
 `
 
 export const getStackAttrs =  (stack:number, idx: number) => {
-  let commute=0, lift=0, scale=1, opacity=1;
+  let commute=0, lift=0, scale=1, opacity=1, isFlipped = true;
   switch(stack) {
     case E.Stack.READY:
       lift = idx*cardLiftIncrement;
       commute = lift/3;
+      isFlipped = false;
       break;
     case E.Stack.HAND:
       scale = 1.1;
@@ -62,7 +63,7 @@ export const getStackAttrs =  (stack:number, idx: number) => {
 
   const zIndex = 100*stack + idx;
 
-  return {commute, lift, zIndex, scale, opacity};
+  return {commute, lift, zIndex, scale, opacity, isFlipped};
 }
 
 

@@ -10,7 +10,6 @@ export type CardData = {
   effects: CardEffects;
   name: string;
   stack: number;
-  isFlipped: boolean;
   isHilited: boolean;
   idx: number;
   shuffle?:boolean;
