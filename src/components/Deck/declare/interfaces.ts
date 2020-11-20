@@ -9,6 +9,8 @@ export interface CardItemUI {
   yPos: number;
   zPos: number;
   opacity: number;
+  brightness: number;
+  boxShadow: string;
 }
 
 export interface CardScalerUI {

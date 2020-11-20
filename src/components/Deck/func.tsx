@@ -7,10 +7,10 @@ import {CardItem, CardScaler, getStackAttrs} from "./ui";
 
 export const renderCardItem = (cardData:CardTypes.CardData) => {
   const {stack, idx, name, isHilited} = cardData;
-  const {commute, lift, zIndex, scale, opacity, isFlipped} = getStackAttrs(stack, idx);
+  const {commute, lift, zIndex, scale, opacity, brightness, boxShadow, isFlipped} = getStackAttrs(stack, idx);
 
   return (
-    <CardItem data-testid={"cardItem"} key={`${cardData.id}`} {...{xPos: commute, yPos: -lift, zPos: zIndex, opacity}}>
+    <CardItem data-testid={"cardItem"} key={`${cardData.id}`} {...{xPos: commute, yPos: -lift, zPos: zIndex, opacity, brightness, boxShadow}}>
       <CardScaler data-testid={"cardScaler"} {...{scale}}>
         <Card {...{name, isFlipped, isHilited}} />
       </CardScaler>
