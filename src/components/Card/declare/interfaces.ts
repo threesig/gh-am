@@ -1,10 +1,11 @@
 export interface Card {
   name: string;
-  isFlipped?: boolean;
-  isHilited?: boolean;
+  isFlipped: boolean;
+  boxShadow:string;
 }
 export interface CardUI {
-  isFlipped?:boolean,
+  isFlipped:boolean,
+  boxShadow:string;
 };
 export interface CardFrontUI {
   name: string;

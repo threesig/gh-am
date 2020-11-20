@@ -10,7 +10,6 @@ export interface CardItemUI {
   zPos: number;
   opacity: number;
   brightness: number;
-  boxShadow: string;
 }
 
 export interface CardScalerUI {

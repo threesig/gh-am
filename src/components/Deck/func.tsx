@@ -1,23 +1,6 @@
-import React from "react";
-import Card from "../Card";
 import * as CardTypes from "../Card/declare/types";
 import {Stack} from "./declare/enums";
 import {AMCards} from "../../data/attack-modifiers";
-import {CardItem, CardScaler, getStackAttrs} from "./ui";
-
-export const renderCardItem = (cardData:CardTypes.CardData) => {
-  const {stack, idx, name, isHilited} = cardData;
-  const {commute, lift, zIndex, scale, opacity, brightness, boxShadow, isFlipped} = getStackAttrs(stack, idx);
-
-  return (
-    <CardItem data-testid={"cardItem"} key={`${cardData.id}`} {...{xPos: commute, yPos: -lift, zPos: zIndex, opacity, brightness, boxShadow}}>
-      <CardScaler data-testid={"cardScaler"} {...{scale}}>
-        <Card {...{name, isFlipped, isHilited}} />
-      </CardScaler>
-    </CardItem>
-  )
-}
-
 
 export const shuffle = (arra1:any[]) => {
   let ctr = arra1.length, temp, index;

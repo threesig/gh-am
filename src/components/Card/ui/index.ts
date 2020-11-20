@@ -9,6 +9,7 @@ export const CardWrap = styled.div<I.CardUI>`
   transition: transform ${css.cardTransitionTime};  
 
   ${css.SetCardAspectRatio(css.aspectWidth, css.aspectHeight)};
+  box-shadow: ${props => props.boxShadow};
   cursor: pointer;
   position: relative;
   transform: rotateY(${props => props.isFlipped ? 180 : 0}deg);

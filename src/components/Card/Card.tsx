@@ -4,12 +4,12 @@ import * as I from './declare/interfaces';
 
 const Card: React.FC<I.Card> = ({
                                   name,
-                                  isFlipped = false,
-                                  isHilited = false,
+                                  isFlipped,
+                                  boxShadow
 }) => {
   return (
-    <CardWrap data-testid="cardWrap" {...{isFlipped}}>
-      <CardFront data-testid="cardFront" {...{name, isHilited}} />
+    <CardWrap data-testid="cardWrap" {...{isFlipped, boxShadow}}>
+      <CardFront data-testid="cardFront" {...{name}} />
       <CardBack data-testid="cardBack" />
     </CardWrap>
   );

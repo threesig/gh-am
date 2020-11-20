@@ -1,6 +1,5 @@
 import React from 'react';
-import { CardList } from './ui';
-import {renderCardItem} from "./func";
+import { CardList, renderCardItem } from './ui';
 import * as I from './declare/interfaces';
 
 export const Deck:React.FC<I.Deck> = ({cards}) => {

@@ -1,10 +1,7 @@
 import React from "react";
 import {render, cleanup} from '@testing-library/react';
-
-import * as M from './mock';
-
 import Deck from './Deck';
-import {Stack} from './declare/enums';
+import * as M from './mock';
 import 'jest-styled-components';
 
 test('<Deck />', () => {

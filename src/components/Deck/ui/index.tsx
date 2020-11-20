@@ -1,11 +1,13 @@
 // Deck UI
-
+import React from "react";
 import styled, {css} from 'styled-components';
 import {aspectRatio, cardTransitionTime } from "../../Card/ui/css";
 import {getRems} from '../../../util';
 
 import * as I from '../declare/interfaces';
 import * as E from "../declare/enums";
+import * as CardTypes from "../../Card/declare/types";
+import Card from "../../Card";
 
 const deckWidth = 300;
 const cardHeight = deckWidth/aspectRatio;
@@ -16,7 +18,7 @@ export const cardLiftIncrement = 0.6;
 
 
 export const CardList = styled.ul`  
-  height: ${getRems(cardHeight*2 + cardGutter)}rem;
+  height: ${getRems(cardHeight)}rem;
   width: ${getRems(deckWidth)}rem;
   perspective: 120rem;
   position: relative;
@@ -27,8 +29,6 @@ export const CardItem = styled.li<I.CardItemUI>`
   position: absolute;
   bottom: 0; left: 0;
   filter: brightness(${props => props.brightness});
-  box-shadow: ${props => props.boxShadow};
-
   transition: all ${cardTransitionTime}, z-index 0s;
   opacity: ${props => props.opacity};
   transform: translate(${props => getRems(props.xPos)}rem, ${props => getRems(props.yPos)}rem);
@@ -72,4 +72,17 @@ export const getStackAttrs =  (stack:number, idx: number) => {
   const zIndex = 100*stack + idx;
 
   return {commute, lift, zIndex, scale, opacity, brightness, boxShadow, isFlipped};
+}
+
+export const renderCardItem = (cardData:CardTypes.CardData) => {
+  const {stack, idx, name, isHilited} = cardData;
+  const {commute, lift, zIndex, scale, opacity, brightness, boxShadow, isFlipped} = getStackAttrs(stack, idx);
+
+  return (
+    <CardItem data-testid={"cardItem"} key={`${cardData.id}`} {...{xPos: commute, yPos: -lift, zPos: zIndex, opacity, brightness}}>
+      <CardScaler data-testid={"cardScaler"} {...{scale}}>
+        <Card {...{name, isFlipped, boxShadow}} />
+      </CardScaler>
+    </CardItem>
+  )
 }
