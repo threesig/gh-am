@@ -5,6 +5,7 @@ export const cardTransitionTime = '.5s';
 
 export const aspectWidth = 67;
 export const aspectHeight = 44;
+export const aspectRatio = aspectWidth/aspectHeight;
 
 export const cardWidth = 300;
 export const cardHeight = cardWidth * aspectHeight/aspectWidth;

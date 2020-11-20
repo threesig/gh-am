@@ -4,9 +4,6 @@ import styled from 'styled-components';
 import cardBack from '../../../assets/cardBack.jpg';
 import * as I from '../declare/interfaces';
 import * as css from './css';
-import * as U from '../../../util';
-
-
 
 export const CardWrap = styled.div<I.CardUI>`
   transition: transform ${css.cardTransitionTime};  
@@ -17,10 +14,8 @@ export const CardWrap = styled.div<I.CardUI>`
   transform: rotateY(${props => props.isFlipped ? 180 : 0}deg);
   transform-origin: 50% 50%;
   transform-style: preserve-3d;
-
-  width: ${U.getRems(css.cardWidth)}rem;
-
   pointer-events: none;
+  width: 100%;
 `;
 
 export const CardFront = styled.div<I.CardFrontUI>`

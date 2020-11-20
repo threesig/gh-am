@@ -1,14 +1,15 @@
 // Deck UI
 
 import styled, {css} from 'styled-components';
-import {cardHeight, cardWidth, cardTransitionTime } from "../../Card/ui/css";
+import {aspectRatio, cardTransitionTime } from "../../Card/ui/css";
 import {getRems} from '../../../util';
 
 import * as I from '../declare/interfaces';
 import * as E from "../declare/enums";
 
-const cardGutter = cardWidth/4;
-
+const deckWidth = 300;
+const cardHeight = deckWidth/aspectRatio;
+const cardGutter = deckWidth/4;
 
 export const cardLiftIncrement = 0.6;
 
@@ -16,7 +17,7 @@ export const cardLiftIncrement = 0.6;
 
 export const CardList = styled.ul`  
   height: ${getRems(cardHeight*2 + cardGutter)}rem;
-  width: ${getRems(cardWidth*2 + cardGutter)}rem;
+  width: ${getRems(deckWidth)}rem;
   perspective: 120rem;
   position: relative;
 `;
@@ -29,6 +30,7 @@ export const CardItem = styled.li<I.CardItemUI>`
   transition: all ${cardTransitionTime}, z-index 0s;
   opacity: ${props => props.opacity};
   transform: translate(${props => getRems(props.xPos)}rem, ${props => getRems(props.yPos)}rem);
+  width: 100%;
   z-index: ${props => props.zPos}
 `
 
@@ -48,11 +50,11 @@ export const getStackAttrs =  (stack:number, idx: number) => {
     case E.Stack.HAND:
       scale = 1.1;
       lift = scale*(cardHeight + cardGutter);
-      commute = idx * scale * (cardWidth + cardGutter);
+      commute = idx * scale * (deckWidth + cardGutter);
       break;
     case E.Stack.DISCARD:
       lift = idx*cardLiftIncrement;
-      commute = cardGutter + cardWidth + lift/3;
+      commute = cardGutter + deckWidth + lift/3;
       break;
     case E.Stack.CONSUMED:
       scale = 0.2;
