@@ -26,14 +26,15 @@ test('<Deck /> - Stack - READY', () => {
 
   const cardItem = getByTestId('cardItem');
   const cardScaler = getByTestId('cardScaler');
-
   const card = getByTestId('cardWrap');
 
-  expect(cardItem).toHaveStyleRule('transform', 'translate(0rem,0rem)');
+  expect(cardItem).toHaveStyleRule('filter', 'brightness(0.9)');
   expect(cardItem).toHaveStyleRule('opacity', '1');
+  expect(cardItem).toHaveStyleRule('transform', 'translate(0rem,0rem)');
   expect(cardItem).toHaveStyleRule('z-index', '0');
 
   expect(cardScaler).toHaveStyleRule('transform', 'scale(1)');
+
   expect(card).toHaveStyleRule('transform', 'rotateY(0deg)');
 });
 test('<Deck /> - Stack - HAND', () => {
@@ -43,11 +44,14 @@ test('<Deck /> - Stack - HAND', () => {
   const cardScaler = getByTestId('cardScaler');
   const card = getByTestId('cardWrap');
 
-  expect(cardItem).toHaveStyleRule('transform', 'translate(0rem,-29.921641791044784rem)');
+  expect(cardItem).toHaveStyleRule('filter', 'brightness(1.5)');
   expect(cardItem).toHaveStyleRule('opacity', '1');
+  expect(cardItem).toHaveStyleRule('transform', 'translate(0rem,-29.921641791044784rem)');
   expect(cardItem).toHaveStyleRule('z-index', '100');
 
   expect(cardScaler).toHaveStyleRule('transform', 'scale(1.1)');
+
+  expect(card).toHaveStyleRule('box-shadow', '0 1em 4rem rgba(0,0,0,.8)');
   expect(card).toHaveStyleRule('transform', 'rotateY(180deg)');
 
 });
@@ -58,11 +62,13 @@ test('<Deck /> - Stack - DISCARD', () => {
   const cardScaler = getByTestId('cardScaler');
   const card = getByTestId('cardWrap');
 
-  expect(cardItem).toHaveStyleRule('transform', 'translate(37.5rem,0rem)');
+  expect(cardItem).toHaveStyleRule('filter', 'brightness(0.5)');
   expect(cardItem).toHaveStyleRule('opacity', '1');
+  expect(cardItem).toHaveStyleRule('transform', 'translate(37.5rem,0rem)');
   expect(cardItem).toHaveStyleRule('z-index', '200');
 
   expect(cardScaler).toHaveStyleRule('transform', 'scale(1)');
+
   expect(card).toHaveStyleRule('transform', 'rotateY(180deg)');
 
 });
@@ -73,10 +79,12 @@ test('<Deck /> - Stack - CONSUMED', () => {
   const cardScaler = getByTestId('cardScaler');
   const card = getByTestId('cardWrap');
 
+  expect(cardItem).toHaveStyleRule('filter', 'brightness(1)');
   expect(cardItem).toHaveStyleRule('transform', 'translate(0rem,-54.40298507462687rem)');
   expect(cardItem).toHaveStyleRule('opacity', '0');
   expect(cardItem).toHaveStyleRule('z-index', '300');
 
   expect(cardScaler).toHaveStyleRule('transform', 'scale(0.2)');
+
   expect(card).toHaveStyleRule('transform', 'rotateY(180deg)');
 });
