@@ -1,14 +1,14 @@
 import React from "react";
 import {render, cleanup} from '@testing-library/react';
 
-import * as CardMock from '../Card/mock';
+import * as M from './mock';
 
 import Deck from './Deck';
 import {Stack} from './declare/enums';
 import 'jest-styled-components';
 
 test('<Deck />', () => {
-  const {debug, queryByTestId, getByTestId} = render(<Deck cards={[CardMock.cardData]} />);
+  const {debug, queryByTestId, getByTestId} = render(<Deck cards={M.testStacks.BASE} />);
 
   // Make sure everything is here
   expect(queryByTestId('deck')).toBeTruthy();
@@ -25,7 +25,7 @@ test('<Deck />', () => {
 });
 
 test('<Deck /> - Stack - READY', () => {
-  const {debug, getByTestId} = render(<Deck cards={[{...CardMock.cardData, stack: Stack.READY}]} />);
+  const {debug, getByTestId} = render(<Deck cards={M.testStacks.READY} />);
 
   const cardItem = getByTestId('cardItem');
   const cardScaler = getByTestId('cardScaler');
@@ -40,7 +40,7 @@ test('<Deck /> - Stack - READY', () => {
   expect(card).toHaveStyleRule('transform', 'rotateY(0deg)');
 });
 test('<Deck /> - Stack - HAND', () => {
-  const {debug, getByTestId} = render(<Deck cards={[{...CardMock.cardData, stack: Stack.HAND, isFlipped: true}]} />);
+  const {debug, getByTestId} = render(<Deck cards={M.testStacks.HAND} />);
 
   const cardItem = getByTestId('cardItem');
   const cardScaler = getByTestId('cardScaler');
@@ -55,7 +55,7 @@ test('<Deck /> - Stack - HAND', () => {
 
 });
 test('<Deck /> - Stack - DISCARD', () => {
-  const {debug, getByTestId} = render(<Deck cards={[{...CardMock.cardData, stack: Stack.DISCARD, isFlipped: true}]} />);
+  const {debug, getByTestId} = render(<Deck cards={M.testStacks.DISCARD} />);
 
   const cardItem = getByTestId('cardItem');
   const cardScaler = getByTestId('cardScaler');
@@ -70,7 +70,7 @@ test('<Deck /> - Stack - DISCARD', () => {
 
 });
 test('<Deck /> - Stack - CONSUMED', () => {
-  const {debug, getByTestId} = render(<Deck cards={[{...CardMock.cardData, stack: Stack.CONSUMED, isFlipped: true}]} />);
+  const {debug, getByTestId} = render(<Deck cards={M.testStacks.CONSUMED} />);
 
   const cardItem = getByTestId('cardItem');
   const cardScaler = getByTestId('cardScaler');
