@@ -1,12 +1,26 @@
-import * as T from './declare/types';
+export const cardData = {
+  "id": "p0-0",
+  "name": "am-p-01",
+  "effects": {
+    "damageMod": 0
+  },
+  "description": "+0",
+  "stack": 1,
+  "idx": 0,
+  "isFlipped": false,
+  "value": 0,
+  "shuffle": false,
+  "temporary": false,
+  "isHilited": true
+};
 
 const baseProps:any = {
-  name: "am-p-01",
-  isFlipped: false,
-  isHilited: false,
+  name: cardData.name,
+  isFlipped: cardData.isFlipped,
+  isHilited: cardData.isHilited,
 };
 
 export const cardProps:any = {
   standard: baseProps,
-  flipped: {...baseProps, isFlipped: true}
+  flipped: {...baseProps, isFlipped: !cardData.isFlipped}
 };
