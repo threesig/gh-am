@@ -15,7 +15,9 @@ const App = () => {
           <ControlPanel/>
         </CommonUI.Section>
         <CommonUI.Section>
-          <Deck {...{cards}} />
+          <UI.Table data-testid={'table'}>
+            <Deck {...{cards}} />
+          </UI.Table>
         </CommonUI.Section>
       </UI.Header>
     </UI.Container>

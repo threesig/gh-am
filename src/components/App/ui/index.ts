@@ -1,4 +1,6 @@
 import styled, {keyframes} from 'styled-components';
+import {getRems} from '../../../util';
+import {CardList} from "../../Deck/ui";
 import * as CommonUI from '../../CommonUI';
 
 export const Container = styled.div`
@@ -25,12 +27,17 @@ const kfAppLogoSpin = keyframes`
   }
 `;
 
-export const Logo = styled.img`
-  height: 40vmin;
-  pointer-events: none;
-  animation: ${kfAppLogoSpin} infinite 20s linear;
-`;
+const tableHW = 720;
+const tableGutter = 20;
 
-export const Link = styled.a`
-  color: #61dafb;
-`;
+export const Table = styled.div`
+  background-color: cadetblue;
+  height: ${getRems(tableHW)}rem;
+  position: relative;
+  width: ${getRems(tableHW)}rem;
+  ${CardList} {
+    position: absolute;
+    bottom: ${getRems(tableGutter)}rem;
+    left: ${getRems(tableGutter)}rem;
+  }
+`
