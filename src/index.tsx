@@ -4,11 +4,9 @@ import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import Providers from './contexts/Providers';
 ReactDOM.render(
-  <React.StrictMode>
     <Providers>
       <App />
-    </Providers>
-  </React.StrictMode>,
+    </Providers>,
   document.getElementById('root')
 );
 
