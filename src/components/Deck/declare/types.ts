@@ -10,6 +10,7 @@ export type ReducerState = {
 export type ContextProps = {
   cards: CardTypes.CardData[];
   stacks: string[][];
+  stacksContent: CardTypes.CardData[][];
   shuffleUrgency: number;
   drawMod: number;
   draw: () => (void);

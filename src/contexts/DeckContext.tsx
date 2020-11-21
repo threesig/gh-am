@@ -1,5 +1,6 @@
 import React, { createContext, useReducer } from 'react';
 import {DeckReducer, initialDeckState, prepareDeckState} from "../reducers/DeckReducer";
+import * as CardTypes  from '../components/Card/declare/types';
 import * as DeckTypes  from '../components/Deck/declare/types';
 import * as GlobalTypes  from '../global/types';
 import * as DeckSpec from '../data/deckSpecs';
@@ -13,9 +14,15 @@ export const DeckProvider = ({children}: GlobalTypes.ProviderProps) => {
   const [state, dispatch] = useReducer(DeckReducer, initialDeckState(buildCards(DeckSpec.Spellweaver)), prepareDeckState);
 
   const {cards, stacks, shuffleUrgency, drawMod} = state;
+
+  const stacksContent:CardTypes.CardData[][] = stacks.map((stack:string[]) => {
+    return cards.filter((cardItem:CardTypes.CardData) => stack.includes(cardItem.id));
+  });
+
   const value = {
     cards,
     stacks,
+    stacksContent,
     shuffleUrgency,
     drawMod,
 
