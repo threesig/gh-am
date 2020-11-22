@@ -31,7 +31,7 @@ const tableHW = 720;
 const tableGutter = 20;
 
 export const Table = styled.div`
-  background-color: cadetblue;
+  background-color: #1b1b1b;
   height: ${getRems(tableHW)}rem;
   position: relative;
   width: ${getRems(tableHW)}rem;
