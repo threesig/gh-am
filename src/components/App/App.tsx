@@ -6,6 +6,7 @@ import * as UI from './ui';
 import Deck from '../Deck';
 import ControlPanel from '../ControlPanel';
 import ChartHistogram from "../ChartHistogram";
+import ChartDrawProbability from "../ChartDrawProbability";
 
 const App = () => {
   const {cards, stacksContent} = useContext(DeckContext);
@@ -21,7 +22,8 @@ const App = () => {
           </UI.Table>
         </CommonUI.Section>
         <CommonUI.Section>
-          <ChartHistogram {...{stacksContent}} />
+          <ChartHistogram {...{stacks: stacksContent}} />
+          <ChartDrawProbability {...{stacks: stacksContent}} />
         </CommonUI.Section>
       </UI.Header>
     </UI.Container>
