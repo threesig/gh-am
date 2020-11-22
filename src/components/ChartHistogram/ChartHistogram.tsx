@@ -15,6 +15,9 @@ const ChartHistogram: React.FC<I.ChartHistogram> = ({ stacksContent}) => {
     value: stacksContent[Stack.READY].filter((cardItem) => cardItem.description===label).length
   }))
 
+
+
+
   console.table(data);
 
   const baseFontSize = 10;
@@ -23,15 +26,14 @@ const ChartHistogram: React.FC<I.ChartHistogram> = ({ stacksContent}) => {
     fontSize: 10
   }
   return (
-    <BarChart width={150} height={150} data={data}>
+    <BarChart width={300} height={150} data={data}>
       <Bar dataKey="value" fill="#8884d8" />
       <XAxis
-        angle={-90}
+        angle={-45}
         dataKey="name"
         dy={5}
-        label={{fontSize: baseFontSize*2, value: "Available Cards"}}
-        textAnchor="left"
-        tick={false}
+        textAnchor="end"
+        tick={tickProps}
         type="category"
       />
     </BarChart>
