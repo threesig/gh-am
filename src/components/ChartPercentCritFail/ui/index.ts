@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import {paletteCards} from '../../../theme';
 export const Cells = styled.div`
-  display: table;
-  margin: 0 auto;
+  display: flex;
+  padding: 10px;
 `
 
 interface ICell {
@@ -10,8 +10,9 @@ interface ICell {
 }
 
 export const Cell = styled.div<ICell>`
-  display: table-cell;
-  padding: 10px 20px;
+  flex: 1;
+  display: flex;
+  justify-content: ${props => props.first ? 'flex-start' : 'flex-end'};
 `
 interface IDisplay {
   damageMod:string;
