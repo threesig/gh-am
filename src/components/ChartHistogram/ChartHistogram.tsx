@@ -11,6 +11,8 @@ import {flatten, groupBy} from 'lodash';
 
 const ChartHistogram: React.FC<I.ChartHistogram> = ({ stacksContent}) => {
   const cardsFlattened = flatten(stacksContent);
+
+  // Adjust Values so that Curse and Bless do not have the same values as Null and Critical
   const getAdjustedVal = (card:any) => card.description==='Bless'
                                       ? card.value + 1
                                       : card.description==='Curse'
