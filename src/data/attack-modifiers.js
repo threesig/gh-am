@@ -43,7 +43,7 @@ export const AMCards = [
     "type": "null",
     "name": "am-p-19",
     "effects": {
-      "damageMod": null,
+      "damageMod": '-',
     },
     "description": "Null",
     "shuffle": true
@@ -70,7 +70,7 @@ export const AMCards = [
     "type": "curse",
     "name": "am-pm-21",
     "effects": {
-      "damageMod": null
+      "damageMod": '-'
     },
     "description": "Curse",
     "temporary": true

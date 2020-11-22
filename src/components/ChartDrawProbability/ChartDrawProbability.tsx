@@ -1,16 +1,17 @@
 import React from "react";
 import {lighten, rgba} from "polished";
 import {
-  PieChart, Pie, Sector, Cell,
+  PieChart, Pie, Sector, Cell, Bar,
 } from 'recharts';
 
 import {Stack} from "../Deck/declare/enums";
 import * as GI from "../../global/interfaces";
 import {flatten, groupBy} from 'lodash';
+import {paletteCards} from "../../theme";
 
 
 const ChartDrawProbability: React.FC<GI.GenericChart> = ({ stacks }) => {
-  const cardsFlattened = flatten(stacks);
+  const cardsFlattened = stacks[Stack.READY];
 
   // Adjust Values so that Curse and Bless do not have the same values as Null and Critical
   const getAdjustedVal = (card:any) => card.description==='Bless'
@@ -20,16 +21,26 @@ const ChartDrawProbability: React.FC<GI.GenericChart> = ({ stacks }) => {
                                         : card.value;
 
   const cardsSorted = cardsFlattened.sort((a, b) => getAdjustedVal(a) - getAdjustedVal(b))
-  const cardsGrouped = groupBy(cardsSorted, 'description');
+  const cardsGroupedByDamage = groupBy(cardsSorted, (card)=> card.effects.damageMod);
 
-  const labels:string[] = Object.keys(cardsGrouped);
-  const maxCardCount:number = Math.max.apply(Math, labels.map((label) => cardsGrouped[label].length))
+  const labels:string[] = Object.keys(cardsGroupedByDamage);
+
 
   console.log(labels);
+
+
+
   const data = labels.map((label) => ({
     name: label,
-    value: stacks[Stack.READY].filter((cardItem) => cardItem.description===label).length
+    value: stacks[Stack.READY].filter((cardItem) => cardItem.effects.damageMod.toString()===label).length
   }))
+
+
+
+  console.table(data);
+
+
+
 
   const UIColor = '#aaa';
 
@@ -43,11 +54,16 @@ const ChartDrawProbability: React.FC<GI.GenericChart> = ({ stacks }) => {
     stroke: UIColor
   }
 
-
-
   return (
       <PieChart width={350} height={350}>
-        <Pie data={data} dataKey="value" cx={200} cy={200} outerRadius={60} fill="#8884d8" />
+        <Pie data={data} dataKey="value" cx={200} cy={200} outerRadius={60}>
+          {
+            data.map((entry, index) => (
+              <Cell key={`cell-${entry.name}`} fill={paletteCards[entry.name]}/>
+            ))
+          }
+
+        </Pie>
       </PieChart>
   );
 }

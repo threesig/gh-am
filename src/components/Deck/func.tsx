@@ -48,9 +48,9 @@ export const buildCards = (deckSpec:any) => {
   return myCards;
 }
 export const calculateCardValue = (effects:CardTypes.CardEffects) => {
-  const baseVal = typeof effects.damageMod === 'string'
+  const baseVal = effects.damageMod === '2x'
     ? 100
-    : effects.damageMod === null
+    : effects.damageMod === '-'
       ? -100
       : effects.damageMod;
 

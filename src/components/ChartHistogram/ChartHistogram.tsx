@@ -1,5 +1,7 @@
 import React from "react";
 import {lighten, rgba} from "polished";
+import {cardLegend} from '../../theme';
+
 import {
     BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
@@ -25,7 +27,6 @@ const ChartHistogram: React.FC<GI.GenericChart> = ({ stacks }) => {
   const labels:string[] = Object.keys(cardsGrouped);
   const maxCardCount:number = Math.max.apply(Math, labels.map((label) => cardsGrouped[label].length))
 
-  console.log(labels);
   const data = labels.map((label) => ({
     name: label,
     value: stacks[Stack.READY].filter((cardItem) => cardItem.description===label).length
@@ -52,7 +53,13 @@ const ChartHistogram: React.FC<GI.GenericChart> = ({ stacks }) => {
         stroke: rgba(UIColor, 0.5),
         strokeDasharray: '1 4',
       }} />
-      <Bar dataKey="value" fill="#8884d8" />
+      <Bar dataKey="value">
+        {
+          data.map((entry, index) => (
+            <Cell key={`cell-${entry.name}`} fill={cardLegend[entry.name]}/>
+          ))
+        }
+      </Bar>
       <XAxis {...{
         angle: -45,
         axisLine: {stroke: UIColor},
@@ -71,7 +78,9 @@ const ChartHistogram: React.FC<GI.GenericChart> = ({ stacks }) => {
         tick: tickProps,
         tickCount: maxCardCount,
         tickLine: false,
-        ticks: Array.from({length: maxCardCount}, (v, i) => i+1)
+        ticks: Array.from({length: maxCardCount}, (v, i) => i+1),
+        width: tickFontSize
+
       }} />
     </BarChart>
 
