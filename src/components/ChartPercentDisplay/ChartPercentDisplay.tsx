@@ -11,8 +11,8 @@ interface IChartPercentDisplay {
 const ChartPercentDisplay: React.FC<IChartPercentDisplay> = ({ value, color }) => {
   const percentage = parseFloat(`${(100*value).toFixed(2)}1`);
   return (
-      <Display color={color}>
-        <OdometerWrap><Odometer duration={1000} value={percentage} format="(,ddd).ddd" /></OdometerWrap>%
+      <Display speed={1000} color={color}>
+        <OdometerWrap><Odometer value={percentage} format="(,ddd).ddd" /></OdometerWrap>%
       </Display>
   );
 }

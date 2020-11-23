@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 interface IDisplay {
+  speed:number;
   color:string;
 }
 export const Display = styled.div<IDisplay>`
@@ -57,11 +58,11 @@ export const Display = styled.div<IDisplay>`
     position: absolute;
   }
   .odometer.odometer-auto-theme.odometer-animating-up .odometer-ribbon-inner, .odometer.odometer-theme-default.odometer-animating-up .odometer-ribbon-inner {
-    -webkit-transition: -webkit-transform 2s;
-    -moz-transition: -moz-transform 2s;
-    -ms-transition: -ms-transform 2s;
-    -o-transition: -o-transform 2s;
-    transition: transform 2s;
+    -webkit-transition: -webkit-transform ${props => props.speed}ms;
+    -moz-transition: -moz-transform ${props => props.speed}ms;
+    -ms-transition: -ms-transform ${props => props.speed}ms;
+    -o-transition: -o-transform ${props => props.speed}ms;
+    transition: transform ${props => props.speed}ms;
   }
   .odometer.odometer-auto-theme.odometer-animating-up.odometer-animating .odometer-ribbon-inner, .odometer.odometer-theme-default.odometer-animating-up.odometer-animating .odometer-ribbon-inner {
     -webkit-transform: translateY(-100%);
@@ -78,11 +79,11 @@ export const Display = styled.div<IDisplay>`
     transform: translateY(-100%);
   }
   .odometer.odometer-auto-theme.odometer-animating-down.odometer-animating .odometer-ribbon-inner, .odometer.odometer-theme-default.odometer-animating-down.odometer-animating .odometer-ribbon-inner {
-    -webkit-transition: -webkit-transform 2s;
-    -moz-transition: -moz-transform 2s;
-    -ms-transition: -ms-transform 2s;
-    -o-transition: -o-transform 2s;
-    transition: transform 2s;
+    -webkit-transition: -webkit-transform ${props => props.speed}ms;
+    -moz-transition: -moz-transform ${props => props.speed}ms;
+    -ms-transition: -ms-transform ${props => props.speed}ms;
+    -o-transition: -o-transform ${props => props.speed}ms;
+    transition: transform ${props => props.speed}ms;
     -webkit-transform: translateY(0);
     -moz-transform: translateY(0);
     -ms-transform: translateY(0);

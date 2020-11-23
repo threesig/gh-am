@@ -10,7 +10,7 @@ import {flatten, groupBy} from 'lodash';
 import {paletteCards} from "../../theme";
 
 
-const ChartDrawProbability: React.FC<GI.GenericChart> = ({ stacks }) => {
+const ChartDrawProbability: React.FC<GI.ChartSingleStack> = ({ stacks }) => {
   const cardsFlattened = stacks[Stack.READY];
 
   // Adjust Values so that Curse and Bless do not have the same values as Null and Critical
