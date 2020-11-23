@@ -91,7 +91,7 @@ export const Display = styled.div<IDisplay>`
   }
   
   .odometer.odometer-auto-theme, .odometer.odometer-theme-default {
-    font-family: "Helvetica Neue", sans-serif;
+    //font-family: "Helvetica Neue", sans-serif;
     line-height: 1.1em;
   }
   .odometer.odometer-auto-theme .odometer-value, .odometer.odometer-theme-default .odometer-value {
