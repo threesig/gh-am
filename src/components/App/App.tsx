@@ -26,6 +26,7 @@ const App = () => {
         <CommonUI.Section>
           <ChartPercentCritFail stack={stacksContent[E.Stack.READY]} />
           <ChartHistogram {...{stacks: stacksContent}} />
+          <ChartDrawProbability stack={stacksContent[E.Stack.READY]} />
         </CommonUI.Section>
       </UI.Header>
     </UI.Container>
