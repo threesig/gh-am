@@ -21,3 +21,17 @@ export const cardLegend:any = {
   'Critical': paletteCards['2x'],
   'Bless': darken(colorModVal, paletteCards['2x']),
 }
+export const effectIcons:any = {
+  Fire: "🔥",
+  Ice: "❄️",
+  Earth: "🍃",
+  Wind: "💨",
+  Light: "☀️",
+  Darkness: "🌑",
+  Stun: "💫",
+  Wound: "🩸",
+  Immobilize: "🗿",
+  Curse: "💀",
+  Bless: "✨",
+  Rolling: "⟳",
+}
