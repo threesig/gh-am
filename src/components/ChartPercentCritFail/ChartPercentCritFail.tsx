@@ -4,8 +4,8 @@ import {paletteCards} from "../../theme";
 import {Cells, Cell, Display} from './ui';
 import ChartPercentDisplay from "../ChartPercentDisplay";
 const ChartPercentCritFail: React.FC<GI.ChartSingleStack> = ({ stack }) => {
-  const critCards = stack.filter((card) => card.effects.damageMod==='2x');
-  const failCards = stack.filter((card) => card.effects.damageMod==='-');
+  const critCards = stack.filter((card) => card.damageMod==='2x');
+  const failCards = stack.filter((card) => card.damageMod==='-');
 
   const getPercent = (cards:any[]) => {
     const rawPct = 100 *cards.length / stack.length;

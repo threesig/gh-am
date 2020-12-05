@@ -28,17 +28,18 @@ export const buildCards = (deckSpec:any) => {
   for (const cardType in deckSpec) {
     const cardSpec = AMCards.filter((card:any) => card.type===cardType)[0];
     const cardCount = deckSpec[cardType];
-    const {name, type, effects, description, shuffle, temporary} = cardSpec;
+    const {name, type, damageMod, effects, description, shuffle, temporary} = cardSpec;
 
     for (let i = 0; i < cardCount; i++) {
       myCards.push({
         id: `${type}-${i}`,
         name,
+        damageMod,
         effects,
         description,
         stack: Stack.READY,
         idx:j++,
-        value: calculateCardValue(effects),
+        value: calculateCardValue(damageMod, effects),
         shuffle: shuffle||false,
         temporary: temporary||false,
       } as CardTypes.CardData);
@@ -47,17 +48,17 @@ export const buildCards = (deckSpec:any) => {
 
   return myCards;
 }
-export const calculateCardValue = (effects:CardTypes.CardEffects) => {
-  const baseVal = effects.damageMod === '2x'
+export const calculateCardValue = (damageMod:any, effects:CardTypes.CardEffect[]) => {
+  const baseVal = damageMod === '2x'
     ? 100
-    : effects.damageMod === '-'
+    : damageMod === '-'
       ? -100
-      : effects.damageMod;
+      : damageMod;
 
-  const ignoredOtherEffects = ['damageMod', 'rolling'];
-  const otherValuedEffects = Object.keys(effects).filter((effectType) => !ignoredOtherEffects.includes(effectType));
+  const ignoredEffects = ['rolling'];
+  const valuedEffects = effects.filter((effect) => !ignoredEffects.includes(effect.type));
 
-  return baseVal + otherValuedEffects.length * 10;
+  return baseVal + valuedEffects.length * 10;
 }
 
 

@@ -20,7 +20,7 @@ const ChartDrawProbability: React.FC<GI.ChartMultiStack> = ({ stacks }) => {
                                         : card.value;
 
   const cards = flatten(stacks).sort((a, b) => getAdjustedVal(a) - getAdjustedVal(b))
-  const cardsGroupedByDamage = groupBy(cards, (card:CardData) => card.effects.damageMod);
+  const cardsGroupedByDamage = groupBy(cards, (card:CardData) => card.damageMod);
   const labels:string[] = Object.keys(cardsGroupedByDamage);
 
 
@@ -30,7 +30,7 @@ const ChartDrawProbability: React.FC<GI.ChartMultiStack> = ({ stacks }) => {
 
   const data = labels.map((label) => ({
     name: label,
-    value: stack.filter((cardItem) => cardItem.effects.damageMod.toString()===label).length
+    value: stack.filter((card) => card.damageMod.toString()===label).length
   }))
 
 

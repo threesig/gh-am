@@ -1,9 +1,8 @@
 export const cardData = {
   "id": "p0-0",
   "name": "am-p-01",
-  "effects": {
-    "damageMod": 0
-  },
+  "damageMod": 0,
+  "effects": [],
   "description": "+0",
   "stack": 1,
   "idx": 0,
