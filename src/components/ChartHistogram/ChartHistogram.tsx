@@ -12,7 +12,6 @@ import {flatten, groupBy} from 'lodash';
 
 
 const ChartHistogram: React.FC<GI.GenericChart> = ({ stacks }) => {
-  const cardsFlattened = flatten(stacks);
 
   // Adjust Values so that Curse and Bless do not have the same values as Null and Critical
   const getAdjustedVal = (card:any) => card.description==='Bless'
@@ -21,6 +20,7 @@ const ChartHistogram: React.FC<GI.GenericChart> = ({ stacks }) => {
                                         ? card.value - 1
                                         : card.value;
 
+  const cardsFlattened = flatten(stacks);
   const cardsSorted = cardsFlattened.sort((a, b) => getAdjustedVal(a) - getAdjustedVal(b))
   const cardsGrouped = groupBy(cardsSorted, 'description');
 

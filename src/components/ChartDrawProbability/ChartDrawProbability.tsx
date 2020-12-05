@@ -1,15 +1,16 @@
 import React from "react";
-import {lighten, rgba} from "polished";
+import {CardData} from '../Card/declare/types';
+import {Stack} from '../Deck/declare/enums';
+import {flatten, groupBy} from "lodash";
 import {
   PieChart, Pie, Sector, Cell, Bar,
 } from 'recharts';
 
 import * as GI from "../../global/interfaces";
-import {groupBy} from 'lodash';
 import {paletteCards} from "../../theme";
 
 
-const ChartDrawProbability: React.FC<GI.ChartSingleStack> = ({ stack }) => {
+const ChartDrawProbability: React.FC<GI.ChartMultiStack> = ({ stacks }) => {
 
   // Adjust Values so that Curse and Bless do not have the same values as Null and Critical
   const getAdjustedVal = (card:any) => card.description==='Bless'
@@ -18,15 +19,14 @@ const ChartDrawProbability: React.FC<GI.ChartSingleStack> = ({ stack }) => {
                                         ? card.value - 1
                                         : card.value;
 
-  const cardsSorted = stack.sort((a, b) => getAdjustedVal(a) - getAdjustedVal(b))
-  const cardsGroupedByDamage = groupBy(cardsSorted, (card)=> card.effects.damageMod);
-
+  const cards = flatten(stacks).sort((a, b) => getAdjustedVal(a) - getAdjustedVal(b))
+  const cardsGroupedByDamage = groupBy(cards, (card:CardData) => card.effects.damageMod);
   const labels:string[] = Object.keys(cardsGroupedByDamage);
 
 
-  console.log(labels);
 
 
+  const stack = stacks[Stack.READY];
 
   const data = labels.map((label) => ({
     name: label,
@@ -55,7 +55,6 @@ const ChartDrawProbability: React.FC<GI.ChartSingleStack> = ({ stack }) => {
               <Cell key={`cell-${entry.name}`} fill={paletteCards[entry.name]}/>
             ))
           }
-
         </Pie>
       </PieChart>
   );
